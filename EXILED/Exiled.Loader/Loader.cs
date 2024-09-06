@@ -132,7 +132,7 @@ namespace Exiled.Loader
         private static void LoadPluginsFromDirectory(string dir = null)
         {
             string path = Paths.Plugins;
-            if (dir is not null)
+            if (dir != null)
                 path = Path.Combine(path, dir);
 
             if (!Directory.Exists(path))
