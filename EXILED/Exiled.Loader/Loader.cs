@@ -26,7 +26,6 @@ namespace Exiled.Loader
     using Features;
     using Features.Configs;
     using Features.Configs.CustomConverters;
-    using MEC;
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NodeDeserializers;
 
@@ -116,13 +115,30 @@ namespace Exiled.Loader
             .Build();
 
         /// <summary>
-        /// Loads all plugins.
+        /// Loads all plugins, both globals and locals.
         /// </summary>
         public static void LoadPlugins()
         {
             File.Delete(Path.Combine(Paths.Plugins, "Exiled.Updater.dll"));
 
-            foreach (string assemblyPath in Directory.GetFiles(Paths.Plugins, "*.dll"))
+            LoadPluginsFromDirectory();
+            LoadPluginsFromDirectory(Server.Port.ToString());
+        }
+
+        /// <summary>
+        /// Load every plugin inside the given directory, if null it's default EXILED one (global).
+        /// </summary>
+        /// <param name="dir">The sub-directory of the plugin - if null the default EXILED one will be used.</param>
+        public static void LoadPluginsFromDirectory(string dir = null)
+        {
+            string path = Paths.Plugins;
+            if (dir is not null)
+                path = Path.Combine(path, dir);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            foreach (string assemblyPath in Directory.GetFiles(path, "*.dll"))
             {
                 Assembly assembly = LoadAssembly(assemblyPath);
 
