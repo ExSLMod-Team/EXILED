@@ -126,48 +126,6 @@ namespace Exiled.Loader
         }
 
         /// <summary>
-        /// Load every plugin inside the given directory, if null it's default EXILED one (global).
-        /// </summary>
-        /// <param name="dir">The sub-directory of the plugin - if null the default EXILED one will be used.</param>
-        private static void LoadPluginsFromDirectory(string dir = null)
-        {
-            string path = Paths.Plugins;
-            if (dir != null)
-                path = Path.Combine(path, dir);
-
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            foreach (string assemblyPath in Directory.GetFiles(path, "*.dll"))
-            {
-                Assembly assembly = LoadAssembly(assemblyPath);
-
-                if (assembly is null)
-                    continue;
-
-                Locations[assembly] = assemblyPath;
-            }
-
-            foreach (Assembly assembly in Locations.Keys)
-            {
-                if (Locations[assembly].Contains("dependencies"))
-                    continue;
-
-                IPlugin<IConfig> plugin = CreatePlugin(assembly);
-
-                if (plugin is null)
-                    continue;
-
-                AssemblyInformationalVersionAttribute attribute = plugin.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
-
-                Log.Info($"Loaded plugin {plugin.Name}@{(plugin.Version is not null ? $"{plugin.Version.Major}.{plugin.Version.Minor}.{plugin.Version.Build}" : attribute is not null ? attribute.InformationalVersion : string.Empty)}");
-
-                Server.PluginAssemblies.Add(assembly, plugin);
-                Plugins.Add(plugin);
-            }
-        }
-
-        /// <summary>
         /// Loads an assembly.
         /// </summary>
         /// <param name="path">The path to load the assembly from.</param>
@@ -490,6 +448,48 @@ namespace Exiled.Loader
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Load every plugin inside the given directory, if null it's default EXILED one (global).
+        /// </summary>
+        /// <param name="dir">The sub-directory of the plugin - if null the default EXILED one will be used.</param>
+        private static void LoadPluginsFromDirectory(string dir = null)
+        {
+            string path = Paths.Plugins;
+            if (dir != null)
+                path = Path.Combine(path, dir);
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            foreach (string assemblyPath in Directory.GetFiles(path, "*.dll"))
+            {
+                Assembly assembly = LoadAssembly(assemblyPath);
+
+                if (assembly is null)
+                    continue;
+
+                Locations[assembly] = assemblyPath;
+            }
+
+            foreach (Assembly assembly in Locations.Keys)
+            {
+                if (Locations[assembly].Contains("dependencies"))
+                    continue;
+
+                IPlugin<IConfig> plugin = CreatePlugin(assembly);
+
+                if (plugin is null)
+                    continue;
+
+                AssemblyInformationalVersionAttribute attribute = plugin.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+
+                Log.Info($"Loaded plugin {plugin.Name}@{(plugin.Version is not null ? $"{plugin.Version.Major}.{plugin.Version.Minor}.{plugin.Version.Build}" : attribute is not null ? attribute.InformationalVersion : string.Empty)}");
+
+                Server.PluginAssemblies.Add(assembly, plugin);
+                Plugins.Add(plugin);
+            }
         }
 
         /// <summary>
