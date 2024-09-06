@@ -129,7 +129,7 @@ namespace Exiled.Loader
         /// Load every plugin inside the given directory, if null it's default EXILED one (global).
         /// </summary>
         /// <param name="dir">The sub-directory of the plugin - if null the default EXILED one will be used.</param>
-        public static void LoadPluginsFromDirectory(string dir = null)
+        private static void LoadPluginsFromDirectory(string dir = null)
         {
             string path = Paths.Plugins;
             if (dir is not null)
