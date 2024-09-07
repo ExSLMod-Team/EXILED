@@ -467,7 +467,7 @@ namespace Exiled.Loader
             {
                 Assembly assembly = LoadAssembly(assemblyPath);
 
-                if (assembly is null)
+                if (assembly == null)
                     continue;
 
                 Locations[assembly] = assemblyPath;
