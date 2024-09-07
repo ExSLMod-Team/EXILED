@@ -480,7 +480,7 @@ namespace Exiled.Loader
 
                 IPlugin<IConfig> plugin = CreatePlugin(assembly);
 
-                if (plugin is null)
+                if (plugin == null)
                     continue;
 
                 AssemblyInformationalVersionAttribute attribute = plugin.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
