@@ -122,6 +122,7 @@ namespace Exiled.Loader
             File.Delete(Path.Combine(Paths.Plugins, "Exiled.Updater.dll"));
 
             LoadPluginsFromDirectory();
+            LoadPluginsFromDirectory("global");
             LoadPluginsFromDirectory(Server.Port.ToString());
         }
 
@@ -491,6 +492,9 @@ namespace Exiled.Loader
                 IPlugin<IConfig> plugin = CreatePlugin(assembly);
 
                 if (plugin == null)
+                    continue;
+
+                if (Plugins.Any(p => p.Name == plugin.Name))
                     continue;
 
                 AssemblyInformationalVersionAttribute attribute = plugin.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
