@@ -192,9 +192,6 @@ namespace Exiled.Events.Patches.Events.Player
 
         private static void ChangeInventory(ChangingRoleEventArgs ev)
         {
-            if (ev is null)
-                return;
-
             try
             {
                 if (ev.ShouldPreserveInventory || ev.Reason == API.Enums.SpawnReason.Destroyed)
@@ -254,7 +251,6 @@ namespace Exiled.Events.Patches.Events.Player
             catch (Exception exception)
             {
                 Log.Error($"{nameof(ChangingRoleAndSpawned)}.{nameof(ChangeInventory)}: {exception}");
-                Log.Error(exception.ToString());
             }
         }
     }
