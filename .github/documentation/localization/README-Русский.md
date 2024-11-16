@@ -21,7 +21,7 @@ EXILED - высокоуровневый фреймворк для серверо
 Если вы выберете установку через установщик, он автоматически выполнит все необходимые шаги.
 
 # Windows
-### Автоматическая установка ([подробнее](https://github.com/ExMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
+### Автоматическая установка ([подробнее](../../../EXILED/Exiled.Installer/README.md))
 **Примечание**: Убедитесь, что вы используете учётную запись, с которой запускается сервер, или обладаете правами администратора.
 
 - Скачайте **`Exiled.Installer-Win.exe` [отсюда](https://github.com/ExMod-Team/EXILED/releases)** (нажмите на Assets -> выберите Installer).
@@ -47,7 +47,7 @@ EXILED - высокоуровневый фреймворк для серверо
   - Переместите его в: ``C:\Users\%UserName%\AppData\Roaming\EXILED\Plugins`` (переместите его сюда, нажав Win + R, а затем написав `%appdata%`)
 
 # Linux
-### Автоматическая установка ([подробнее](https://github.com/ExMod-Team/EXILED/blob/master/Exiled.Installer/README.md))
+### Автоматическая установка ([подробнее](../../../EXILED/Exiled.Installer/README.md))
 
 **Примечание:** Если вы устанавливаете EXILED на удаленный сервер, убедитесь, что вы запускаете программу установки от имени того же пользователя, который запускает ваши серверы SCP:SL (или root).
 
