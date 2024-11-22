@@ -27,7 +27,7 @@ namespace Exiled.API.Features
         /// </summary>
         /// <param name="content">The content of the hint>.</param>
         /// <param name="duration">The duration of the hint, in seconds.</param>
-        /// <param name="show">Whether or not the hint should be shown.</param>
+        /// <param name="show">Whether the hint should be shown.</param>
         public Hint(string content, float duration = 3, bool show = true)
         {
             Content = content;
@@ -48,9 +48,9 @@ namespace Exiled.API.Features
         public float Duration { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the hint should be shown or not.
+        /// Gets or sets a value indicating whether the hint should be shown.
         /// </summary>
-        [Description("Indicates whether the hint should be shown or not")]
+        [Description("Indicates whether the hint should be shown")]
         public bool Show { get; set; }
 
         /// <summary>

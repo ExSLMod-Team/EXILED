@@ -272,7 +272,7 @@ namespace Exiled.API.Features
         /// Tries to start the lift.
         /// </summary>
         /// <param name="level">The destination level.</param>
-        /// <param name="isForced">Indicates whether the start will be forced or not.</param>
+        /// <param name="isForced">Indicates whether the start will be forced.</param>
         /// <returns><see langword="true"/> if the lift was started successfully; otherwise, <see langword="false"/>.</returns>
         public bool TryStart(int level, bool isForced = false) => TrySetDestination(Group, level, isForced);
 
@@ -305,7 +305,7 @@ namespace Exiled.API.Features
         }
 
         /// <summary>
-        /// Returns whether or not the provided <see cref="Vector3">position</see> is inside the lift.
+        /// Returns whether the provided <see cref="Vector3">position</see> is inside the lift.
         /// </summary>
         /// <param name="point">The position.</param>
         /// <returns><see langword="true"/> if the point is inside the elevator. Otherwise, <see langword="false"/>.</returns>

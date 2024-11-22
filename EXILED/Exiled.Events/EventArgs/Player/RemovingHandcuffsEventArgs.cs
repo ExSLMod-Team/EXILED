@@ -22,7 +22,7 @@ namespace Exiled.Events.EventArgs.Player
         /// <param name="cuffer">The cuffer player.</param>
         /// <param name="target">The target player to be uncuffed.</param>
         /// <param name="uncuffReason">The reason of removing handcuffs.</param>
-        /// <param name="isAllowed">Indicates whether the event can be executed or not.</param>
+        /// <param name="isAllowed">Indicates whether the event can be executed.</param>
         public RemovingHandcuffsEventArgs(Player cuffer, Player target, UncuffReason uncuffReason, bool isAllowed = true)
         {
             Player = cuffer;
@@ -37,7 +37,7 @@ namespace Exiled.Events.EventArgs.Player
         public Player Target { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether or not the player can be handcuffed. Denying the event will only have an effect when <see cref="UncuffReason" /> is <see cref="UncuffReason.Player" />  until next major update.
+        /// Gets or sets a value indicating whether the player can be handcuffed. Denying the event will only have an effect when <see cref="UncuffReason" /> is <see cref="UncuffReason.Player" />  until next major update.
         /// </summary>
         /// TODO: Update docs and patches
         public bool IsAllowed { get; set; }
