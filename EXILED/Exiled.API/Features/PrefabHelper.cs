@@ -9,6 +9,7 @@ namespace Exiled.API.Features
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
 
     using Exiled.API.Enums;
@@ -29,7 +30,12 @@ namespace Exiled.API.Features
         /// <summary>
         /// Gets a <see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="PrefabType"/> and their corresponding <see cref="GameObject"/>.
         /// </summary>
-        public static IReadOnlyDictionary<PrefabType, (GameObject, Component)> PrefabToGameObject => Prefabs;
+        public static IReadOnlyDictionary<PrefabType, (GameObject, Component)> PrefabToGameObjectAndComponent => Prefabs;
+
+        /// <summary>
+        /// Gets a <see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="PrefabType"/> and their corresponding <see cref="GameObject"/>.
+        /// </summary>
+        public static IReadOnlyDictionary<PrefabType, GameObject> PrefabToGameObject => Prefabs.ToDictionary(x => x.Key, x => x.Value.Item1);
 
         /// <summary>
         /// Gets the <see cref="PrefabAttribute"/> from a <see cref="PrefabType"/>.
