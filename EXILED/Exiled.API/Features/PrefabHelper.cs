@@ -24,12 +24,12 @@ namespace Exiled.API.Features
         /// <summary>
         /// A <see cref="Dictionary{TKey,TValue}"/> containing all <see cref="PrefabType"/> and their corresponding <see cref="GameObject"/>.
         /// </summary>
-        internal static readonly Dictionary<PrefabType, GameObject> Prefabs = new(Enum.GetValues(typeof(PrefabType)).Length);
+        internal static readonly Dictionary<PrefabType, (GameObject, Component)> Prefabs = new(Enum.GetValues(typeof(PrefabType)).Length);
 
         /// <summary>
         /// Gets a <see cref="IReadOnlyDictionary{TKey,TValue}"/> of <see cref="PrefabType"/> and their corresponding <see cref="GameObject"/>.
         /// </summary>
-        public static IReadOnlyDictionary<PrefabType, GameObject> PrefabToGameObject => Prefabs;
+        public static IReadOnlyDictionary<PrefabType, (GameObject, Component)> PrefabToGameObject => Prefabs;
 
         /// <summary>
         /// Gets the <see cref="PrefabAttribute"/> from a <see cref="PrefabType"/>.
@@ -49,8 +49,8 @@ namespace Exiled.API.Features
         /// <returns>Returns the <see cref="GameObject"/>.</returns>
         public static GameObject GetPrefab(PrefabType prefabType)
         {
-            if (Prefabs.TryGetValue(prefabType, out GameObject prefab))
-                return prefab;
+            if (Prefabs.TryGetValue(prefabType, out (GameObject, Component) prefab))
+                return prefab.Item1;
 
             return null;
         }
@@ -76,8 +76,8 @@ namespace Exiled.API.Features
         public static T GetPrefab<T>(PrefabType prefabType)
             where T : Component
         {
-            if (Prefabs.TryGetValue(prefabType, out GameObject prefab) && prefab.TryGetComponent(out T component))
-                return component;
+            if (Prefabs.TryGetValue(prefabType, out (GameObject, Component) prefab))
+                return (T)prefab.Item2;
 
             return null;
         }
