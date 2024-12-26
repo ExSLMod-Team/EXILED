@@ -501,7 +501,7 @@ namespace Exiled.Loader
 
                 AssemblyInformationalVersionAttribute attribute = plugin.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>();
 
-                Log.Info($"Loaded plugin {plugin.Name}@{(plugin.Version != null ? $"{plugin.Version}" : attribute != null ? attribute.InformationalVersion : string.Empty)}");
+                Log.Info($"Loaded plugin {plugin.Name}@{(attribute is not null ? attribute.InformationalVersion : plugin.Version is not null ? $"{plugin.Version.Major}.{plugin.Version.Minor}.{plugin.Version.Build}" : string.Empty)}");
 
                 Server.PluginAssemblies.Add(assembly, plugin);
                 Plugins.Add(plugin);
