@@ -1,14 +1,12 @@
 // -----------------------------------------------------------------------
-// <copyright file="UpgradingPickupEventArgs.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="UpgradingPickupEventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Exiled.Events.EventArgs.Scp914
 {
-    using System;
-
     using Exiled.API.Features.Pickups;
     using Exiled.Events.EventArgs.Interfaces;
     using global::Scp914;
@@ -43,12 +41,6 @@ namespace Exiled.Events.EventArgs.Scp914
         /// Gets a list of items to be upgraded inside SCP-914.
         /// </summary>
         public Pickup Pickup { get; }
-
-        /// <summary>
-        /// Gets the <see cref="Scp914Controller" /> instance.
-        /// </summary>
-        [Obsolete("Use Scp914::Scp914Controller instead.")]
-        public Scp914Controller Scp914 => API.Features.Scp914.Scp914Controller;
 
         /// <summary>
         /// Gets or sets the position the item will be output to.

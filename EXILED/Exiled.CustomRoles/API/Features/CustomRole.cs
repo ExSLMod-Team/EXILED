@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="CustomRole.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="CustomRole.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -926,6 +926,9 @@ namespace Exiled.CustomRoles.API.Features
 
         private void OnInternalChangingRole(ChangingRoleEventArgs ev)
         {
+            if(ev.Reason == SpawnReason.Destroyed)
+                return;
+
             if (Check(ev.Player) && ((ev.NewRole == RoleTypeId.Spectator && !KeepRoleOnDeath) || (ev.NewRole != RoleTypeId.Spectator && ev.NewRole != Role && !KeepRoleOnChangingRole)))
             {
                 RemoveRole(ev.Player);

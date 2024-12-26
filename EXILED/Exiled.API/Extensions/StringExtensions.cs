@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="StringExtensions.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="StringExtensions.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -119,10 +119,10 @@ namespace Exiled.API.Extensions
         /// <returns>Name without brackets.</returns>
         public static string RemoveBracketsOnEndOfName(this string name)
         {
-            int bracketStart = name.IndexOf('(') - 1;
+            int bracketStart = name.IndexOf('(');
 
             if (bracketStart > 0)
-                name = name.Remove(bracketStart, name.Length - bracketStart);
+                name = name.Remove(bracketStart, name.Length - bracketStart).TrimEnd();
 
             return name;
         }

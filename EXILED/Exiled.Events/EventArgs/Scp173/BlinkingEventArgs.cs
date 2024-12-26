@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="BlinkingEventArgs.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="BlinkingEventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -58,8 +58,7 @@ namespace Exiled.Events.EventArgs.Scp173
         /// <summary>
         /// Gets a <see cref="IEnumerable{T}" /> of players who have triggered SCP-173.
         /// </summary>
-        // TODO: convert to ReadOnlyCollection
-        public List<Player> Targets { get; }
+        public IReadOnlyCollection<Player> Targets { get; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the player is allowed to blink.

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="EffectTypeExtension.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="EffectTypeExtension.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -33,7 +33,7 @@ namespace Exiled.API.Extensions
             { EffectType.AmnesiaVision, typeof(AmnesiaVision) },
             { EffectType.Asphyxiated, typeof(Asphyxiated) },
             { EffectType.Bleeding, typeof(Bleeding) },
-            { EffectType.Blinded, typeof(Blinded) },
+            { EffectType.Blinded, typeof(Blindness) },
             { EffectType.BodyshotReduction, typeof(BodyshotReduction) },
             { EffectType.Burned, typeof(Burned) },
             { EffectType.CardiacArrest, typeof(CardiacArrest) },
@@ -74,6 +74,10 @@ namespace Exiled.API.Extensions
             { EffectType.Ghostly, typeof(Ghostly) },
             { EffectType.FogControl, typeof(FogControl) },
             { EffectType.Slowness, typeof(Slowness) },
+            { EffectType.Scp1344, typeof(Scp1344) },
+            { EffectType.SeveredEyes, typeof(SeveredEyes) },
+            { EffectType.PitDeath, typeof(PitDeath) },
+            { EffectType.Blurred, typeof(Blurred) },
         });
 
         /// <summary>
@@ -146,7 +150,7 @@ namespace Exiled.API.Extensions
         /// <param name="effect">The <see cref="EffectType"/>.</param>
         /// <returns>Whether the effect heals.</returns>
         /// <seealso cref="IsHarmful(EffectType)"/>
-        public static bool IsHealing(this EffectType effect) => effect.TryGetType(out Type type) && typeof(IHealablePlayerEffect).IsAssignableFrom(type);
+        public static bool IsHealing(this EffectType effect) => effect.TryGetType(out Type type) && typeof(IHealableEffect).IsAssignableFrom(type);
 
         /// <summary>
         /// Returns whether the provided <paramref name="effect"/> is a negative effect.

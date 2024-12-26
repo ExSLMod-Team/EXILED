@@ -1,13 +1,12 @@
 // -----------------------------------------------------------------------
-// <copyright file="DyingEventArgs.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="DyingEventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Exiled.Events.EventArgs.Player
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -45,14 +44,9 @@ namespace Exiled.Events.EventArgs.Player
         }
 
         /// <summary>
-        /// Gets or sets the list of items to be dropped.
+        /// Gets the list of items to be dropped.
         /// </summary>
-        public List<Item> ItemsToDrop
-        {
-            get;
-            [Obsolete("This setter has been deprecated")]
-            set;
-        }
+        public List<Item> ItemsToDrop { get; }
 
         /// <summary>
         /// Gets the dying player.

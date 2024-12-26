@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="Loader.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="Loader.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -45,6 +45,7 @@ namespace Exiled.Loader
             Log.Warn("You are running a public beta build. It is not compatible with another version of the game.");
 #endif
 
+            Log.SendRaw($"Exiled.API - Version {PluginAPI.Loader.AssemblyLoader.Dependencies.FirstOrDefault(x => x.GetName().Name == "Exiled.API").GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", ConsoleColor.DarkRed);
             Log.SendRaw($"{Assembly.GetExecutingAssembly().GetName().Name} - Version {Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion}", ConsoleColor.DarkRed);
 
             if (MultiAdminFeatures.MultiAdminUsed)
@@ -120,6 +121,7 @@ namespace Exiled.Loader
         public static void LoadPlugins()
         {
             File.Delete(Path.Combine(Paths.Plugins, "Exiled.Updater.dll"));
+            File.Delete(Path.Combine(Paths.Dependencies, "Exiled.API.dll"));
 
             LoadPluginsFromDirectory();
             LoadPluginsFromDirectory("global");

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="IDamageableDoor.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="IDamageableDoor.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -38,6 +38,11 @@ namespace Exiled.API.Interfaces
         /// Gets or sets damage types which will be ignored.
         /// </summary>
         public DoorDamageType IgnoredDamage { get; set; }
+
+        /// <summary>
+        /// Repair the door.
+        /// </summary>
+        public void Repair();
 
         /// <summary>
         /// Damages the door.

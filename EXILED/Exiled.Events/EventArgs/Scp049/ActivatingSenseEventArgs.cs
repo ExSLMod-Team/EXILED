@@ -1,16 +1,13 @@
 // -----------------------------------------------------------------------
-// <copyright file="ActivatingSenseEventArgs.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="ActivatingSenseEventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Exiled.Events.EventArgs.Scp049
 {
-    using System;
-
     using API.Features;
-    using Exiled.API.Features.Roles;
     using Exiled.Events.EventArgs.Interfaces;
 
     using Scp049Role = API.Features.Roles.Scp049Role;
@@ -53,12 +50,6 @@ namespace Exiled.Events.EventArgs.Scp049
         /// Gets or sets the cooldown of the ability.
         /// </summary>
         public float FailedCooldown { get; set; }
-
-        /// <summary>
-        /// Gets or sets the cooldown of the ability.
-        /// </summary>
-        [Obsolete("Use FailedCooldown instead of this")]
-        public float Cooldown { get => FailedCooldown; set => FailedCooldown = value; }
 
         /// <summary>
         /// Gets or sets the duration of the Effect.

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="Primitive.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="Primitive.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -30,6 +30,11 @@ namespace Exiled.API.Features.Toys
         /// <param name="toyAdminToyBase">The <see cref="PrimitiveObjectToy"/> of the toy.</param>
         internal Primitive(PrimitiveObjectToy toyAdminToyBase)
             : base(toyAdminToyBase, AdminToyType.PrimitiveObject) => Base = toyAdminToyBase;
+
+        /// <summary>
+        /// Gets the prefab.
+        /// </summary>
+        public static PrimitiveObjectToy Prefab => PrefabHelper.GetPrefab<PrimitiveObjectToy>(PrefabType.PrimitiveObjectToy);
 
         /// <summary>
         /// Gets the base <see cref="PrimitiveObjectToy"/>.
@@ -115,16 +120,15 @@ namespace Exiled.API.Features.Toys
         /// <returns>The new <see cref="Primitive"/>.</returns>
         public static Primitive Create(Vector3? position /*= null*/, Vector3? rotation /*= null*/, Vector3? scale /*= null*/, bool spawn /*= true*/, Color? color /*= null*/)
         {
-            Primitive primitive = new(Object.Instantiate(ToysHelper.PrimitiveBaseObject));
+            Primitive primitive = new(Object.Instantiate(Prefab));
 
             primitive.Position = position ?? Vector3.zero;
             primitive.Rotation = Quaternion.Euler(rotation ?? Vector3.zero);
             primitive.Scale = scale ?? Vector3.one;
+            primitive.Color = color ?? Color.gray;
 
             if (spawn)
                 primitive.Spawn();
-
-            primitive.Color = color ?? Color.gray;
 
             return primitive;
         }
@@ -141,17 +145,17 @@ namespace Exiled.API.Features.Toys
         /// <returns>The new <see cref="Primitive"/>.</returns>
         public static Primitive Create(PrimitiveType primitiveType /*= PrimitiveType.Sphere*/, Vector3? position /*= null*/, Vector3? rotation /*= null*/, Vector3? scale /*= null*/, bool spawn /*= true*/, Color? color /*= null*/)
         {
-            Primitive primitive = new(Object.Instantiate(ToysHelper.PrimitiveBaseObject));
+            Primitive primitive = new(Object.Instantiate(Prefab));
 
             primitive.Position = position ?? Vector3.zero;
             primitive.Rotation = Quaternion.Euler(rotation ?? Vector3.zero);
             primitive.Scale = scale ?? Vector3.one;
 
-            if (spawn)
-                primitive.Spawn();
-
             primitive.Base.NetworkPrimitiveType = primitiveType;
             primitive.Color = color ?? Color.gray;
+
+            if (spawn)
+                primitive.Spawn();
 
             return primitive;
         }
@@ -169,18 +173,18 @@ namespace Exiled.API.Features.Toys
         /// <returns>The new <see cref="Primitive"/>.</returns>
         public static Primitive Create(PrimitiveType primitiveType /*= PrimitiveType.Sphere*/, PrimitiveFlags flags, Vector3? position /*= null*/, Vector3? rotation /*= null*/, Vector3? scale /*= null*/, bool spawn /*= true*/, Color? color /*= null*/)
         {
-            Primitive primitive = new(Object.Instantiate(ToysHelper.PrimitiveBaseObject));
+            Primitive primitive = new(Object.Instantiate(Prefab));
 
             primitive.Position = position ?? Vector3.zero;
             primitive.Rotation = Quaternion.Euler(rotation ?? Vector3.zero);
             primitive.Scale = scale ?? Vector3.one;
             primitive.Flags = flags;
 
-            if (spawn)
-                primitive.Spawn();
-
             primitive.Base.NetworkPrimitiveType = primitiveType;
             primitive.Color = color ?? Color.gray;
+
+            if (spawn)
+                primitive.Spawn();
 
             return primitive;
         }
@@ -192,19 +196,19 @@ namespace Exiled.API.Features.Toys
         /// <returns>The new <see cref="Primitive"/>.</returns>
         public static Primitive Create(PrimitiveSettings primitiveSettings)
         {
-            Primitive primitive = new(Object.Instantiate(ToysHelper.PrimitiveBaseObject));
+            Primitive primitive = new(Object.Instantiate(Prefab));
 
             primitive.Position = primitiveSettings.Position;
             primitive.Rotation = Quaternion.Euler(primitiveSettings.Rotation);
             primitive.Scale = primitiveSettings.Scale;
             primitive.Flags = primitiveSettings.Flags;
 
-            if (primitiveSettings.Spawn)
-                primitive.Spawn();
-
             primitive.Base.NetworkPrimitiveType = primitiveSettings.PrimitiveType;
             primitive.Color = primitiveSettings.Color;
             primitive.IsStatic = primitiveSettings.IsStatic;
+
+            if (primitiveSettings.Spawn)
+                primitive.Spawn();
 
             return primitive;
         }
@@ -216,8 +220,8 @@ namespace Exiled.API.Features.Toys
         /// <returns>The corresponding <see cref="Primitive"/> instance.</returns>
         public static Primitive Get(PrimitiveObjectToy primitiveObjectToy)
         {
-            AdminToy adminToy = Map.Toys.FirstOrDefault(x => x.AdminToyBase == primitiveObjectToy);
-            return adminToy is not null ? adminToy as Primitive : new Primitive(primitiveObjectToy);
+            AdminToy adminToy = List.FirstOrDefault(x => x.AdminToyBase == primitiveObjectToy);
+            return adminToy is not null ? adminToy as Primitive : new(primitiveObjectToy);
         }
     }
 }

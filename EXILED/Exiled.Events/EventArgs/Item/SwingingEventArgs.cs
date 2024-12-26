@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="SwingingEventArgs.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="SwingingEventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Exiled.Events.EventArgs.Item
     /// <summary>
     /// Contains all information before a player swings a <see cref="Jailbird"/>.
     /// </summary>
-    public class SwingingEventArgs : IPlayerEvent, IItemEvent, IDeniableEvent
+    public class SwingingEventArgs : IItemEvent, IDeniableEvent
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SwingingEventArgs"/> class.

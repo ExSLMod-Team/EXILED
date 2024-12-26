@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="Warhead.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="Warhead.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -113,7 +113,7 @@ namespace Exiled.API.Features
         /// <summary>
         /// Gets a value indicating whether the warhead has already been detonated.
         /// </summary>
-        public static bool IsDetonated => Controller._alreadyDetonated;
+        public static bool IsDetonated => Controller.AlreadyDetonated;
 
         /// <summary>
         /// Gets a value indicating whether the warhead detonation is in progress.

@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="DroppingScp330EventArgs.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="DroppingScp330EventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -39,9 +39,9 @@ namespace Exiled.Events.EventArgs.Scp330
         }
 
         /// <summary>
-        /// Gets or sets a value representing the <see cref="API.Features.Items.Item" /> being picked up.
+        /// Gets a value representing the <see cref="API.Features.Items.Item" /> being picked up.
         /// </summary>
-        public Scp330 Scp330 { get; set; } // Todo Remove set
+        public Scp330 Scp330 { get; }
 
         /// <inheritdoc/>
         public Item Item => Scp330;

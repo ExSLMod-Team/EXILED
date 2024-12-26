@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="Permissions.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="Permissions.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -21,7 +21,7 @@ namespace Exiled.Permissions.Extensions
     using Features;
 
     using Properties;
-
+    using Query;
     using RemoteAdmin;
 
     using YamlDotNet.Core;
@@ -176,7 +176,7 @@ namespace Exiled.Permissions.Extensions
             {
                 return true;
             }
-            else if (sender is PlayerCommandSender || sender is UserPrint)
+            else if (sender is PlayerCommandSender || sender is QueryCommandSender)
             {
                 if (Player.Get(sender.SenderId) is not Player player)
                     return false;

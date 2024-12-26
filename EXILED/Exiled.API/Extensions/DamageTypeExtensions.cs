@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="DamageTypeExtensions.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="DamageTypeExtensions.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -49,6 +49,7 @@ namespace Exiled.API.Extensions
             { DeathTranslations.MicroHID.Id, DamageType.MicroHid },
             { DeathTranslations.Hypothermia.Id, DamageType.Hypothermia },
             { DeathTranslations.MarshmallowMan.Id, DamageType.Marshmallow },
+            { DeathTranslations.Scp1344.Id, DamageType.SeveredEyes },
         };
 
         private static readonly Dictionary<DeathTranslation, DamageType> TranslationConversionInternal = new()
@@ -80,6 +81,7 @@ namespace Exiled.API.Extensions
             { DeathTranslations.MicroHID, DamageType.MicroHid },
             { DeathTranslations.Hypothermia, DamageType.Hypothermia },
             { DeathTranslations.MarshmallowMan, DamageType.Marshmallow },
+            { DeathTranslations.Scp1344, DamageType.SeveredEyes },
         };
 
         private static readonly Dictionary<ItemType, DamageType> ItemConversionInternal = new()

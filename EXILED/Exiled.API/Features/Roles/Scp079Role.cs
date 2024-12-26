@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="Scp079Role.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="Scp079Role.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -593,7 +593,7 @@ namespace Exiled.API.Features.Roles
             Scp079Camera cam = CurrentCameraSync.CurrentCamera;
             RewardManager.MarkRoom(cam.Room);
 
-            if (!TeslaGateController.Singleton.TeslaGates.TryGetFirst(x => RoomIdUtils.IsTheSameRoom(cam.Position, x.transform.position), out global::TeslaGate teslaGate))
+            if (!global::TeslaGate.AllGates.TryGetFirst(x => RoomIdUtils.IsTheSameRoom(cam.Position, x.transform.position), out global::TeslaGate teslaGate))
                 return;
 
             if (consumeEnergy)

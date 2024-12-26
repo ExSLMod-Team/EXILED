@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="Server.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="Server.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -266,14 +266,6 @@ namespace Exiled.API.Features
 
             return true;
         }
-
-        /// <summary>
-        /// Runs a server command.
-        /// </summary>
-        /// <param name="command">The command to be run.</param>
-        /// <param name="sender">The <see cref="CommandSender"/> running the command.</param>
-        [Obsolete("Use Server.ExecuteCommand() instead.")]
-        public static void RunCommand(string command, CommandSender sender = null) => GameCore.Console.singleton.TypeCommand(command, sender);
 
         /// <summary>
         /// Executes a server command.

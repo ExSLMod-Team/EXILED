@@ -1,14 +1,12 @@
 // -----------------------------------------------------------------------
-// <copyright file="TransmittingEventArgs.cs" company="Exiled Team">
-// Copyright (c) Exiled Team. All rights reserved.
+// <copyright file="TransmittingEventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Exiled.Events.EventArgs.Player
 {
-    using System;
-
     using Exiled.API.Features;
     using Exiled.Events.EventArgs.Interfaces;
 
@@ -47,12 +45,6 @@ namespace Exiled.Events.EventArgs.Player
         /// Gets the <see cref="Player"/>'s <see cref="VoiceModuleBase" />.
         /// </summary>
         public VoiceModuleBase VoiceModule { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether the player is transmitting.
-        /// </summary>
-        [Obsolete("IsTransmitting is always true.")]
-        public bool IsTransmitting => true;
 
         /// <summary>
         /// Gets or sets a value indicating whether the player can transmit.
