@@ -124,7 +124,6 @@ namespace Exiled.Loader
             File.Delete(Path.Combine(Paths.Dependencies, "Exiled.API.dll"));
 
             LoadPluginsFromDirectory();
-            LoadPluginsFromDirectory("global");
             LoadPluginsFromDirectory(Server.Port.ToString());
         }
 
