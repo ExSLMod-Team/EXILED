@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="ReloadingWeaponEventArgs.cs" company="ExMod Team">
+// <copyright file="UnloadedWeaponEventArgs.cs" company="ExMod Team">
 // Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
@@ -13,30 +13,24 @@ namespace Exiled.Events.EventArgs.Player
     using Interfaces;
 
     /// <summary>
-    /// Contains all information before a player's weapon is reloaded.
+    /// Contains all information after a player's weapon is unloaded.
     /// </summary>
-    public class ReloadingWeaponEventArgs : IPlayerEvent, IFirearmEvent, IDeniableEvent
+    public class UnloadedWeaponEventArgs : IPlayerEvent, IFirearmEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReloadingWeaponEventArgs" /> class.
+        /// Initializes a new instance of the <see cref="UnloadedWeaponEventArgs" /> class.
         /// </summary>
         /// <param name="firearm">
         /// <inheritdoc cref="Firearm" />
         /// </param>
-        public ReloadingWeaponEventArgs(InventorySystem.Items.Firearms.Firearm firearm)
+        public UnloadedWeaponEventArgs(InventorySystem.Items.Firearms.Firearm firearm)
         {
             Firearm = Item.Get<Firearm>(firearm);
-            Firearm.Damage = 99555f;
             Player = Firearm.Owner;
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the weapon can be reloaded.
-        /// </summary>
-        public bool IsAllowed { get; set; } = true;
-
-        /// <summary>
-        /// Gets the <see cref="API.Features.Items.Firearm" /> being reloaded.
+        /// Gets the <see cref="API.Features.Items.Firearm" /> being unloaded.
         /// </summary>
         public Firearm Firearm { get; }
 
@@ -44,7 +38,7 @@ namespace Exiled.Events.EventArgs.Player
         public Item Item => Firearm;
 
         /// <summary>
-        /// Gets the player who's reloading the weapon.
+        /// Gets the player who's unloading the weapon.
         /// </summary>
         public Player Player { get; }
     }
