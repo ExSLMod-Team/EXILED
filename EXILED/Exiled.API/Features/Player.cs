@@ -966,7 +966,7 @@ namespace Exiled.API.Features
         /// <summary>
         /// Gets the player's <see cref="PlayerStatsSystem.HumeShieldStat"/>.
         /// </summary>
-        [Obsolete("Use" + nameof(CustomHumeShieldStat) + " instead.")]
+        [Obsolete("Use " + nameof(CustomHumeShieldStat) + " instead.")]
         public HumeShieldStat HumeShieldStat => CustomHumeShieldStat;
 
         /// <summary>
