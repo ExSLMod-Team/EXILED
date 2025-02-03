@@ -116,8 +116,6 @@ namespace Exiled.Events.Features
         public void Subscribe(CustomEventHandler handler)
             => Subscribe(handler, 0);
 
-        // I try to do inheritated summary but the analizer refuse
-
         /// <summary>
         /// Subscribes a target <see cref="CustomEventHandler"/> to the inner event if the conditional is true.
         /// </summary>
@@ -211,20 +209,19 @@ namespace Exiled.Events.Features
         public void InvokeSafely()
         {
             BlendedInvoke();
-
-            // InvokeNormal();
-            // InvokeAsync();
         }
 
         /// <inheritdoc cref="InvokeSafely"/>
         internal void BlendedInvoke()
         {
-            int count = innerEvent.Count + innerAsyncEvent.Count;
+            Registration[] innerEvent = this.innerEvent.ToArray();
+            AsyncRegistration[] innerAsyncEvent = this.innerAsyncEvent.ToArray();
+            int count = innerEvent.Length + innerAsyncEvent.Length;
             int eventIndex = 0, asyncEventIndex = 0;
 
             for (int i = 0; i < count; i++)
             {
-                if (eventIndex < innerEvent.Count && (asyncEventIndex >= innerAsyncEvent.Count || innerEvent[eventIndex].priority >= innerAsyncEvent[asyncEventIndex].priority))
+                if (eventIndex < innerEvent.Length && (asyncEventIndex >= innerAsyncEvent.Length || innerEvent[eventIndex].priority >= innerAsyncEvent[asyncEventIndex].priority))
                 {
                     try
                     {
@@ -256,6 +253,7 @@ namespace Exiled.Events.Features
         /// <inheritdoc cref="InvokeSafely"/>
         internal void InvokeNormal()
         {
+            Registration[] innerEvent = this.innerEvent.ToArray();
             foreach (Registration registration in innerEvent)
             {
                 try
@@ -272,6 +270,7 @@ namespace Exiled.Events.Features
         /// <inheritdoc cref="InvokeSafely"/>
         internal void InvokeAsync()
         {
+            AsyncRegistration[] innerAsyncEvent = this.innerAsyncEvent.ToArray();
             foreach (AsyncRegistration registration in innerAsyncEvent)
             {
                 try

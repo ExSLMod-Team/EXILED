@@ -215,20 +215,19 @@ namespace Exiled.Events.Features
         public void InvokeSafely(T arg)
         {
             BlendedInvoke(arg);
-
-            // InvokeNormal(arg);
-            // InvokeAsync(arg);
         }
 
         /// <inheritdoc cref="InvokeSafely"/>
         internal void BlendedInvoke(T arg)
         {
-            int count = innerEvent.Count + innerAsyncEvent.Count;
+            Registration[] innerEvent = this.innerEvent.ToArray();
+            AsyncRegistration[] innerAsyncEvent = this.innerAsyncEvent.ToArray();
+            int count = innerEvent.Length + innerAsyncEvent.Length;
             int eventIndex = 0, asyncEventIndex = 0;
 
             for (int i = 0; i < count; i++)
             {
-                if (eventIndex < innerEvent.Count && (asyncEventIndex >= innerAsyncEvent.Count || innerEvent[eventIndex].priority >= innerAsyncEvent[asyncEventIndex].priority))
+                if (eventIndex < innerEvent.Length && (asyncEventIndex >= innerAsyncEvent.Length || innerEvent[eventIndex].priority >= innerAsyncEvent[asyncEventIndex].priority))
                 {
                     try
                     {
@@ -260,6 +259,7 @@ namespace Exiled.Events.Features
         /// <inheritdoc cref="InvokeSafely"/>
         internal void InvokeNormal(T arg)
         {
+            Registration[] innerEvent = this.innerEvent.ToArray();
             foreach (Registration registration in innerEvent)
             {
                 try
@@ -276,6 +276,7 @@ namespace Exiled.Events.Features
         /// <inheritdoc cref="InvokeSafely"/>
         internal void InvokeAsync(T arg)
         {
+            AsyncRegistration[] innerAsyncEvent = this.innerAsyncEvent.ToArray();
             foreach (AsyncRegistration registration in innerAsyncEvent)
             {
                 try
