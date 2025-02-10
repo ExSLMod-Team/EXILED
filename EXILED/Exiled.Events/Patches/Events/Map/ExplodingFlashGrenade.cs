@@ -65,12 +65,25 @@ namespace Exiled.Events.Patches.Events.Map
             HashSet<Player> targetToAffect = HashSetPool<Player>.Pool.Get();
             foreach (ReferenceHub referenceHub in ReferenceHub.AllHubs)
             {
-                if (Player.TryGet(referenceHub, out Player player)
-                    && (instance.transform.position - player.Position).sqrMagnitude < distance
-                    && (ExiledEvents.Instance.Config.CanFlashbangsAffectThrower || !instance.PreviousOwner.CompareLife(referenceHub))
-                    && (IndividualFriendlyFire.CheckFriendlyFirePlayer(instance.PreviousOwner, referenceHub) || instance.PreviousOwner.CompareLife(referenceHub))
-                    && !Physics.Linecast(instance.transform.position, player.CameraTransform.position, instance._blindingMask))
-                    targetToAffect.Add(player);
+                if (!Player.TryGet(referenceHub, out Player player))
+                    continue;
+
+                if ((instance.transform.position - player.Position).sqrMagnitude > distance)
+                    continue;
+
+                if (!ExiledEvents.Instance.Config.CanFlashbangsAffectThrower && instance.PreviousOwner.CompareLife(referenceHub))
+                    continue;
+
+                if (!IndividualFriendlyFire.CheckFriendlyFirePlayer(instance.PreviousOwner, referenceHub))
+                    continue;
+
+                if (!instance.PreviousOwner.CompareLife(referenceHub))
+                    continue;
+
+                if (Physics.Linecast(instance.transform.position, player.CameraTransform.position, instance._blindingMask))
+                    continue;
+
+                targetToAffect.Add(player);
             }
 
             ExplodingGrenadeEventArgs explodingGrenadeEvent = new(Player.Get(instance.PreviousOwner.Hub), instance, targetToAffect);
