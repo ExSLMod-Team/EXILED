@@ -71,13 +71,10 @@ namespace Exiled.Events.Patches.Events.Map
                 if ((instance.transform.position - player.Position).sqrMagnitude > distance)
                     continue;
 
-                if (!ExiledEvents.Instance.Config.CanFlashbangsAffectThrower && instance.PreviousOwner.CompareLife(referenceHub))
+                if (!ExiledEvents.Instance.Config.CanFlashbangsAffectThrower && instance.PreviousOwner.CompareLife(player.ReferenceHub))
                     continue;
 
-                if (!IndividualFriendlyFire.CheckFriendlyFirePlayer(instance.PreviousOwner, referenceHub))
-                    continue;
-
-                if (!instance.PreviousOwner.CompareLife(referenceHub))
+                if (!IndividualFriendlyFire.CheckFriendlyFirePlayer(instance.PreviousOwner, player.ReferenceHub) && !instance.PreviousOwner.CompareLife(player.ReferenceHub))
                     continue;
 
                 if (Physics.Linecast(instance.transform.position, player.CameraTransform.position, instance._blindingMask))
