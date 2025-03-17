@@ -143,11 +143,6 @@ namespace Exiled.API.Features
         public static Dictionary<string, Player> UserIdsCache { get; } = new(20);
 
         /// <summary>
-        /// Gets or sets a <see cref="CustomHealthStat"/>.
-        /// </summary>
-        public CustomHealthStat CustomHealthStat { get; protected set; }
-
-        /// <summary>
         /// Gets or sets a <see cref="CustomHumeShieldStat"/>.
         /// </summary>
         public CustomHumeShieldStat CustomHumeShieldStat { get; protected set; }
@@ -1190,6 +1185,11 @@ namespace Exiled.API.Features
         /// Gets a dictionary for storing player objects of connected but not yet verified players.
         /// </summary>
         internal static ConditionalWeakTable<GameObject, Player> UnverifiedPlayers { get; } = new();
+
+        /// <summary>
+        /// Gets or sets a <see cref="CustomHealthStat"/>.
+        /// </summary>
+        protected CustomHealthStat CustomHealthStat { get; set; }
 
         /// <summary>
         /// Converts NwPluginAPI player to EXILED player.
