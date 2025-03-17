@@ -13,6 +13,8 @@ namespace Exiled.API.Features
     using System.Collections.ObjectModel;
     using System.Linq;
 
+    using CommandSystem.Commands.RemoteAdmin.Cleanup;
+    using Decals;
     using Enums;
     using Exiled.API.Extensions;
     using Exiled.API.Features.Hazards;
@@ -27,6 +29,7 @@ namespace Exiled.API.Features
     using PlayerRoles.Ragdolls;
     using UnityEngine;
     using Utils;
+    using Utils.Networking;
 
     using Object = UnityEngine.Object;
 
@@ -128,6 +131,17 @@ namespace Exiled.API.Features
                 ClearBroadcasts();
 
             Server.Broadcast.RpcAddElement(message, duration, type);
+        }
+
+        /// <summary>
+        /// Broadcasts delegate invocation result to all <see cref="Player">players</see>.
+        /// </summary>
+        /// <param name="duration">The duration in seconds.</param>
+        /// <param name="func">The delegate whose invocation result will be the message.</param>
+        public static void Broadcast(ushort duration, Func<Player, string> func)
+        {
+            foreach (Player player in Player.List)
+                player.Broadcast(duration, func.Invoke(player));
         }
 
         /// <summary>
@@ -270,6 +284,19 @@ namespace Exiled.API.Features
             foreach (Ragdoll ragDoll in ragDolls)
                 ragDoll.Destroy();
         }
+
+        /// <summary>
+        /// Destroy specified amount of specified <see cref="DecalPoolType"/> object.
+        /// </summary>
+        /// <param name="decalType">Decal type to destroy.</param>
+        /// <param name="amount">Amount of decals to destroy.</param>
+        public static void Clean(DecalPoolType decalType, int amount) => new DecalCleanupMessage(decalType, amount).SendToAuthenticated();
+
+        /// <summary>
+        /// Destroy all specified <see cref="DecalPoolType"/> objects.
+        /// </summary>
+        /// <param name="decalType">Decal type to destroy.</param>
+        public static void Clean(DecalPoolType decalType) => Clean(decalType, int.MaxValue);
 
         /// <summary>
         /// Places a blood decal.

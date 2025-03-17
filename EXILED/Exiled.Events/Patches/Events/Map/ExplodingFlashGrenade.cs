@@ -8,6 +8,7 @@
 namespace Exiled.Events.Patches.Events.Map
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection.Emit;
 
     using API.Features;
@@ -15,6 +16,7 @@ namespace Exiled.Events.Patches.Events.Map
     using Exiled.API.Extensions;
     using Exiled.Events.EventArgs.Map;
     using Exiled.Events.Patches.Generic;
+    using Footprinting;
     using HarmonyLib;
     using InventorySystem.Items.ThrowableProjectiles;
     using UnityEngine;
@@ -63,20 +65,14 @@ namespace Exiled.Events.Patches.Events.Map
         private static void ProcessEvent(FlashbangGrenade instance, float distance)
         {
             HashSet<Player> targetToAffect = HashSetPool<Player>.Pool.Get();
-            foreach (ReferenceHub referenceHub in ReferenceHub.AllHubs)
+            foreach (Player player in ReferenceHub.AllHubs.Select(Player.Get))
             {
-                if (!Player.TryGet(referenceHub, out Player player))
+                if ((instance.transform.position - player.Position).sqrMagnitude >= distance)
                     continue;
-
-                if ((instance.transform.position - player.Position).sqrMagnitude > distance)
-                    continue;
-
                 if (!ExiledEvents.Instance.Config.CanFlashbangsAffectThrower && instance.PreviousOwner.CompareLife(player.ReferenceHub))
                     continue;
-
                 if (!IndividualFriendlyFire.CheckFriendlyFirePlayer(instance.PreviousOwner, player.ReferenceHub) && !instance.PreviousOwner.CompareLife(player.ReferenceHub))
                     continue;
-
                 if (Physics.Linecast(instance.transform.position, player.CameraTransform.position, instance._blindingMask))
                     continue;
 
