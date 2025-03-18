@@ -135,6 +135,9 @@ namespace Exiled.Events.Features
                 patched = true;
             }
 
+            if (handler == null)
+                return;
+
             Registration registration = new Registration(handler, priority);
             int index = innerEvent.BinarySearch(registration, RegisterComparable);
             if (index < 0)
@@ -170,6 +173,9 @@ namespace Exiled.Events.Features
                 Events.Instance.Patcher.Patch(this);
                 patched = true;
             }
+
+            if (handler == null)
+                return;
 
             AsyncRegistration registration = new AsyncRegistration(handler, 0);
             int index = innerAsyncEvent.BinarySearch(registration, AsyncRegisterComparable);
