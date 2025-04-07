@@ -5,8 +5,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using UnityEngine;
-
 namespace Exiled.Events
 {
     using System;
@@ -88,8 +86,6 @@ namespace Exiled.Events
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += SettingBase.OnSettingUpdated;
 
             EventManager.RegisterEvents<Handlers.Player>(this);
-
-            Handlers.Scp939.PlacingMimicPoint += ev => ev.Position = new(ev.Player.Position + Vector3.forward);
         }
 
         /// <inheritdoc/>
