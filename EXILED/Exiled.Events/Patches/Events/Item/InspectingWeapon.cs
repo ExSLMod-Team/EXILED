@@ -36,11 +36,14 @@ namespace Exiled.Events.Patches.Events.Item
 
             newInstructions.InsertRange(index, new[]
             {
+                // this.Firearm
                 new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
                 new(OpCodes.Callvirt, PropertyGetter(typeof(SimpleInspectorModule), nameof(SimpleInspectorModule.Firearm))),
 
+                // InspectingWeaponEventArgs ev = new(this.Firearm)
                 new(OpCodes.Newobj, GetDeclaredConstructors(typeof(InspectingWeaponEventArgs))[0]),
 
+                // Handlers.Item.OnInspectingWeapon(ev)
                 new(OpCodes.Call, Method(typeof(Handlers.Item), nameof(Handlers.Item.OnInspectingWeapon))),
             });
 

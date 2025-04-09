@@ -37,16 +37,22 @@ namespace Exiled.Events.Patches.Events.Item
 
             newInstructions.InsertRange(index, new[]
             {
+                // if (val)
+                //   skip event
                 new CodeInstruction(OpCodes.Ldarg_1).MoveLabelsFrom(newInstructions[index]),
                 new(OpCodes.Brtrue_S, skipLabel),
 
+                // this.Firearm
                 new(OpCodes.Ldarg_0),
                 new(OpCodes.Callvirt, PropertyGetter(typeof(SimpleInspectorModule), nameof(SimpleInspectorModule.Firearm))),
 
+                // InspectedWeaponEventArgs ev = new(this.Firearm)
                 new(OpCodes.Newobj, GetDeclaredConstructors(typeof(InspectedWeaponEventArgs))[0]),
 
+                // Handlers.Item.OnInspectedWeapon(ev)
                 new(OpCodes.Call, Method(typeof(Handlers.Item), nameof(Handlers.Item.OnInspectedWeapon))),
 
+                // skip:
                 new CodeInstruction(OpCodes.Nop).WithLabels(skipLabel),
             });
 
