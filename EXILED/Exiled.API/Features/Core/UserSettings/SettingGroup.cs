@@ -9,6 +9,7 @@ namespace Exiled.API.Features.Core.UserSettings
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Represents a group of SettingBase.
@@ -65,5 +66,11 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="settings">An <see cref="Array"/> of <see cref="SettingBase"/>.</param>
         /// <returns>A SettingGroup containing all the SettingBases.</returns>
         public static implicit operator SettingGroup(SettingBase[] settings) => new(settings);
+
+        /// <summary>
+        /// Returns a string representation of this <see cref="SettingGroup"/>.
+        /// </summary>
+        /// <returns>A string in human-readable format.</returns>
+        public override string ToString() => $"{Priority} ({Viewers}) [{string.Join(", ", Settings.Select(s => s.ToString()))}]";
     }
 }
