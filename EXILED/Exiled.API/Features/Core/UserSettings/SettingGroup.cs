@@ -82,29 +82,11 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/>.</returns>
         public IEnumerable<SettingBase> GetAllSettings()
         {
-            try
-            {
-                List<SettingBase> settings = new();
-                settings.AddRange(Settings);
-                if (SubGroups == null)
-                    return settings;
-                List<SettingGroup> recursiveCheck = ListPool<SettingGroup>.Pool.Get(1);
-                recursiveCheck.Add(this);
-                foreach (SettingGroup group in SubGroups)
-                {
-                    if (recursiveCheck.Contains(group))
-                        throw new InvalidOperationException("SettingGroups cannot reference themselves within subgroups.");
-                    settings.AddRange(group.GetAllSettings());
-                }
-
-                ListPool<SettingGroup>.Pool.Return(recursiveCheck);
-                return settings;
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"{nameof(GetAllSettings)}: {ex}");
-                return Array.Empty<SettingBase>();
-            }
+            List<SettingBase> settings = new();
+            List<SettingGroup> previousGroups = ListPool<SettingGroup>.Pool.Get(1);
+            InternalGetAllSettings(settings, previousGroups);
+            ListPool<SettingGroup>.Pool.Return(previousGroups);
+            return settings;
         }
 
         /// <summary>
@@ -114,32 +96,13 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/>.</returns>
         public IEnumerable<SettingBase> GetViewableSettingsOrdered(Player viewer)
         {
-            try
-            {
-                if (viewer == null)
-                    return Array.Empty<SettingBase>();
-                List<SettingBase> settings = new();
-                if (Viewers == null || Viewers(viewer))
-                    settings.AddRange(Settings);
-                if (SubGroups == null)
-                    return settings;
-                List<SettingGroup> recursiveCheck = ListPool<SettingGroup>.Pool.Get(1);
-                recursiveCheck.Add(this);
-                foreach (SettingGroup group in SubGroups.Where(group => group.Viewers == null || group.Viewers(viewer)).OrderByDescending(group => group.Priority))
-                {
-                    if (recursiveCheck.Contains(group))
-                        throw new InvalidOperationException("SettingGroups cannot reference themselves within subgroups.");
-                    settings.AddRange(group.GetAllSettings());
-                }
-
-                ListPool<SettingGroup>.Pool.Return(recursiveCheck);
-                return settings;
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"{nameof(GetViewableSettingsOrdered)}: {ex}");
+            if (viewer == null)
                 return Array.Empty<SettingBase>();
-            }
+            List<SettingBase> settings = new();
+            List<SettingGroup> previousGroups = ListPool<SettingGroup>.Pool.Get(1);
+            InternalGetViewableSettingsOrdered(settings, previousGroups, viewer);
+            ListPool<SettingGroup>.Pool.Return(previousGroups);
+            return settings;
         }
 
         /// <summary>
@@ -147,5 +110,44 @@ namespace Exiled.API.Features.Core.UserSettings
         /// </summary>
         /// <returns>A string in human-readable format.</returns>
         public override string ToString() => $"{Priority} ({Viewers}) [{string.Join(", ", Settings.Select(s => s.ToString()))}]";
+
+        /// <summary>
+        /// An internal recursive method to get all settings within a SettingGroup.
+        /// </summary>
+        /// <param name="current">A <see cref="List{T}"/> of <see cref="SettingBase"/> to add new settings to.</param>
+        /// <param name="previousGroups">A <see cref="List{T}"/> of <see cref="SettingGroup"/> used to verify no recursive loops.</param>
+        internal void InternalGetAllSettings(List<SettingBase> current, List<SettingGroup> previousGroups)
+        {
+            current.AddRange(Settings);
+            if (SubGroups == null)
+                return;
+            previousGroups.Add(this);
+            foreach (SettingGroup group in SubGroups)
+            {
+                if (previousGroups.Contains(group))
+                    throw new InvalidOperationException("SettingGroups cannot reference themselves within subgroups.");
+                group.InternalGetAllSettings(current, previousGroups);
+            }
+        }
+
+        /// <summary>
+        /// An internal recursive method to get all settings viewable by a specified player, ordered, within a SettingGroup.
+        /// </summary>
+        /// <param name="current">A <see cref="List{T}"/> of <see cref="SettingBase"/> to add new settings to.</param>
+        /// <param name="previousGroups">A <see cref="List{T}"/> of <see cref="SettingGroup"/> used to verify no recursive loops.</param>
+        /// <param name="viewer">A <see cref="Player"/> that filters the settings.</param>
+        internal void InternalGetViewableSettingsOrdered(List<SettingBase> current, List<SettingGroup> previousGroups, Player viewer)
+        {
+            current.AddRange(Settings);
+            if (SubGroups == null)
+                return;
+            previousGroups.Add(this);
+            foreach (SettingGroup group in SubGroups.Where(group => group.Viewers == null || group.Viewers(viewer)).OrderByDescending(group => group.Priority))
+            {
+                if (previousGroups.Contains(group))
+                    throw new InvalidOperationException("SettingGroups cannot reference themselves within subgroups.");
+                group.InternalGetViewableSettingsOrdered(current, previousGroups, viewer);
+            }
+        }
     }
 }
