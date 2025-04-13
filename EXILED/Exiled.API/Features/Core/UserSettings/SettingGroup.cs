@@ -88,7 +88,7 @@ namespace Exiled.API.Features.Core.UserSettings
                 settings.AddRange(Settings);
                 if (SubGroups == null)
                     return settings;
-                List<SettingGroup> recursiveCheck = ListPool<SettingGroup>.Pool.Get();
+                List<SettingGroup> recursiveCheck = ListPool<SettingGroup>.Pool.Get(1);
                 recursiveCheck.Add(this);
                 foreach (SettingGroup group in SubGroups)
                 {
@@ -123,7 +123,7 @@ namespace Exiled.API.Features.Core.UserSettings
                     settings.AddRange(Settings);
                 if (SubGroups == null)
                     return settings;
-                List<SettingGroup> recursiveCheck = ListPool<SettingGroup>.Pool.Get();
+                List<SettingGroup> recursiveCheck = ListPool<SettingGroup>.Pool.Get(1);
                 recursiveCheck.Add(this);
                 foreach (SettingGroup group in SubGroups.Where(group => group.Viewers == null || group.Viewers(viewer)).OrderByDescending(group => group.Priority))
                 {

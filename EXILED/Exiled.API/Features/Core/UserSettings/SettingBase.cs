@@ -342,7 +342,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="settings">Settings to remove. If <c>null</c>, all settings will be removed.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/> instances that were successfully removed.</returns>
         /// <remarks>This method is used to unsync settings from players. Using it with <see cref="Register(System.Collections.Generic.IEnumerable{Exiled.API.Features.Core.UserSettings.SettingBase},System.Func{Exiled.API.Features.Player,bool})"/> provides an opportunity to update synced settings.</remarks>
-        public static IEnumerable<SettingBase> Unregister(Func<Player, bool> predicate = null, IEnumerable<SettingGroup> settings = null)
+        public static IEnumerable<SettingBase> UnregisterGroups(Func<Player, bool> predicate = null, IEnumerable<SettingGroup> settings = null)
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
             List<SettingBase> list2 = new((settings?.SelectMany(group => group.Settings) ?? Settings).Where(setting => list.Remove(setting.Base)));
