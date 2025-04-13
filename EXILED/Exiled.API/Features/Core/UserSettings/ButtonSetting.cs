@@ -29,7 +29,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="header"><inheritdoc cref="SettingBase.Header"/></param>
         /// <param name="onChanged"><inheritdoc cref="SettingBase.OnChanged"/></param>
         [Obsolete("Use the constructor without the Header instead.")]
-        public ButtonSetting(int id, string label, string buttonText, float holdTime = 0.0f, string hintDescription = null, HeaderSetting header = null, Action<Player, SettingBase> onChanged = null)
+        public ButtonSetting(int id, string label, string buttonText, float holdTime, string hintDescription, HeaderSetting header, Action<Player, SettingBase> onChanged)
             : base(new SSButton(id, label, buttonText, holdTime, hintDescription), header, onChanged)
         {
             Base = (SSButton)base.Base;

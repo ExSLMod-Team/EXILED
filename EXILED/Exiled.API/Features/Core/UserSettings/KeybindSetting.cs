@@ -29,7 +29,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="header"><inheritdoc cref="SettingBase.Header"/></param>
         /// <param name="onChanged"><inheritdoc cref="SettingBase.OnChanged"/></param>
         [Obsolete("Use the constructor without the Header instead.")]
-        public KeybindSetting(int id, string label, KeyCode suggested, bool preventInteractionOnGUI = false, string hintDescription = "", HeaderSetting header = null, Action<Player, SettingBase> onChanged = null)
+        public KeybindSetting(int id, string label, KeyCode suggested, bool preventInteractionOnGUI, string hintDescription, HeaderSetting header, Action<Player, SettingBase> onChanged)
             : base(new SSKeybindSetting(id, label, suggested, preventInteractionOnGUI, hintDescription), header, onChanged)
         {
             Base = (SSKeybindSetting)base.Base;

@@ -32,11 +32,11 @@ namespace Exiled.API.Features.Core.UserSettings
         public TextInputSetting(
             int id,
             string label,
-            SSTextArea.FoldoutMode foldoutMode = SSTextArea.FoldoutMode.NotCollapsable,
-            TextAlignmentOptions alignment = TextAlignmentOptions.TopLeft,
-            string hintDescription = null,
-            HeaderSetting header = null,
-            Action<Player, SettingBase> onChanged = null)
+            SSTextArea.FoldoutMode foldoutMode,
+            TextAlignmentOptions alignment,
+            string hintDescription,
+            HeaderSetting header,
+            Action<Player, SettingBase> onChanged)
             : base(new SSTextArea(id, label, foldoutMode, hintDescription, alignment), header, onChanged)
         {
             Base = (SSTextArea)base.Base;

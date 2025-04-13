@@ -246,7 +246,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="player">Target player.</param>
         public static void SendToPlayer(Player player)
         {
-            ServerSpecificSettingBase[] sorted = Groups.Where(group => group.Viewers == null || group.Viewers(player)).OrderByDescending(group => group.Priority).SelectMany(group => group.Settings).Select(setting => setting.Base).ToArray();
+            ServerSpecificSettingBase[] sorted = Groups.OrderByDescending(group => group.Priority).SelectMany(group => group.GetViewableSettingsOrdered(player)).Select(setting => setting.Base).ToArray();
             ServerSpecificSettingsSync.SendToPlayer(player.ReferenceHub, sorted);
         }
 
@@ -302,7 +302,7 @@ namespace Exiled.API.Features.Core.UserSettings
         public static IEnumerable<SettingBase> RegisterGroups(IEnumerable<SettingGroup> settings)
         {
             settings = settings.Where(group => group != null).ToArray();
-            SettingBase[] sorted = settings.OrderByDescending(group => group.Priority).SelectMany(group => group.Settings).ToArray();
+            SettingBase[] sorted = settings.OrderByDescending(group => group.Priority).SelectMany(group => group.GetAllSettings()).ToArray();
             ServerSpecificSettingBase[] sent = sorted.Select(setting => setting.Base).ToArray();
             ServerSpecificSettingsSync.DefinedSettings = (ServerSpecificSettingsSync.DefinedSettings ?? Array.Empty<ServerSpecificSettingBase>()).Concat(sent).ToArray();
             Settings.AddRange(sorted);

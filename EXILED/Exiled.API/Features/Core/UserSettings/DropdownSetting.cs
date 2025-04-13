@@ -35,11 +35,11 @@ namespace Exiled.API.Features.Core.UserSettings
             int id,
             string label,
             IEnumerable<string> options,
-            int defaultOptionIndex = 0,
-            SSDropdownSetting.DropdownEntryType dropdownEntryType = SSDropdownSetting.DropdownEntryType.Regular,
-            string hintDescription = null,
-            HeaderSetting header = null,
-            Action<Player, SettingBase> onChanged = null)
+            int defaultOptionIndex,
+            SSDropdownSetting.DropdownEntryType dropdownEntryType,
+            string hintDescription,
+            HeaderSetting header,
+            Action<Player, SettingBase> onChanged)
             : base(new SSDropdownSetting(id, label, options.ToArray(), defaultOptionIndex, dropdownEntryType, hintDescription), header, onChanged)
         {
             Base = (SSDropdownSetting)base.Base;
