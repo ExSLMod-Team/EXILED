@@ -94,6 +94,11 @@ namespace Exiled.API.Features.Core.UserSettings
         public static IReadOnlyCollection<SettingBase> List => Settings;
 
         /// <summary>
+        /// Gets the list of setting groups that are registered.
+        /// </summary>
+        public static IReadOnlyCollection<SettingGroup> AllGroups => Groups;
+
+        /// <summary>
         /// Gets or sets the predicate for syncing this setting when a player joins.
         /// </summary>
         [Obsolete("Use SettingBase::Viewers instead of SettingBase.SyncOnJoin")]
@@ -246,7 +251,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="player">Target player.</param>
         public static void SendToPlayer(Player player)
         {
-            ServerSpecificSettingBase[] sorted = Groups.OrderByDescending(group => group.Priority).SelectMany(group => group.GetViewableSettingsOrdered(player)).Select(setting => setting.Base).ToArray();
+            ServerSpecificSettingBase[] sorted = Groups.OrderByDescending(group => group.Priority).SelectMany(group => group.GetViewableSettingsOrdered(player)).Select(setting => setting.Base).Where(ServerSpecificSettingsSync.DefinedSettings.Contains).ToArray();
             ServerSpecificSettingsSync.SendToPlayer(player.ReferenceHub, sorted);
         }
 
@@ -339,13 +344,19 @@ namespace Exiled.API.Features.Core.UserSettings
         /// Removes settings from players.
         /// </summary>
         /// <param name="predicate">Determines which players will receive this update.</param>
-        /// <param name="settings">Settings to remove. If <c>null</c>, all settings will be removed.</param>
+        /// <param name="groups">Groups to remove. If <c>null</c>, all settings will be removed.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/> instances that were successfully removed.</returns>
         /// <remarks>This method is used to unsync settings from players. Using it with <see cref="Register(System.Collections.Generic.IEnumerable{Exiled.API.Features.Core.UserSettings.SettingBase},System.Func{Exiled.API.Features.Player,bool})"/> provides an opportunity to update synced settings.</remarks>
-        public static IEnumerable<SettingBase> UnregisterGroups(Func<Player, bool> predicate = null, IEnumerable<SettingGroup> settings = null)
+        public static IEnumerable<SettingBase> UnregisterGroups(Func<Player, bool> predicate = null, IEnumerable<SettingGroup> groups = null)
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
-            List<SettingBase> list2 = new((settings?.SelectMany(group => group.Settings) ?? Settings).Where(setting => list.Remove(setting.Base)));
+            SettingGroup[] settingGroups = groups?.ToArray();
+            List<SettingBase> list2 = new((settingGroups?.SelectMany(group => group.Settings) ?? Settings).Where(setting => list.Remove(setting.Base)));
+
+            if (groups == null)
+                Groups.Clear();
+            else
+                Groups.RemoveAll(settingGroups.Contains);
 
             ServerSpecificSettingsSync.DefinedSettings = list.ToArray();
 
