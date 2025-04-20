@@ -19,22 +19,41 @@ namespace Exiled.API.Extensions
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is a gate.</returns>
-        public static bool IsGate(this DoorType door) => door is DoorType.GateA or DoorType.GateB or DoorType.Scp914Gate or
-            DoorType.Scp049Gate or DoorType.GR18Gate or DoorType.SurfaceGate or DoorType.Scp173Gate;
+        public static bool IsGate(this DoorType door) => door.ToString().Contains("Gate");
 
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is a checkpoint.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is a checkpoint.</returns>
-        public static bool IsCheckpoint(this DoorType door) => door is DoorType.CheckpointLczA or DoorType.CheckpointLczB or DoorType.CheckpointEzHczA or DoorType.CheckpointEzHczB;
+        public static bool IsCheckpoint(this DoorType door) => door.ToString().Contains("Checkpoint");
 
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is an elevator.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is an elevator.</returns>
-        public static bool IsElevator(this DoorType door) => door is DoorType.ElevatorGateA or DoorType.ElevatorGateB
-            or DoorType.ElevatorLczA or DoorType.ElevatorLczB or DoorType.ElevatorNuke or DoorType.ElevatorScp049;
+        public static bool IsElevator(this DoorType door) => door.ToString().Contains("Elevator");
+
+        /// <summary>
+        /// Checks if a <see cref="DoorType">door type</see> is an HID door.
+        /// </summary>
+        /// <param name="door">The door to be checked.</param>
+        /// <returns>Returns whether the <see cref="DoorType"/> is an HID door.</returns>
+        public static bool IsHID(this DoorType door) => door.ToString().Contains("HID");
+
+        /// <summary>
+        /// Checks if a <see cref="DoorType">door type</see> is an SCP-related door.
+        /// </summary>
+        /// <param name="door">The door to be checked.</param>
+        /// <returns>Returns whether the <see cref="DoorType"/> is an SCP-related door.</returns>
+        public static bool IsScp(this DoorType door) => door.ToString().Contains("Scp");
+
+        /// <summary>
+        /// Checks if a <see cref="DoorType">door type</see> is an escape door.
+        /// </summary>
+        /// <param name="door">The door to be checked.</param>
+        /// <returns>Returns whether the <see cref="DoorType"/> is an escape door.</returns>
+        public static bool IsEscape(this DoorType door) => door.ToString().Contains("Escape");
     }
 }
