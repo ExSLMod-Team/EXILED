@@ -302,9 +302,10 @@ namespace Exiled.API.Features.Core.UserSettings
         /// Registers all settings from the specified collection.
         /// </summary>
         /// <param name="settings">A collection of groups of settings to register.</param>
+        /// <param name="predicate">A requirement to meet when sending settings to players after registering all groups.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/> instances that were successfully registered.</returns>
         /// <remarks>This method is used to sync new settings with players.</remarks>
-        public static IEnumerable<SettingBase> RegisterGroups(IEnumerable<SettingGroup> settings)
+        public static IEnumerable<SettingBase> RegisterGroups(IEnumerable<SettingGroup> settings, Predicate<Player> predicate = null)
         {
             settings = settings.Where(group => group != null).ToArray();
             SettingBase[] sorted = settings.OrderByDescending(group => group.Priority).SelectMany(group => group.GetAllSettings()).ToArray();
@@ -312,7 +313,21 @@ namespace Exiled.API.Features.Core.UserSettings
             ServerSpecificSettingsSync.DefinedSettings = (ServerSpecificSettingsSync.DefinedSettings ?? Array.Empty<ServerSpecificSettingBase>()).Concat(sent).ToArray();
             Settings.AddRange(sorted);
             Groups.AddRange(settings);
-            SendToAll();
+            if (predicate == null)
+            {
+                SendToAll();
+            }
+            else
+            {
+                foreach (Player player in Player.List)
+                {
+                    if (predicate(player))
+                    {
+                        SendToPlayer(player);
+                    }
+                }
+            }
+
             return sorted;
         }
 
