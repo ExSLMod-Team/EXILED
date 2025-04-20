@@ -138,7 +138,8 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="viewer">A <see cref="Player"/> that filters the settings.</param>
         internal void InternalGetViewableSettingsOrdered(List<SettingBase> current, List<SettingGroup> previousGroups, Player viewer)
         {
-            current.AddRange(Settings);
+            if (Viewers == null || Viewers(viewer))
+                current.AddRange(Settings);
             if (SubGroups == null)
                 return;
             previousGroups.Add(this);
