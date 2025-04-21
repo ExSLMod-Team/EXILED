@@ -101,7 +101,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <summary>
         /// Gets or sets the predicate for syncing this setting when a player joins.
         /// </summary>
-        [Obsolete("Use SettingBase::Viewers instead of SettingBase.SyncOnJoin")]
+        [Obsolete("Use SettingGroup::Viewers instead of SettingBase.SyncOnJoin")]
         public static Predicate<Player> SyncOnJoin { get; set; }
 
         /// <inheritdoc/>
@@ -356,6 +356,7 @@ namespace Exiled.API.Features.Core.UserSettings
 
             ServerSpecificSettingsSync.DefinedSettings = (ServerSpecificSettingsSync.DefinedSettings ?? Array.Empty<ServerSpecificSettingBase>()).Concat(result.Select(s => s.Base)).ToArray();
             Settings.AddRange(result);
+            Groups.Add(new SettingGroup(result));
 
             SendToPlayer(player);
 
