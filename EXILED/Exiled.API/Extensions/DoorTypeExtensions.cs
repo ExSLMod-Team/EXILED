@@ -66,7 +66,7 @@ namespace Exiled.API.Extensions
         /// Checks if a <see cref="DoorType"/> is located in the Light Containment Zone (LCZ).
         /// </summary>
         /// <param name="door">The door to be checked.</param>
-        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is in LCZ; otherwise, <c>false</c>.</returns>
+        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is a door from LCZ; otherwise, <c>false</c>.</returns>
         public static bool IsLCZ(this DoorType door) => door is DoorType.Airlock or DoorType.Scp914Door or DoorType.Scp330 or DoorType.Scp173Armory
             or DoorType.Scp173Gate or DoorType.Scp173Connector or DoorType.Scp173Bottom or DoorType.Scp914Gate or DoorType.Scp330Chamber or DoorType.LczWc
             or DoorType.LczArmory or DoorType.ElevatorLczA or DoorType.ElevatorLczB or DoorType.CheckpointLczA or DoorType.CheckpointLczB or DoorType.GR18Gate
@@ -76,7 +76,7 @@ namespace Exiled.API.Extensions
         /// Checks if a <see cref="DoorType"/> is located in the Heavy Containment Zone (HCZ).
         /// </summary>
         /// <param name="door">The door to be checked.</param>
-        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is in HCZ; otherwise, <c>false</c>.</returns>
+        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is a door from HCZ; otherwise, <c>false</c>.</returns>
         public static bool IsHCZ(this DoorType door) => door is DoorType.HczArmory or DoorType.Scp049Armory or DoorType.Scp049Gate or DoorType.Scp079Armory
             or DoorType.Scp079First or DoorType.Scp079Second or DoorType.Scp096 or DoorType.Scp106Primary or DoorType.Scp106Secondary or DoorType.Scp173NewGate
             or DoorType.Scp939Cryo or DoorType.ElevatorScp049 or DoorType.HeavyBulkDoor or DoorType.HeavyContainmentDoor or DoorType.HIDChamber or DoorType.HIDLower
@@ -86,7 +86,7 @@ namespace Exiled.API.Extensions
         /// Checks if a <see cref="DoorType"/> is located in the Entrance Zone (EZ).
         /// </summary>
         /// <param name="door">The door to be checked.</param>
-        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is in EZ; otherwise, <c>false</c>.</returns>
+        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is a door from EZ; otherwise, <c>false</c>.</returns>
         public static bool IsEZ(this DoorType door) => door is DoorType.GateA or DoorType.GateB or DoorType.ElevatorGateA or DoorType.ElevatorGateB
             or DoorType.CheckpointEzHczA or DoorType.CheckpointEzHczB or DoorType.CheckpointGateA or DoorType.CheckpointGateB or DoorType.Intercom;
 
@@ -94,7 +94,7 @@ namespace Exiled.API.Extensions
         /// Checks if a <see cref="DoorType"/> is located on the Surface.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
-        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is on the Surface; otherwise, <c>false</c>.</returns>
+        /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is a door from Surface; otherwise, <c>false</c>.</returns>
         public static bool IsSurface(this DoorType door) => door is DoorType.SurfaceDoor or DoorType.SurfaceGate or DoorType.NukeSurface
             or DoorType.EscapePrimary or DoorType.EscapeSecondary or DoorType.EscapeFinal;
 
