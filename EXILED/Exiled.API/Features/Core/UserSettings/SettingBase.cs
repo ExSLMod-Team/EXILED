@@ -331,12 +331,14 @@ namespace Exiled.API.Features.Core.UserSettings
             return sorted;
         }
 
+        /// <summary>
         /// Registers all settings from the specified collection to player.
         /// </summary>
         /// <param name="settings">A collection of settings to register.</param>
         /// <param name="player">A player that will receive settings.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/> instances that were successfully registered.</returns>
         /// <remarks>This method is used to sync new settings with players.</remarks>
+        [Obsolete("Use RegisterGroups instead")]
         public static IEnumerable<SettingBase> Register(IEnumerable<SettingBase> settings, Player player)
         {
             IEnumerable<IGrouping<HeaderSetting, SettingBase>> grouped = settings.Where(s => s != null).GroupBy(s => s.Header);
@@ -414,10 +416,14 @@ namespace Exiled.API.Features.Core.UserSettings
             return list2;
         }
 
+        /// <summary>
+        /// Removes settings from players.
+        /// </summary>
         /// <param name="player">Determines which player will receive this update.</param>
         /// <param name="settings">Settings to remove. If <c>null</c>, all settings will be removed.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/> instances that were successfully removed.</returns>
         /// <remarks>This method is used to unsync settings from players. Using it with <see cref="Register(IEnumerable{SettingBase},Player)"/> provides an opportunity to update synced settings.</remarks>
+        [Obsolete("Use UnregisterGroups instead")]
         public static IEnumerable<SettingBase> Unregister(Player player, IEnumerable<SettingBase> settings = null)
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
