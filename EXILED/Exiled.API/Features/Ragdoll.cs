@@ -410,13 +410,25 @@ namespace Exiled.API.Features
         /// <summary>
         /// Spawns the ragdoll on the network.
         /// </summary>
-        public void Spawn() => NetworkServer.Spawn(GameObject);
+        public void Spawn()
+        {
+            if (!NetworkServer.active || GameObject.activeSelf)
+                return;
+
+            NetworkServer.Spawn(GameObject);
+        }
 
         /// <summary>
         /// Spawns the ragdoll on the network with a specified owner.
         /// </summary>
         /// <param name="ownerPlayer">The owner of the ragdoll.</param>
-        public void Spawn(GameObject ownerPlayer) => NetworkServer.Spawn(GameObject, ownerPlayer);
+        public void Spawn(GameObject ownerPlayer)
+        {
+            if (!NetworkServer.active || GameObject.activeSelf)
+                return;
+
+            NetworkServer.Spawn(GameObject, ownerPlayer);
+        }
 
         /// <summary>
         /// Spawns the ragdoll on the network with a specified network connection or asset ID.
@@ -425,6 +437,9 @@ namespace Exiled.API.Features
         /// <param name="assetId">The optional asset ID of the ragdoll.</param>
         public void Spawn(NetworkConnection ownerConnection, uint? assetId = null)
         {
+            if (!NetworkServer.active || GameObject.activeSelf)
+                return;
+
             if (assetId.HasValue)
                 NetworkServer.Spawn(GameObject, assetId.Value, ownerConnection);
             else
@@ -432,16 +447,15 @@ namespace Exiled.API.Features
         }
 
         /// <summary>
-        /// Spawns the ragdoll on the network with a specified asset ID and network connection.
-        /// </summary>
-        /// <param name="assetId">The asset ID of the ragdoll.</param>
-        /// <param name="ownerConnection">The network connection of the owner.</param>
-        public void Spawn(uint assetId, NetworkConnection ownerConnection) => NetworkServer.Spawn(GameObject, assetId, ownerConnection);
-
-        /// <summary>
         /// Un-spawns the ragdoll.
         /// </summary>
-        public void UnSpawn() => NetworkServer.UnSpawn(GameObject);
+        public void UnSpawn()
+        {
+            if (!NetworkServer.active || !GameObject.activeSelf)
+                return;
+
+            NetworkServer.UnSpawn(GameObject);
+        }
 
         /// <summary>
         /// Returns the Ragdoll in a human-readable format.
