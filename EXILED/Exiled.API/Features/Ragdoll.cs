@@ -223,11 +223,11 @@ namespace Exiled.API.Features
             get => Base.transform.position;
             set
             {
-                NetworkServer.UnSpawn(GameObject);
+                UnSpawn();
 
                 Base.transform.position = value;
 
-                NetworkServer.Spawn(GameObject);
+                Spawn();
             }
         }
 
@@ -239,11 +239,11 @@ namespace Exiled.API.Features
             get => Base.transform.rotation;
             set
             {
-                NetworkServer.UnSpawn(GameObject);
+                UnSpawn();
 
                 Base.transform.rotation = value;
 
-                NetworkServer.Spawn(GameObject);
+                Spawn();
             }
         }
 
@@ -255,11 +255,11 @@ namespace Exiled.API.Features
             get => Base.transform.localScale;
             set
             {
-                NetworkServer.UnSpawn(GameObject);
+                UnSpawn();
 
                 Base.transform.localScale = value;
 
-                NetworkServer.Spawn(GameObject);
+                Spawn();
             }
         }
 
@@ -397,14 +397,46 @@ namespace Exiled.API.Features
         public static IEnumerable<Ragdoll> Get(IEnumerable<Player> players) => players.SelectMany(pl => Ragdoll.List.Where(rd => rd.Owner == pl));
 
         /// <summary>
-        /// Destroys the ragdoll.
+        /// Destroys the ragdoll immediately.
         /// </summary>
         public void Destroy() => Object.Destroy(GameObject);
 
         /// <summary>
-        /// Spawns the ragdoll.
+        /// Destroys the ragdoll after a specified delay.
+        /// </summary>
+        /// <param name="t">The delay in seconds before the ragdoll is destroyed.</param>
+        public void Destroy(float t) => Object.Destroy(GameObject, t);
+
+        /// <summary>
+        /// Spawns the ragdoll on the network.
         /// </summary>
         public void Spawn() => NetworkServer.Spawn(GameObject);
+
+        /// <summary>
+        /// Spawns the ragdoll on the network with a specified owner.
+        /// </summary>
+        /// <param name="ownerPlayer">The owner of the ragdoll.</param>
+        public void Spawn(GameObject ownerPlayer) => NetworkServer.Spawn(GameObject, ownerPlayer);
+
+        /// <summary>
+        /// Spawns the ragdoll on the network with a specified network connection or asset ID.
+        /// </summary>
+        /// <param name="ownerConnection">The network connection of the owner.</param>
+        /// <param name="assetId">The optional asset ID of the ragdoll.</param>
+        public void Spawn(NetworkConnection ownerConnection, uint? assetId = null)
+        {
+            if (assetId.HasValue)
+                NetworkServer.Spawn(GameObject, assetId.Value, ownerConnection);
+            else
+                NetworkServer.Spawn(GameObject, ownerConnection);
+        }
+
+        /// <summary>
+        /// Spawns the ragdoll on the network with a specified asset ID and network connection.
+        /// </summary>
+        /// <param name="assetId">The asset ID of the ragdoll.</param>
+        /// <param name="ownerConnection">The network connection of the owner.</param>
+        public void Spawn(uint assetId, NetworkConnection ownerConnection) => NetworkServer.Spawn(GameObject, assetId, ownerConnection);
 
         /// <summary>
         /// Un-spawns the ragdoll.
