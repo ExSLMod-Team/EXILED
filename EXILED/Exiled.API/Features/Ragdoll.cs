@@ -447,6 +447,19 @@ namespace Exiled.API.Features
         }
 
         /// <summary>
+        /// Spawns the ragdoll on the network with a specified asset ID and network connection.
+        /// </summary>
+        /// <param name="assetId">The asset ID of the ragdoll.</param>
+        /// <param name="ownerConnection">The network connection of the owner.</param>
+        public void Spawn(uint assetId, NetworkConnection ownerConnection)
+        {
+            if (!NetworkServer.active || GameObject.activeSelf)
+                return;
+
+            NetworkServer.Spawn(GameObject, assetId, ownerConnection);
+        }
+
+        /// <summary>
         /// Un-spawns the ragdoll.
         /// </summary>
         public void UnSpawn()
