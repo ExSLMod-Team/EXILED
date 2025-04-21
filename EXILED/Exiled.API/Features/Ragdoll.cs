@@ -412,7 +412,7 @@ namespace Exiled.API.Features
         /// </summary>
         public void Spawn()
         {
-            if (!NetworkServer.active || GameObject.activeSelf)
+            if (IsFrozen)
                 return;
 
             NetworkServer.Spawn(GameObject);
@@ -424,7 +424,7 @@ namespace Exiled.API.Features
         /// <param name="ownerPlayer">The owner of the ragdoll.</param>
         public void Spawn(GameObject ownerPlayer)
         {
-            if (!NetworkServer.active || GameObject.activeSelf)
+            if (IsFrozen)
                 return;
 
             NetworkServer.Spawn(GameObject, ownerPlayer);
@@ -437,7 +437,7 @@ namespace Exiled.API.Features
         /// <param name="assetId">The optional asset ID of the ragdoll.</param>
         public void Spawn(NetworkConnection ownerConnection, uint? assetId = null)
         {
-            if (!NetworkServer.active || GameObject.activeSelf)
+            if (IsFrozen)
                 return;
 
             if (assetId.HasValue)
@@ -453,7 +453,7 @@ namespace Exiled.API.Features
         /// <param name="ownerConnection">The network connection of the owner.</param>
         public void Spawn(uint assetId, NetworkConnection ownerConnection)
         {
-            if (!NetworkServer.active || GameObject.activeSelf)
+            if (IsFrozen)
                 return;
 
             NetworkServer.Spawn(GameObject, assetId, ownerConnection);
@@ -464,7 +464,7 @@ namespace Exiled.API.Features
         /// </summary>
         public void UnSpawn()
         {
-            if (!NetworkServer.active || !GameObject.activeSelf)
+            if (IsFrozen)
                 return;
 
             NetworkServer.UnSpawn(GameObject);
