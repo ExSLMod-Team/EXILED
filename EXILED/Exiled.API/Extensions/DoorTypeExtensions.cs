@@ -95,7 +95,7 @@ namespace Exiled.API.Extensions
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is a door from Surface; otherwise, <c>false</c>.</returns>
-        public static bool IsSurface(this DoorType door) => door is DoorType.SurfaceDoor or DoorType.SurfaceGate or DoorType.NukeSurface
+        public static bool IsSurface(this DoorType door) => door is DoorType.SurfaceGate or DoorType.NukeSurface
             or DoorType.EscapePrimary or DoorType.EscapeSecondary or DoorType.EscapeFinal;
 
         /// <summary>
