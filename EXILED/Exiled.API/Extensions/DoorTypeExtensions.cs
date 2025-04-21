@@ -62,7 +62,6 @@ namespace Exiled.API.Extensions
         /// <returns>Returns whether the <see cref="DoorType"/> is an escape door.</returns>
         public static bool IsEscape(this DoorType door) => door is DoorType.EscapePrimary or DoorType.EscapeSecondary or DoorType.EscapeFinal;
 
-
         /// <summary>
         /// Checks if a <see cref="DoorType"/> is located in the Light Containment Zone (LCZ).
         /// </summary>
