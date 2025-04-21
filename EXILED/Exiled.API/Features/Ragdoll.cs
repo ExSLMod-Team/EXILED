@@ -404,7 +404,7 @@ namespace Exiled.API.Features
         /// <summary>
         /// Destroys the ragdoll after a specified delay.
         /// </summary>
-        /// <param name="t">The delay in seconds before the ragdoll is destroyed.</param>
+        /// <param name="delay">The delay in seconds before the ragdoll is destroyed.</param>
         public void Destroy(float delay) => Object.Destroy(GameObject, delay);
 
         /// <summary>
