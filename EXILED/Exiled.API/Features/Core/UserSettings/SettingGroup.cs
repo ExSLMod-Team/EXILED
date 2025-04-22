@@ -54,6 +54,11 @@ namespace Exiled.API.Features.Core.UserSettings
         public IEnumerable<SettingGroup> SubGroups { get; set; }
 
         /// <summary>
+        /// Gets a SettingGroup that all values from obsolete SettingBase methods register to. Helps track unregistering settings.
+        /// </summary>
+        internal static SettingGroup ObsoleteGroup { get; } = new(new SettingBase[] { });
+
+        /// <summary>
         /// Handles constructing a group containing a singular setting. Useful for standalone settings.
         /// </summary>
         /// <param name="setting">A <see cref="SettingBase"/> instance.</param>

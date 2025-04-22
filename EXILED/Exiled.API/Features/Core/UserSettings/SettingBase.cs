@@ -34,7 +34,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <summary>
         /// A collection that contains all groups of settings that will be sent to clients.
         /// </summary>
-        internal static readonly List<SettingGroup> Groups = new();
+        internal static readonly List<SettingGroup> Groups = new() { SettingGroup.ObsoleteGroup };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SettingBase"/> class.
@@ -251,7 +251,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="player">Target player.</param>
         public static void SendToPlayer(Player player)
         {
-            ServerSpecificSettingBase[] sorted = Groups.OrderByDescending(group => group.Priority).SelectMany(group => group.GetViewableSettingsOrdered(player)).Select(setting => setting.Base).Where(ServerSpecificSettingsSync.DefinedSettings.Contains).ToArray();
+            ServerSpecificSettingBase[] sorted = Groups.OrderByDescending(group => group.Priority).SelectMany(group => group.GetViewableSettingsOrdered(player)).Select(setting => setting.Base).ToArray();
             ServerSpecificSettingsSync.SendToPlayer(player.ReferenceHub, sorted);
         }
 
@@ -288,7 +288,7 @@ namespace Exiled.API.Features.Core.UserSettings
 
             ServerSpecificSettingsSync.DefinedSettings = (ServerSpecificSettingsSync.DefinedSettings ?? Array.Empty<ServerSpecificSettingBase>()).Concat(result.Select(s => s.Base)).ToArray();
             Settings.AddRange(result);
-            Groups.Add(new SettingGroup(result));
+            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Concat(result);
 
             if (predicate == null)
                 SendToAll();
@@ -356,7 +356,7 @@ namespace Exiled.API.Features.Core.UserSettings
 
             ServerSpecificSettingsSync.DefinedSettings = (ServerSpecificSettingsSync.DefinedSettings ?? Array.Empty<ServerSpecificSettingBase>()).Concat(result.Select(s => s.Base)).ToArray();
             Settings.AddRange(result);
-            Groups.Add(new SettingGroup(result));
+            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Concat(result);
 
             SendToPlayer(player);
 
@@ -370,10 +370,12 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="settings">Settings to remove. If <c>null</c>, all settings will be removed.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/> instances that were successfully removed.</returns>
         /// <remarks>This method is used to unsync settings from players. Using it with <see cref="Register(IEnumerable{SettingBase},Func{Player,bool})"/> provides an opportunity to update synced settings.</remarks>
+        [Obsolete("Use SettingGroups instead")]
         public static IEnumerable<SettingBase> Unregister(Func<Player, bool> predicate = null, IEnumerable<SettingBase> settings = null)
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
             List<SettingBase> list2 = new((settings ?? Settings).Where(setting => list.Remove(setting.Base)));
+            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Except(settings ?? Settings);
 
             ServerSpecificSettingsSync.DefinedSettings = list.ToArray();
 
@@ -424,11 +426,12 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="settings">Settings to remove. If <c>null</c>, all settings will be removed.</param>
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="SettingBase"/> instances that were successfully removed.</returns>
         /// <remarks>This method is used to unsync settings from players. Using it with <see cref="Register(IEnumerable{SettingBase},Player)"/> provides an opportunity to update synced settings.</remarks>
-        [Obsolete("Use UnregisterGroups instead")]
+        [Obsolete("Use SettingGroups instead")]
         public static IEnumerable<SettingBase> Unregister(Player player, IEnumerable<SettingBase> settings = null)
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
             List<SettingBase> list2 = new((settings ?? Settings).Where(setting => list.Remove(setting.Base)));
+            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Except(settings ?? Settings);
 
             ServerSpecificSettingsSync.DefinedSettings = list.ToArray();
 
