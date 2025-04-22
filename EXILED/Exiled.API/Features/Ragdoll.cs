@@ -206,6 +206,11 @@ namespace Exiled.API.Features
         }
 
         /// <summary>
+        /// Gets a value indicating whether this ragdoll is spawned.
+        /// </summary>
+        public bool IsSpawned => NetworkServer.spawned.ContainsValue(Base.netIdentity);
+
+        /// <summary>
         /// Gets the <see cref="Features.Room"/> the ragdoll is located in.
         /// </summary>
         public Room Room => Room.FindParentRoom(GameObject);
@@ -412,10 +417,10 @@ namespace Exiled.API.Features
         /// </summary>
         public void Spawn()
         {
-            if (IsFrozen)
-                return;
-
-            NetworkServer.Spawn(GameObject);
+            if (!IsSpawned)
+            {
+                NetworkServer.Spawn(GameObject);
+            }
         }
 
         /// <summary>
@@ -424,10 +429,10 @@ namespace Exiled.API.Features
         /// <param name="ownerPlayer">The owner of the ragdoll.</param>
         public void Spawn(GameObject ownerPlayer)
         {
-            if (IsFrozen)
-                return;
-
-            NetworkServer.Spawn(GameObject, ownerPlayer);
+            if (!IsSpawned)
+            {
+                NetworkServer.Spawn(GameObject, ownerPlayer);
+            }
         }
 
         /// <summary>
@@ -437,13 +442,13 @@ namespace Exiled.API.Features
         /// <param name="assetId">The optional asset ID of the ragdoll.</param>
         public void Spawn(NetworkConnection ownerConnection, uint? assetId = null)
         {
-            if (IsFrozen)
-                return;
-
-            if (assetId.HasValue)
-                NetworkServer.Spawn(GameObject, assetId.Value, ownerConnection);
-            else
-                NetworkServer.Spawn(GameObject, ownerConnection);
+            if (!IsSpawned)
+            {
+                if (assetId.HasValue)
+                    NetworkServer.Spawn(GameObject, assetId.Value, ownerConnection);
+                else
+                    NetworkServer.Spawn(GameObject, ownerConnection);
+            }
         }
 
         /// <summary>
@@ -453,10 +458,10 @@ namespace Exiled.API.Features
         /// <param name="ownerConnection">The network connection of the owner.</param>
         public void Spawn(uint assetId, NetworkConnection ownerConnection)
         {
-            if (IsFrozen)
-                return;
-
-            NetworkServer.Spawn(GameObject, assetId, ownerConnection);
+            if (!IsSpawned)
+            {
+                NetworkServer.Spawn(GameObject, assetId, ownerConnection);
+            }
         }
 
         /// <summary>
@@ -464,10 +469,10 @@ namespace Exiled.API.Features
         /// </summary>
         public void UnSpawn()
         {
-            if (IsFrozen)
-                return;
-
-            NetworkServer.UnSpawn(GameObject);
+            if (IsSpawned)
+            {
+                NetworkServer.UnSpawn(GameObject);
+            }
         }
 
         /// <summary>
