@@ -13,6 +13,7 @@ namespace Exiled.API.Features
 
     using CustomPlayerEffects;
     using Enums;
+    using Exiled.API.Features.Waves;
     using Extensions;
     using PlayerRoles;
     using Respawning;
@@ -31,7 +32,7 @@ namespace Exiled.API.Features
         /// <summary>
         /// Gets the <see cref="List{T}"/> of paused <see cref="SpawnableWaveBase"/>'s.
         /// </summary>
-        public static List<SpawnableWaveBase> PausedWaves { get; } = new();
+        public static List<TimedWave> PausedWaves { get; } = new();
 
         /// <summary>
         /// Gets the <see cref="Dictionary{TKey,TValue}"/> containing faction influence.
@@ -391,17 +392,17 @@ namespace Exiled.API.Features
         /// <summary>
         /// Pauses a specific respawn wave by removing it from the active wave list and adding it to the paused wave list.
         /// </summary>
-        /// <param name="spawnableWaveBase">The <see cref="SpawnableWaveBase"/> instance representing the wave to pause.</param>
-        public static void PauseWave(SpawnableWaveBase spawnableWaveBase)
+        /// <param name="timedWave">The <see cref="TimedWave"/> instance representing the wave to pause.</param>
+        public static void PauseWave(TimedWave timedWave)
         {
-            if (!PausedWaves.Contains(spawnableWaveBase))
+            if (!PausedWaves.Contains(timedWave))
             {
-                PausedWaves.Add(spawnableWaveBase);
+                PausedWaves.Add(timedWave);
             }
 
-            if (WaveManager.Waves.Contains(spawnableWaveBase))
+            if (WaveManager.Waves.Contains(timedWave.Base))
             {
-                WaveManager.Waves.Remove(spawnableWaveBase);
+                WaveManager.Waves.Remove(timedWave.Base);
             }
         }
 
@@ -412,22 +413,22 @@ namespace Exiled.API.Features
         public static void PauseWaves()
         {
             PausedWaves.Clear();
-            PausedWaves.AddRange(WaveManager.Waves);
+            PausedWaves.AddRange(TimedWave.GetTimedWaves());
             WaveManager.Waves.Clear();
         }
 
         /// <summary>
         /// Pauses the specified list of respawn waves by iterating through each wave
-        /// and pausing it using the <see cref="PauseWave(SpawnableWaveBase)"/> method.
+        /// and pausing it using the <see cref="PauseWave(TimedWave)"/> method.
         /// </summary>
-        /// <param name="spawnableWaveBases">
-        /// A list of <see cref="SpawnableWaveBase"/> instances representing the waves to pause.
+        /// <param name="timedWave">
+        /// A list of <see cref="TimedWave"/> instances representing the waves to pause.
         /// </param>
-        public static void PauseWaves(List<SpawnableWaveBase> spawnableWaveBases)
+        public static void PauseWaves(List<TimedWave> timedWave)
         {
-            foreach (SpawnableWaveBase spawnableWaveBase in spawnableWaveBases)
+            foreach (TimedWave timedwave in timedWave)
             {
-                PauseWave(spawnableWaveBase);
+                PauseWave(timedwave);
             }
         }
 
@@ -439,24 +440,24 @@ namespace Exiled.API.Features
         public static void ResumeWaves()
         {
             WaveManager.Waves.Clear();
-            WaveManager.Waves.AddRange(PausedWaves);
+            WaveManager.Waves.AddRange(PausedWaves.Select(timedWave => timedWave.Base));
             PausedWaves.Clear();
         }
 
         /// <summary>
         /// Restarts a specific respawn wave by removing it from the active wave list and re-adding it.
         /// </summary>
-        /// <param name="spawnableWaveBase">The <see cref="SpawnableWaveBase"/> instance representing the wave to restart.</param>
-        public static void RestartWave(SpawnableWaveBase spawnableWaveBase)
+        /// <param name="timedWave">The <see cref="TimedWave"/> instance representing the wave to restart.</param>
+        public static void RestartWave(TimedWave timedWave)
         {
-            if (!WaveManager.Waves.Contains(spawnableWaveBase))
+            if (!WaveManager.Waves.Contains(timedWave.Base))
             {
-                WaveManager.Waves.Add(spawnableWaveBase);
+                WaveManager.Waves.Add(timedWave.Base);
             }
 
-            if (PausedWaves.Contains(spawnableWaveBase))
+            if (PausedWaves.Contains(timedWave))
             {
-                PausedWaves.Remove(spawnableWaveBase);
+                PausedWaves.Remove(timedWave);
             }
         }
 
@@ -474,16 +475,16 @@ namespace Exiled.API.Features
 
         /// <summary>
         /// Restarts the specified list of respawn waves by iterating through each wave
-        /// and restarting it using the <see cref="RestartWave(SpawnableWaveBase)"/> method.
+        /// and restarting it using the <see cref="RestartWave(TimedWave)"/> method.
         /// </summary>
-        /// <param name="spawnableWaveBases">
-        /// A list of <see cref="SpawnableWaveBase"/> instances representing the waves to restart.
+        /// <param name="timedWaves">
+        /// A list of <see cref="TimedWave"/> instances representing the waves to restart.
         /// </param>
-        public static void RestartWaves(List<SpawnableWaveBase> spawnableWaveBases)
+        public static void RestartWaves(List<TimedWave> timedWaves)
         {
-            foreach (SpawnableWaveBase spawnableWaveBase in spawnableWaveBases)
+            foreach (TimedWave timedWave in timedWaves)
             {
-                RestartWave(spawnableWaveBase);
+                RestartWave(timedWave);
             }
         }
 
