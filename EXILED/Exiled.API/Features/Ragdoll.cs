@@ -228,6 +228,12 @@ namespace Exiled.API.Features
             get => Base.transform.position;
             set
             {
+                if (!IsSpawned)
+                {
+                    Base.transform.position = value;
+                    return;
+                }
+
                 UnSpawn();
 
                 Base.transform.position = value;
@@ -244,6 +250,12 @@ namespace Exiled.API.Features
             get => Base.transform.rotation;
             set
             {
+                if (!IsSpawned)
+                {
+                    Base.transform.rotation = value;
+                    return;
+                }
+
                 UnSpawn();
 
                 Base.transform.rotation = value;
@@ -260,6 +272,12 @@ namespace Exiled.API.Features
             get => Base.transform.localScale;
             set
             {
+                if (!IsSpawned)
+                {
+                    Base.transform.localScale = value;
+                    return;
+                }
+
                 UnSpawn();
 
                 Base.transform.localScale = value;
