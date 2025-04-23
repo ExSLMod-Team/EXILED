@@ -394,12 +394,10 @@ namespace Exiled.API.Features
         /// <param name="spawnableWaveBase">The <see cref="SpawnableWaveBase"/> instance representing the wave to pause.</param>
         public static void PauseWave(SpawnableWaveBase spawnableWaveBase)
         {
-            if (PausedWaves.Contains(spawnableWaveBase))
+            if (!PausedWaves.Contains(spawnableWaveBase))
             {
-                PausedWaves.Remove(spawnableWaveBase);
+                PausedWaves.Add(spawnableWaveBase);
             }
-
-            PausedWaves.Add(spawnableWaveBase);
 
             if (WaveManager.Waves.Contains(spawnableWaveBase))
             {
@@ -451,12 +449,10 @@ namespace Exiled.API.Features
         /// <param name="spawnableWaveBase">The <see cref="SpawnableWaveBase"/> instance representing the wave to restart.</param>
         public static void RestartWave(SpawnableWaveBase spawnableWaveBase)
         {
-            if (WaveManager.Waves.Contains(spawnableWaveBase))
+            if (!WaveManager.Waves.Contains(spawnableWaveBase))
             {
-                WaveManager.Waves.Remove(spawnableWaveBase);
+                WaveManager.Waves.Add(spawnableWaveBase);
             }
-
-            WaveManager.Waves.Add(spawnableWaveBase);
 
             if (PausedWaves.Contains(spawnableWaveBase))
             {
