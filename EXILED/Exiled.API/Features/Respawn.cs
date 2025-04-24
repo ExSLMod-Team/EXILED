@@ -32,7 +32,7 @@ namespace Exiled.API.Features
         /// <summary>
         /// Gets the <see cref="List{T}"/> of paused <see cref="SpawnableWaveBase"/>'s.
         /// </summary>
-        public static List<TimedWave> PausedWaves { get; } = new();
+        public static List<SpawnableWaveBase> PausedWaves { get; } = new();
 
         /// <summary>
         /// Gets the <see cref="Dictionary{TKey,TValue}"/> containing faction influence.
@@ -395,9 +395,9 @@ namespace Exiled.API.Features
         /// <param name="timedWave">The <see cref="TimedWave"/> instance representing the wave to pause.</param>
         public static void PauseWave(TimedWave timedWave)
         {
-            if (!PausedWaves.Contains(timedWave))
+            if (!PausedWaves.Contains(timedWave.Base))
             {
-                PausedWaves.Add(timedWave);
+                PausedWaves.Add(timedWave.Base);
             }
 
             if (WaveManager.Waves.Contains(timedWave.Base))
@@ -413,7 +413,7 @@ namespace Exiled.API.Features
         public static void PauseWaves()
         {
             PausedWaves.Clear();
-            PausedWaves.AddRange(TimedWave.GetTimedWaves());
+            PausedWaves.AddRange(WaveManager.Waves);
             WaveManager.Waves.Clear();
         }
 
@@ -440,7 +440,7 @@ namespace Exiled.API.Features
         public static void ResumeWaves()
         {
             WaveManager.Waves.Clear();
-            WaveManager.Waves.AddRange(PausedWaves.Select(timedWave => timedWave.Base));
+            WaveManager.Waves.AddRange(PausedWaves);
             PausedWaves.Clear();
         }
 
@@ -455,9 +455,9 @@ namespace Exiled.API.Features
                 WaveManager.Waves.Add(timedWave.Base);
             }
 
-            if (PausedWaves.Contains(timedWave))
+            if (PausedWaves.Contains(timedWave.Base))
             {
-                PausedWaves.Remove(timedWave);
+                PausedWaves.Remove(timedWave.Base);
             }
         }
 
