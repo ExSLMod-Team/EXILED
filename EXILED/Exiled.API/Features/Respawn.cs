@@ -446,7 +446,6 @@ namespace Exiled.API.Features
             PausedWaves.Clear();
         }
 
-
         /// <summary>
         /// Restarts a specific respawn wave by adding it back to the active wave list
         /// and removing it from the paused wave list if necessary.
