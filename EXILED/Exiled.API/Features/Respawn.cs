@@ -13,7 +13,6 @@ namespace Exiled.API.Features
 
     using CustomPlayerEffects;
     using Enums;
-    using Exiled.API.Features.Waves;
     using Extensions;
     using PlayerRoles;
     using Respawning;
