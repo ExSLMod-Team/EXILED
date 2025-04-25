@@ -19,6 +19,7 @@ namespace Exiled.Events.Patches.Events.Player
     using HarmonyLib;
 
     using PlayerRoles;
+    using PlayerRoles.Ragdolls;
 
     using PlayerStatsSystem;
 
@@ -41,6 +42,7 @@ namespace Exiled.Events.Patches.Events.Player
 
             LocalBuilder player = generator.DeclareLocal(typeof(Player));
             LocalBuilder oldRole = generator.DeclareLocal(typeof(RoleTypeId));
+            LocalBuilder ragdoll = generator.DeclareLocal(typeof(BasicRagdoll));
 
             newInstructions.InsertRange(
                 0,
@@ -75,7 +77,14 @@ namespace Exiled.Events.Patches.Events.Player
                     new(OpCodes.Callvirt, PropertyGetter(typeof(Player), nameof(Player.Role))),
                     new(OpCodes.Callvirt, PropertyGetter(typeof(Role), nameof(Role.Type))),
                     new(OpCodes.Stloc, oldRole.LocalIndex),
+
+                    new(OpCodes.Callvirt, PropertyGetter(typeof(DyingEventArgs), nameof(DyingEventArgs.IsAllowed))),
+                    new(OpCodes.Brfalse, ret),
                 });
+
+            int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Pop);
+
+            newInstructions[index] = new CodeInstruction(OpCodes.Stloc, ragdoll.LocalIndex);
 
             newInstructions.InsertRange(
                 newInstructions.Count - 1,
@@ -86,6 +95,9 @@ namespace Exiled.Events.Patches.Events.Player
 
                     // oldRole
                     new(OpCodes.Ldloc_S, oldRole.LocalIndex),
+
+                    // ragdoll
+                    new(OpCodes.Ldloc_S, ragdoll.LocalIndex),
 
                     // handler
                     new(OpCodes.Ldarg_1),
