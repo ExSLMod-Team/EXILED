@@ -32,8 +32,6 @@ namespace Exiled.API.Extensions
 
         private static readonly List<DoorType> UnknownEnum = GetEnumByType("Unknown");
 
-        private static List<DoorType> GetEnumByType(string doorName) => EnumUtils<DoorType>.Values.Where(x => x.ToString().Contains(doorName)).ToList();
-
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is a gate.
         /// </summary>
@@ -118,5 +116,7 @@ namespace Exiled.API.Extensions
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is unknown; otherwise, <c>false</c>.</returns>
         public static bool IsUnknown(this DoorType door) => UnknownEnum.Contains(door);
+
+        private static List<DoorType> GetEnumByType(string doorName) => EnumUtils<DoorType>.Values.Where(x => x.ToString().Contains(doorName)).ToList();
     }
 }
