@@ -7,60 +7,74 @@
 
 namespace Exiled.API.Extensions
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using Exiled.API.Enums;
+    using Exiled.API.Features.Doors;
 
     /// <summary>
     /// A set of extensions for <see cref="DoorType"/>.
     /// </summary>
     public static class DoorTypeExtensions
     {
+        private static readonly List<DoorType> GateEnum = GetEnumByType("Gate");
+
+        private static readonly List<DoorType> CheckpointEnum = GetEnumByType("Checkpoint");
+
+        private static readonly List<DoorType> ElevatorEnum = GetEnumByType("Elevator");
+
+        private static readonly List<DoorType> HIDEnum = GetEnumByType("HID");
+
+        private static readonly List<DoorType> ScpEnum = GetEnumByType("Scp");
+
+        private static readonly List<DoorType> EscapeEnum = GetEnumByType("Escape");
+
+        private static readonly List<DoorType> UnknownEnum = GetEnumByType("Unknown");
+
+        private static List<DoorType> GetEnumByType(string doorName) => EnumUtils<DoorType>.Values.Where(x => x.ToString().Contains(doorName)).ToList();
+
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is a gate.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is a gate.</returns>
-        public static bool IsGate(this DoorType door) => door is DoorType.GateA or DoorType.GateB or DoorType.Scp914Gate or
-            DoorType.Scp049Gate or DoorType.GR18Gate or DoorType.SurfaceGate or DoorType.Scp173Gate;
+        public static bool IsGate(this DoorType door) => GateEnum.Contains(door);
 
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is a checkpoint.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is a checkpoint.</returns>
-        public static bool IsCheckpoint(this DoorType door) => door is DoorType.CheckpointLczA or DoorType.CheckpointLczB or DoorType.CheckpointEzHczA or DoorType.CheckpointEzHczB;
+        public static bool IsCheckpoint(this DoorType door) => CheckpointEnum.Contains(door);
 
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is an elevator.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is an elevator.</returns>
-        public static bool IsElevator(this DoorType door) => door is DoorType.ElevatorGateA or DoorType.ElevatorGateB
-            or DoorType.ElevatorLczA or DoorType.ElevatorLczB or DoorType.ElevatorNuke or DoorType.ElevatorScp049;
+        public static bool IsElevator(this DoorType door) => ElevatorEnum.Contains(door);
 
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is an HID door.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is an HID door.</returns>
-        public static bool IsHID(this DoorType door) => door is DoorType.HIDLower or DoorType.HIDUpper or DoorType.HIDChamber;
+        public static bool IsHID(this DoorType door) => HIDEnum.Contains(door);
 
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is an SCP-related door.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is an SCP-related door.</returns>
-        public static bool IsScp(this DoorType door) => door is DoorType.Scp914Door or DoorType.Scp049Gate or DoorType.Scp049Armory
-           or DoorType.Scp079First or DoorType.Scp079Second or DoorType.Scp096 or DoorType.Scp079Armory
-           or DoorType.Scp106Primary or DoorType.Scp106Secondary or DoorType.Scp173Gate or DoorType.Scp173Connector
-           or DoorType.Scp173Armory or DoorType.Scp173Bottom or DoorType.Scp914Gate or DoorType.Scp939Cryo
-           or DoorType.Scp330 or DoorType.Scp330Chamber or DoorType.Scp173NewGate or DoorType.ElevatorScp049;
+        public static bool IsScp(this DoorType door) => ScpEnum.Contains(door);
 
         /// <summary>
         /// Checks if a <see cref="DoorType">door type</see> is an escape door.
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns whether the <see cref="DoorType"/> is an escape door.</returns>
-        public static bool IsEscape(this DoorType door) => door is DoorType.EscapePrimary or DoorType.EscapeSecondary or DoorType.EscapeFinal;
+        public static bool IsEscape(this DoorType door) => EscapeEnum.Contains(door);
 
         /// <summary>
         /// Checks if a <see cref="DoorType"/> is located in the Light Containment Zone (LCZ).
@@ -103,6 +117,6 @@ namespace Exiled.API.Extensions
         /// </summary>
         /// <param name="door">The door to be checked.</param>
         /// <returns>Returns <c>true</c> if the <see cref="DoorType"/> is unknown; otherwise, <c>false</c>.</returns>
-        public static bool IsUnknown(this DoorType door) => door is DoorType.UnknownDoor or DoorType.UnknownGate or DoorType.UnknownElevator;
+        public static bool IsUnknown(this DoorType door) => UnknownEnum.Contains(door);
     }
 }
