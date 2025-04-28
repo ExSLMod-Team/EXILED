@@ -93,11 +93,11 @@ namespace Exiled.Events.Patches.Events.Player
                     // oldRole
                     new(OpCodes.Ldloc_S, oldRole.LocalIndex),
 
-                    // ragdoll
-                    new(OpCodes.Ldloc_S, ragdoll.LocalIndex),
-
                     // handler
                     new(OpCodes.Ldarg_1),
+
+                    // ragdoll
+                    new(OpCodes.Ldloc_S, ragdoll.LocalIndex),
 
                     // DiedEventArgs evDied = new(Player, RoleTypeId, DamageHandlerBase)
                     new(OpCodes.Newobj, GetDeclaredConstructors(typeof(DiedEventArgs))[0]),
