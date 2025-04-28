@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="InspectedWeaponEventArgs.cs" company="ExMod Team">
+// <copyright file="InspectedItemEventArgs.cs" company="ExMod Team">
 // Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
@@ -15,13 +15,13 @@ namespace Exiled.Events.EventArgs.Item
     /// <summary>
     /// Contains all information before weapon is inspected.
     /// </summary>
-    public class InspectedWeaponEventArgs : IItemEvent
+    public class InspectedItemEventArgs : IItemEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InspectedWeaponEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="InspectedItemEventArgs"/> class.
         /// </summary>
         /// <param name="item"><inheritdoc cref="Item"/></param>
-        public InspectedWeaponEventArgs(ItemBase item)
+        public InspectedItemEventArgs(ItemBase item)
         {
             Firearm = Item.Get<Firearm>(item);
         }

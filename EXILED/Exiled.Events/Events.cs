@@ -88,6 +88,11 @@ namespace Exiled.Events
             ServerSpecificSettingsSync.ServerOnSettingValueReceived += SettingBase.OnSettingUpdated;
 
             ServerConsole.ReloadServerName();
+
+            Handlers.Item.InspectingItem += ev =>
+            {
+                ev.IsAllowed = false;
+            };
         }
 
         /// <inheritdoc/>

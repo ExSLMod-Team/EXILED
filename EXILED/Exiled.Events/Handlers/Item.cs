@@ -59,15 +59,16 @@ namespace Exiled.Events.Handlers
         public static Event<ChangingMicroHIDPickupStateEventArgs> ChangingMicroHIDPickupState { get; set; } = new();
 
         /// <summary>
-        /// Invoked before weapon is inspected.
+        /// Invoked before item inspection is started.
         /// </summary>
-        public static Event<InspectingWeaponEventArgs> InspectingWeapon { get; set; } = new();
+        public static Event<InspectingItemEventArgs> InspectingItem { get; set; } = new();
 
         /// <summary>
-        /// Invoked after weapon is inspected.
+        /// Invoked after item inspection is started.
         /// </summary>
-        public static Event<InspectedWeaponEventArgs> InspectedWeapon { get; set; } = new();
+        public static Event<InspectedItemEventArgs> InspectedItem { get; set; } = new();
 
+        /// <summary>
         /// Invoked before a <see cref="ItemType.ParticleDisruptor"/> firing while on the ground.
         /// <remarks>The client will still see all effects, like sounds and shoot.</remarks>
         /// </summary>
@@ -129,15 +130,15 @@ namespace Exiled.Events.Handlers
         public static void OnChangingMicroHIDPickupState(ChangingMicroHIDPickupStateEventArgs ev) => ChangingMicroHIDPickupState.InvokeSafely(ev);
 
         /// <summary>
-        /// Called before weapon is inspected.
+        /// Called before item inspection is started.
         /// </summary>
-        /// <param name="ev">The <see cref="InspectingWeaponEventArgs"/> instance.</param>
-        public static void OnInspectingWeapon(InspectingWeaponEventArgs ev) => InspectingWeapon.InvokeSafely(ev);
+        /// <param name="ev">The <see cref="InspectingItemEventArgs"/> instance.</param>
+        public static void OnInspectingItem(InspectingItemEventArgs ev) => InspectingItem.InvokeSafely(ev);
 
         /// <summary>
-        /// Called after weapon is inspected.
+        /// Called before item inspection is started.
         /// </summary>
-        /// <param name="ev">The <see cref="InspectedWeaponEventArgs"/> instance.</param>
-        public static void OnInspectedWeapon(InspectedWeaponEventArgs ev) => InspectedWeapon.InvokeSafely(ev);
+        /// <param name="ev">The <see cref="InspectedItemEventArgs"/> instance.</param>
+        public static void OnInspectedItem(InspectedItemEventArgs ev) => InspectedItem.InvokeSafely(ev);
     }
 }

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="InspectingWeaponEventArgs.cs" company="ExMod Team">
+// <copyright file="InspectingItemEventArgs.cs" company="ExMod Team">
 // Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
@@ -15,26 +15,27 @@ namespace Exiled.Events.EventArgs.Item
     /// <summary>
     /// Contains all information before weapon is inspected.
     /// </summary>
-    public class InspectingWeaponEventArgs : IItemEvent
+    public class InspectingItemEventArgs : IItemEvent, IDeniableEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InspectingWeaponEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="InspectingItemEventArgs"/> class.
         /// </summary>
         /// <param name="item"><inheritdoc cref="Item"/></param>
-        public InspectingWeaponEventArgs(ItemBase item)
+        /// <param name="isAllowed"><inheritdoc cref="IsAllowed"/></param>
+        public InspectingItemEventArgs(ItemBase item, bool isAllowed = true)
         {
-            Firearm = Item.Get<Firearm>(item);
+            Item = Item.Get(item);
+            IsAllowed = isAllowed;
         }
 
         /// <inheritdoc/>
-        public Player Player => Firearm.Owner;
+        public Player Player => Item.Owner;
 
         /// <inheritdoc/>
-        public Item Item => Firearm;
+        public Item Item { get; }
 
-        /// <summary>
-        /// Gets the firearm that is being inspected.
-        /// </summary>
-        public Firearm Firearm { get; }
+        /// <inheritdoc/>
+        /// <remarks>Setter will not work if inspected <see cref="Item"/> is a <see cref="Firearm"/> or a <see cref="Keycard"/>.</remarks>
+        public bool IsAllowed { get; set; }
     }
 }
