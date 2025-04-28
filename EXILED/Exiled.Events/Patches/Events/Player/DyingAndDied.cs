@@ -77,9 +77,6 @@ namespace Exiled.Events.Patches.Events.Player
                     new(OpCodes.Callvirt, PropertyGetter(typeof(Player), nameof(Player.Role))),
                     new(OpCodes.Callvirt, PropertyGetter(typeof(Role), nameof(Role.Type))),
                     new(OpCodes.Stloc, oldRole.LocalIndex),
-
-                    new(OpCodes.Callvirt, PropertyGetter(typeof(DyingEventArgs), nameof(DyingEventArgs.IsAllowed))),
-                    new(OpCodes.Brfalse, ret),
                 });
 
             int index = newInstructions.FindIndex(x => x.opcode == OpCodes.Pop);
