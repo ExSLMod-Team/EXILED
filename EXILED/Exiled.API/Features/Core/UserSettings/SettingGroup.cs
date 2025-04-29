@@ -133,6 +133,8 @@ namespace Exiled.API.Features.Core.UserSettings
                     throw new InvalidOperationException("SettingGroups cannot reference themselves within subgroups.");
                 group.InternalGetAllSettings(current, previousGroups);
             }
+
+            previousGroups.Remove(this);
         }
 
         /// <summary>
@@ -154,6 +156,8 @@ namespace Exiled.API.Features.Core.UserSettings
                     throw new InvalidOperationException("SettingGroups cannot reference themselves within subgroups.");
                 group.InternalGetViewableSettingsOrdered(current, previousGroups, viewer);
             }
+
+            previousGroups.Remove(this);
         }
     }
 }
