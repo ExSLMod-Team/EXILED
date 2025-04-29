@@ -275,18 +275,37 @@ namespace Exiled.Events.Patches.Events.Item
 
             newInstructions.InsertRange(index, new[]
             {
+                // this.MicroHid
                 new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
                 new(OpCodes.Callvirt, PropertyGetter(typeof(DrawAndInspectorModule), nameof(DrawAndInspectorModule.MicroHid))),
 
+                // true
                 new(OpCodes.Ldc_I4_1),
 
+                // InspectingItemEventArgs ev = new(this.MicroHid, true)
                 new(OpCodes.Newobj, GetDeclaredConstructors(typeof(InspectingItemEventArgs))[0]),
                 new(OpCodes.Dup),
 
+                // Handlers.Item.OnInspectingItem(ev)
                 new(OpCodes.Call, Method(typeof(Handlers.Item), nameof(Handlers.Item.OnInspectingItem))),
 
+                // if (!ev.IsAllowed)
+                //     return
                 new(OpCodes.Callvirt, PropertyGetter(typeof(InspectingItemEventArgs), nameof(InspectingItemEventArgs.IsAllowed))),
                 new(OpCodes.Brfalse_S, returnLabel),
+            });
+
+            newInstructions.InsertRange(newInstructions.Count - 1, new CodeInstruction[]
+            {
+                // this.MicroHid
+                new(OpCodes.Ldarg_0),
+                new(OpCodes.Callvirt, PropertyGetter(typeof(DrawAndInspectorModule), nameof(DrawAndInspectorModule.MicroHid))),
+
+                // InspectedItemEventArgs = new(this.MicroHid)
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(InspectedItemEventArgs))[0]),
+
+                // Handlers.Item.OnInspectedItem(ev)
+                new(OpCodes.Call, Method(typeof(Handlers.Item), nameof(Handlers.Item.OnInspectedItem))),
             });
 
             newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);

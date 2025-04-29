@@ -23,18 +23,13 @@ namespace Exiled.Events.EventArgs.Item
         /// <param name="item"><inheritdoc cref="Item"/></param>
         public InspectedItemEventArgs(ItemBase item)
         {
-            Firearm = Item.Get<Firearm>(item);
+            Item = Item.Get(item);
         }
 
         /// <inheritdoc/>
-        public Player Player => Firearm.Owner;
+        public Player Player => Item.Owner;
 
         /// <inheritdoc/>
-        public Item Item => Firearm;
-
-        /// <summary>
-        /// Gets the firearm that is being inspected.
-        /// </summary>
-        public Firearm Firearm { get; }
+        public Item Item { get; }
     }
 }
