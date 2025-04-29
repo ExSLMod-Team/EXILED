@@ -499,6 +499,12 @@ namespace Exiled.CustomRoles.API.Features
         /// Handles setup of the role, including spawn location, inventory and registering event handlers and add FF rules.
         /// </summary>
         /// <param name="player">The <see cref="Player"/> to add the role to.</param>
+        public virtual void AddRole(Player player) => AddRole(player, SpawnReason.ForceClass, false, RoleSpawnFlags.All);
+
+        /// <summary>
+        /// Handles setup of the role, including spawn location, inventory and registering event handlers and add FF rules.
+        /// </summary>
+        /// <param name="player">The <see cref="Player"/> to add the role to.</param>
         /// <param name="spawnReason">The <see cref="SpawnReason"/>.</param>
         /// <param name="overrideFlags">Whether it should use <paramref name="overrideSpawnFlags"/> or not.</param>
         /// <param name="overrideSpawnFlags">The <see cref="RoleSpawnFlags"/> to apply if <paramref name="overrideFlags"/> is <see langword="true"/>.</param>
@@ -907,7 +913,7 @@ namespace Exiled.CustomRoles.API.Features
         /// <param name="player">The <see cref="Player"/> the role was added to.</param>
         /// <param name="spawnReason">The <see cref="SpawnReason"/>.</param>
         /// <param name="roleSpawnFlags">The <see cref="RoleSpawnFlags"/> to apply.</param>
-        protected virtual void RoleAdded(Player player, SpawnReason spawnReason = SpawnReason.ForceClass, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
+        protected virtual void RoleAdded(Player player, SpawnReason spawnReason, RoleSpawnFlags roleSpawnFlags)
         {
 #pragma warning disable CS0618
             RoleAdded(player);
@@ -929,7 +935,7 @@ namespace Exiled.CustomRoles.API.Features
         /// <param name="player">The <see cref="Player"/> the role was removed from.</param>
         /// <param name="spawnReason">The <see cref="SpawnReason"/>.</param>
         /// <param name="roleSpawnFlags">The <see cref="RoleSpawnFlags"/> to apply.</param>
-        protected virtual void RoleRemoved(Player player, SpawnReason spawnReason = SpawnReason.ForceClass, RoleSpawnFlags roleSpawnFlags = RoleSpawnFlags.All)
+        protected virtual void RoleRemoved(Player player, SpawnReason spawnReason, RoleSpawnFlags roleSpawnFlags)
         {
 #pragma warning disable CS0618
             RoleRemoved(player);
