@@ -40,25 +40,33 @@ namespace Exiled.Events.Patches.Events.Scp939
 
             newInstructions.InsertRange(index, new CodeInstruction[]
             {
+                // Player.Get(this.Owner)
                 new(OpCodes.Ldarg_0),
                 new(OpCodes.Callvirt, PropertyGetter(typeof(MimicPointController), nameof(MimicPointController.Owner))),
                 new(OpCodes.Call, Method(typeof(Player), nameof(Player.Get), new[] { typeof(ReferenceHub) })),
 
+                // this._syncPos
                 new(OpCodes.Ldarg_0),
                 new(OpCodes.Ldfld, Field(typeof(MimicPointController), nameof(MimicPointController._syncPos))),
 
+                // true
                 new(OpCodes.Ldc_I4_1),
 
+                // PlacingMimicPointEventArgs = new(Player.Get(this.Owner), this._syncPos, true)
                 new(OpCodes.Newobj, GetDeclaredConstructors(typeof(PlacingMimicPointEventArgs))[0]),
                 new(OpCodes.Dup),
                 new(OpCodes.Dup),
                 new(OpCodes.Stloc_S, ev.LocalIndex),
 
+                // Handlers.Scp939.OnPlacingMimicPoint(ev)
                 new(OpCodes.Call, Method(typeof(Handlers.Scp939), nameof(Handlers.Scp939.OnPlacingMimicPoint))),
 
+                // if (!ev.IsAllowed)
+                //     return
                 new(OpCodes.Callvirt, PropertyGetter(typeof(PlacingMimicPointEventArgs), nameof(PlacingMimicPointEventArgs.IsAllowed))),
                 new(OpCodes.Brfalse_S, returnLabel),
 
+                // this._syncPos = ev.Position
                 new(OpCodes.Ldarg_0),
                 new(OpCodes.Ldloc_S, ev.LocalIndex),
                 new(OpCodes.Callvirt, PropertyGetter(typeof(PlacingMimicPointEventArgs), nameof(PlacingMimicPointEventArgs.Position))),

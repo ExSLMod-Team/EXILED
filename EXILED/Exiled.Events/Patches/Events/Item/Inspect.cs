@@ -257,7 +257,7 @@ namespace Exiled.Events.Patches.Events.Item
     }
 
     /// <summary>
-    /// Patches <see cref="JailbirdItem.ServerProcessCmd"/>
+    /// Patches <see cref="DrawAndInspectorModule.ServerProcessCmd"/>
     /// to add <see cref="Handlers.Item.InspectingItem"/> and <see cref="Handlers.Item.InspectedItem"/> event.
     /// </summary>
     [EventPatch(typeof(Handlers.Item), nameof(Handlers.Item.InspectingItem))]
