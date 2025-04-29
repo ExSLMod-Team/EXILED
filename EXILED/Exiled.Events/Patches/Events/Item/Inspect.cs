@@ -9,7 +9,6 @@ namespace Exiled.Events.Patches.Events.Item
 {
 #pragma warning disable SA1402
 #pragma warning disable SA1649
-
     using System.Collections.Generic;
     using System.Reflection.Emit;
 
@@ -20,6 +19,7 @@ namespace Exiled.Events.Patches.Events.Item
     using InventorySystem.Items.Firearms.Modules;
     using InventorySystem.Items.Jailbird;
     using InventorySystem.Items.Keycards;
+    using InventorySystem.Items.MicroHID.Modules;
     using InventorySystem.Items.Usables.Scp1344;
 
     using static HarmonyLib.AccessTools;
@@ -191,6 +191,8 @@ namespace Exiled.Events.Patches.Events.Item
 
             ListPool<CodeInstruction>.Pool.Return(newInstructions);
         }
+
+        private static void Return(KeycardItem item) => item.ServerSendPrivateRpc(x => KeycardItem.WriteInspect(x, false));
     }
 
     /// <summary>
@@ -246,6 +248,48 @@ namespace Exiled.Events.Patches.Events.Item
                 // Handlers.Item.OnInspectedItem(ev)
                 new(OpCodes.Call, Method(typeof(Handlers.Item), nameof(Handlers.Item.OnInspectedItem))),
             });
+
+            for (int z = 0; z < newInstructions.Count; z++)
+                yield return newInstructions[z];
+
+            ListPool<CodeInstruction>.Pool.Return(newInstructions);
+        }
+    }
+
+    /// <summary>
+    /// Patches <see cref="JailbirdItem.ServerProcessCmd"/>
+    /// to add <see cref="Handlers.Item.InspectingItem"/> and <see cref="Handlers.Item.InspectedItem"/> event.
+    /// </summary>
+    [EventPatch(typeof(Handlers.Item), nameof(Handlers.Item.InspectingItem))]
+    [EventPatch(typeof(Handlers.Item), nameof(Handlers.Item.InspectedItem))]
+    [HarmonyPatch(typeof(DrawAndInspectorModule), nameof(DrawAndInspectorModule.ServerProcessCmd))]
+    internal class InspectMicroHid
+    {
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+        {
+            List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Pool.Get(instructions);
+
+            int index = newInstructions.FindLastIndex(x => x.opcode == OpCodes.Ldarg_0);
+
+            Label returnLabel = generator.DefineLabel();
+
+            newInstructions.InsertRange(index, new[]
+            {
+                new CodeInstruction(OpCodes.Ldarg_0).MoveLabelsFrom(newInstructions[index]),
+                new(OpCodes.Callvirt, PropertyGetter(typeof(DrawAndInspectorModule), nameof(DrawAndInspectorModule.MicroHid))),
+
+                new(OpCodes.Ldc_I4_1),
+
+                new(OpCodes.Newobj, GetDeclaredConstructors(typeof(InspectingItemEventArgs))[0]),
+                new(OpCodes.Dup),
+
+                new(OpCodes.Call, Method(typeof(Handlers.Item), nameof(Handlers.Item.OnInspectingItem))),
+
+                new(OpCodes.Callvirt, PropertyGetter(typeof(InspectingItemEventArgs), nameof(InspectingItemEventArgs.IsAllowed))),
+                new(OpCodes.Brfalse_S, returnLabel),
+            });
+
+            newInstructions[newInstructions.Count - 1].labels.Add(returnLabel);
 
             for (int z = 0; z < newInstructions.Count; z++)
                 yield return newInstructions[z];
