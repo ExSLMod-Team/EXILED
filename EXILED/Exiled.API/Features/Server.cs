@@ -284,12 +284,10 @@ namespace Exiled.API.Features
         /// <param name="restartAction">Specifies the action to perform after the restart.</param>
         /// <returns><see langword="true"/> if redirection was successful; otherwise, <see langword="false"/>.</returns>
         /// <remarks>If the returned value is <see langword="false"/>, the server won't restart.</remarks>
-        public static bool RestartRedirect(ushort redirectPort, bool fastRestart, bool overrideRestartAction = false, ServerStatic.NextRoundAction restartAction = ServerStatic.NextRoundAction.DoNothing)
+        public static void RestartRedirect(ushort redirectPort, bool fastRestart, bool overrideRestartAction = false, ServerStatic.NextRoundAction restartAction = ServerStatic.NextRoundAction.DoNothing)
         {
             NetworkServer.SendToAll(new RoundRestartMessage(RoundRestartType.RedirectRestart, 0.0f, redirectPort, true, false));
             Timing.CallDelayed(0.5f, () => { Restart(fastRestart, overrideRestartAction, restartAction); });
-
-            return true;
         }
 
         /// <summary>
@@ -314,12 +312,10 @@ namespace Exiled.API.Features
         /// <param name="suppressShutdownBroadcast">Indicates whether to suppress the broadcast notification about the shutdown.</param>
         /// <returns><see langword="true"/> if redirection was successful; otherwise, <see langword="false"/>.</returns>
         /// <remarks>If the returned value is <see langword="false"/>, the server won't shutdown.</remarks>
-        public static bool ShutdownRedirect(ushort redirectPort, bool quit, bool suppressShutdownBroadcast = false)
+        public static void ShutdownRedirect(ushort redirectPort, bool quit, bool suppressShutdownBroadcast = false)
         {
             NetworkServer.SendToAll(new RoundRestartMessage(RoundRestartType.RedirectRestart, 0.0f, redirectPort, true, false));
             Timing.CallDelayed(0.5f, () => { Shutdown(quit, suppressShutdownBroadcast); });
-
-            return true;
         }
 
         /// <summary>
