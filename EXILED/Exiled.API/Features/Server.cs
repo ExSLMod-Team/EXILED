@@ -282,8 +282,6 @@ namespace Exiled.API.Features
         /// <param name="fastRestart">Indicates whether the restart should be fast.</param>
         /// <param name="overrideRestartAction">Indicates whether to override the default restart action.</param>
         /// <param name="restartAction">Specifies the action to perform after the restart.</param>
-        /// <returns><see langword="true"/> if redirection was successful; otherwise, <see langword="false"/>.</returns>
-        /// <remarks>If the returned value is <see langword="false"/>, the server won't restart.</remarks>
         public static void RestartRedirect(ushort redirectPort, bool fastRestart, bool overrideRestartAction = false, ServerStatic.NextRoundAction restartAction = ServerStatic.NextRoundAction.DoNothing)
         {
             NetworkServer.SendToAll(new RoundRestartMessage(RoundRestartType.RedirectRestart, 0.0f, redirectPort, true, false));
@@ -310,8 +308,6 @@ namespace Exiled.API.Features
         /// <param name="redirectPort">The port to redirect players to.</param>
         /// <param name="quit">Indicates whether to terminate the application after shutting down the server.</param>
         /// <param name="suppressShutdownBroadcast">Indicates whether to suppress the broadcast notification about the shutdown.</param>
-        /// <returns><see langword="true"/> if redirection was successful; otherwise, <see langword="false"/>.</returns>
-        /// <remarks>If the returned value is <see langword="false"/>, the server won't shutdown.</remarks>
         public static void ShutdownRedirect(ushort redirectPort, bool quit, bool suppressShutdownBroadcast = false)
         {
             NetworkServer.SendToAll(new RoundRestartMessage(RoundRestartType.RedirectRestart, 0.0f, redirectPort, true, false));
