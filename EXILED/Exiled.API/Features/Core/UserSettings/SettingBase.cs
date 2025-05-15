@@ -288,7 +288,7 @@ namespace Exiled.API.Features.Core.UserSettings
 
             ServerSpecificSettingsSync.DefinedSettings = (ServerSpecificSettingsSync.DefinedSettings ?? Array.Empty<ServerSpecificSettingBase>()).Concat(result.Select(s => s.Base)).ToArray();
             Settings.AddRange(result);
-            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Concat(result);
+            SettingGroup.ObsoleteGroup.Settings.AddRange(result);
 
             if (predicate == null)
                 SendToAll();
@@ -356,7 +356,7 @@ namespace Exiled.API.Features.Core.UserSettings
 
             ServerSpecificSettingsSync.DefinedSettings = (ServerSpecificSettingsSync.DefinedSettings ?? Array.Empty<ServerSpecificSettingBase>()).Concat(result.Select(s => s.Base)).ToArray();
             Settings.AddRange(result);
-            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Concat(result);
+            SettingGroup.ObsoleteGroup.Settings.AddRange(result);
 
             SendToPlayer(player);
 
@@ -375,7 +375,7 @@ namespace Exiled.API.Features.Core.UserSettings
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
             List<SettingBase> list2 = new((settings ?? Settings).Where(setting => list.Remove(setting.Base)));
-            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Except(settings ?? Settings);
+            SettingGroup.ObsoleteGroup.Settings.RemoveAll(setting => (settings ?? Settings).Contains(setting));
 
             ServerSpecificSettingsSync.DefinedSettings = list.ToArray();
 
@@ -431,7 +431,7 @@ namespace Exiled.API.Features.Core.UserSettings
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
             List<SettingBase> list2 = new((settings ?? Settings).Where(setting => list.Remove(setting.Base)));
-            SettingGroup.ObsoleteGroup.Settings = SettingGroup.ObsoleteGroup.Settings.Except(settings ?? Settings);
+            SettingGroup.ObsoleteGroup.Settings.RemoveAll(setting => (settings ?? Settings).Contains(setting));
 
             ServerSpecificSettingsSync.DefinedSettings = list.ToArray();
 
