@@ -27,16 +27,16 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <param name="subgroups"><inheritdoc cref="SubGroups"/></param>
         public SettingGroup(IEnumerable<SettingBase> settings, int priority = 0, Predicate<Player> viewers = null, IEnumerable<SettingGroup> subgroups = null)
         {
-            Settings = settings;
+            Settings = settings.ToList();
             Priority = priority;
             Viewers = viewers;
-            SubGroups = subgroups;
+            SubGroups = subgroups?.ToList();
         }
 
         /// <summary>
         /// Gets or sets the settings within this group.
         /// </summary>
-        public IEnumerable<SettingBase> Settings { get; set; }
+        public List<SettingBase> Settings { get; set; }
 
         /// <summary>
         /// Gets or sets the priority of this group when sent to players.
@@ -51,7 +51,7 @@ namespace Exiled.API.Features.Core.UserSettings
         /// <summary>
         /// Gets or sets the subgroups within this group.
         /// </summary>
-        public IEnumerable<SettingGroup> SubGroups { get; set; }
+        public List<SettingGroup> SubGroups { get; set; }
 
         /// <summary>
         /// Gets a SettingGroup that all values from obsolete SettingBase methods register to. Helps track unregistering settings.
