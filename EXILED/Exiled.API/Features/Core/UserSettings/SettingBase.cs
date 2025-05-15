@@ -400,7 +400,7 @@ namespace Exiled.API.Features.Core.UserSettings
         {
             List<ServerSpecificSettingBase> list = ListPool<ServerSpecificSettingBase>.Pool.Get(ServerSpecificSettingsSync.DefinedSettings);
             SettingGroup[] settingGroups = groups?.ToArray();
-            List<SettingBase> list2 = new((settingGroups?.SelectMany(group => group.Settings) ?? Settings).Where(setting => list.Remove(setting.Base)));
+            List<SettingBase> list2 = new((settingGroups?.SelectMany(group => group.GetAllSettings()) ?? Settings).Where(setting => list.Remove(setting.Base)));
 
             if (groups == null)
                 Groups.Clear();
