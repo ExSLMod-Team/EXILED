@@ -246,6 +246,11 @@ namespace Exiled.API.Enums
         Scp1344,
 
         /// <summary>
+        /// <see cref="CustomPlayerEffects.Scp1344Detected"/>.
+        /// </summary>
+        Scp1344Detected,
+        
+        /// <summary>
         /// <see cref="CustomPlayerEffects.SeveredEyes"/>.
         /// </summary>
         SeveredEyes,
