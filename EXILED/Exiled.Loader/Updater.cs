@@ -126,7 +126,7 @@ namespace Exiled.Loader
         }
 
         /// <summary>
-        /// Creates a HTTP Client, and checks at the ExMod-Team GitHub repository.
+        /// Creates a HTTP Client, and checks at the ExSLMod-Team GitHub repository.
         /// </summary>
         /// <returns>Client determining if it was successful connecting to the Exiled GitHub repository.</returns>
         private HttpClient CreateHttpClient()

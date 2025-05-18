@@ -1,10 +1,10 @@
 <h1 align="center">EXILED - EXtended In-runtime Library for External Development</h1>
 <div align="center">
     
-[<img src="https://img.shields.io/github/actions/workflow/status/ExMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExSLMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
-<a href="https://github.com/ExSLMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExSLMod-Team/EXILED/releases" alt="GitHub Releases"></a>
-<img src="https://img.shields.io/github/downloads/ExMod-Team/EXILED/total?style=for-the-badge&logo=github" alt="Downloads">
-![Github Commits](https://img.shields.io/github/commit-activity/w/ExMod-Team/EXILED/apis-rework?style=for-the-badge&logo=git)
+[<img src="https://img.shields.io/github/actions/workflow/status/ExSLMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExSLMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
+<a href="https://github.com/ExSLMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExSLMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExSLMod-Team/EXILED/releases" alt="GitHub Releases"></a>
+<img src="https://img.shields.io/github/downloads/ExSLMod-Team/EXILED/total?style=for-the-badge&logo=github" alt="Downloads">
+![Github Commits](https://img.shields.io/github/commit-activity/w/ExSLMod-Team/EXILED/apis-rework?style=for-the-badge&logo=git)
 <a href="https://discord.gg/PyUkWTg">
     <img src="https://img.shields.io/discord/656673194693885975?style=for-the-badge&logo=discord" alt="Chat on Discord">
 </a>    
@@ -82,7 +82,7 @@ EXILED сам по себе предлагает некоторые опции �
 
 Если вы хотите создать плагин для EXILED, сделать это довольно просто. Если вы хотите получить более подробное руководство, посетите нашу страницу [Начало работы](GettingStarted.md).
 
-Более полные и активно обновляемые руководства вы найдете на [сайте EXILED](https://exmod-team.github.io/EXILED/).
+Более полные и активно обновляемые руководства вы найдете на [сайте EXILED](https://ExSLMod-Team.github.io/EXILED/).
 
 - Ваш плагин должен содержать класс, который наследуется от Exiled.API.Features.Plugin<>, если это не так, EXILED не загрузит ваш плагин при запуске сервера.
 - Когда плагин загружен, код в методе ``OnEnabled()`` вышеупомянутого класса срабатывает немедленно, он не ждет загрузки других плагинов. Он не ждет завершения процесса запуска сервера. ***Он не ждет ничего.*** При настройке метода ``OnEnabled()`` убедитесь, что вы не обращаетесь к вещам, которые еще не инициализированы сервером, таким как ServerConsole.Port или PlayerManager.localPlayer.

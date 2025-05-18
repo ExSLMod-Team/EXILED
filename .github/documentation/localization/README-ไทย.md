@@ -1,10 +1,10 @@
 <h1 align="center">EXILED - Library รันไทม์สำหรับการพัฒนาภายนอก</h1>
 <div align="center">
     
-[<img src="https://img.shields.io/github/actions/workflow/status/ExMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExSLMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
-<a href="https://github.com/ExSLMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExSLMod-Team/EXILED/releases" alt="GitHub Releases"></a>
-<img src="https://img.shields.io/github/downloads/ExMod-Team/EXILED/total?style=for-the-badge&logo=github" alt="Downloads">
-![Github Commits](https://img.shields.io/github/commit-activity/w/ExMod-Team/EXILED/apis-rework?style=for-the-badge&logo=git)
+[<img src="https://img.shields.io/github/actions/workflow/status/ExSLMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExSLMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
+<a href="https://github.com/ExSLMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExSLMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExSLMod-Team/EXILED/releases" alt="GitHub Releases"></a>
+<img src="https://img.shields.io/github/downloads/ExSLMod-Team/EXILED/total?style=for-the-badge&logo=github" alt="Downloads">
+![Github Commits](https://img.shields.io/github/commit-activity/w/ExSLMod-Team/EXILED/apis-rework?style=for-the-badge&logo=git)
 <a href="https://discord.gg/PyUkWTg">
     <img src="https://img.shields.io/discord/656673194693885975?style=for-the-badge&logo=discord" alt="Chat on Discord">
 </a>    
@@ -83,7 +83,7 @@ EXILED เองมีตัวเลือกการกําหนด config
 
 คุณสามารถสร้างปลั๊กอินสำหรับ EXILED ได้เอง, ไม่ยากเลย. ถ้าหากคุณต้องการคำแนะนำเพิ่มเติมกรุณาไปที่ [หน้าเริ่มต้น](GettingStarted-ไทย.md).
 
-สำหรับบทช่วยสอนที่ครอบคลุมและอัปเดตมากขึ้น, โปรดไปที่ [เว็บไซต์ EXILED](https://exmod-team.github.io/EXILED/).
+สำหรับบทช่วยสอนที่ครอบคลุมและอัปเดตมากขึ้น, โปรดไปที่ [เว็บไซต์ EXILED](https://ExSLMod-Team.github.io/EXILED/).
 
 แต่อย่าลืมปฏิบัติตามกฎเหล่านี้เมื่อเผยแพร่ปลั๊กอินของคุณ:
 

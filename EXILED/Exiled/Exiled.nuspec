@@ -3,10 +3,10 @@
   <metadata>
 
     <id>ExMod.Exiled</id>
-    <title>ExMod-Team</title>
+    <title>ExSLMod-Team</title>
     <version>$version$</version>
-    <authors>ExMod-Team</authors>
-    <owners>ExMod-Team</owners>
+    <authors>ExSLMod-Team</authors>
+    <owners>ExSLMod-Team</owners>
     <copyright>Copyright © ExMod Team 2024 - $year$</copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <repository type="Git" url="https://github.com/ExSLMod-Team/EXILED" />

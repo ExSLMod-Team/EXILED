@@ -71,7 +71,7 @@ However, some plugins might get their config settings from other locations on th
 
 If you wish to make a plugin for EXILED, it's quite simple to do so. If you would like more of a tutorial please visit our [Getting Started Page.](GettingStarted.md).
 
-For more comprehensive and actively updated tutorials, see [the EXILED website](https://exmod-team.github.io/EXILED/).
+For more comprehensive and actively updated tutorials, see [the EXILED website](https://ExSLMod-Team.github.io/EXILED/).
 
 But make sure to follow these rules when publishing your plugins:
 
