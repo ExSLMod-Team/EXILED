@@ -1,8 +1,8 @@
 <h1 align="center">EXILED - EXtended In-runtime Library for External Development</h1>
 <div align="center">
     
-[<img src="https://img.shields.io/github/actions/workflow/status/ExMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
-<a href="https://github.com/ExMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExMod-Team/EXILED/releases" alt="GitHub Releases"></a>
+[<img src="https://img.shields.io/github/actions/workflow/status/ExMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExSLMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
+<a href="https://github.com/ExSLMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExSLMod-Team/EXILED/releases" alt="GitHub Releases"></a>
 <img src="https://img.shields.io/github/downloads/ExMod-Team/EXILED/total?style=for-the-badge&logo=github" alt="Downloads">
 ![Github Commits](https://img.shields.io/github/commit-activity/w/ExMod-Team/EXILED/apis-rework?style=for-the-badge&logo=git)
 <a href="https://discord.gg/PyUkWTg">
@@ -24,11 +24,11 @@ EXILED의 설치 과정은 상당히 간단합니다. 노스우드의 Plugin API
 
 # Windows
 
-### 설치 프로그램 사용 ([설치 프로그램 설명 (영어)](https://github.com/ExMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
+### 설치 프로그램 사용 ([설치 프로그램 설명 (영어)](https://github.com/ExSLMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
 
 **주의사항**: 설치 프로그램을 사용하기 전에, SCP: 비밀 연구소 서버를 실행할 유저와 같은 유저인지, 또는 관리자 권한을 가진 유저인지 확인해주세요.
 
-- **[여기에서](https://github.com/ExMod-Team/EXILED/releases) `Exiled.Installer-Win.exe`** 를 다운로드합니다. (Assets 클릭 -> Exiled.Installer-Win.exe 클릭)
+- **[여기에서](https://github.com/ExSLMod-Team/EXILED/releases) `Exiled.Installer-Win.exe`** 를 다운로드합니다. (Assets 클릭 -> Exiled.Installer-Win.exe 클릭)
 - 서버와 같은 폴더에 프로그램을 위치시킵니다. (서버를 다운로드 받지 않았다면 설치하세요.)
 - **`Exiled.Installer.exe`** 를 실행하거나 프리릴리즈 버전을 설치하려면 **이 [.bat 파일](https://www.dropbox.com/scl/fi/7yh0r3q0vdn6ic4rhuu3l/install-prerelease.bat?rlkey=99fwjbwy1xg61qgtak0qzb9rd&st=8xs4xks8&dl=1)을 받아** 서버 폴더에 넣고 실행합니다.
 - 플러그인을 다운로드하고 설치하려면, 아래 [플러그인 설치](#플러그인-설치) 문단을 참고하세요.
@@ -36,7 +36,7 @@ EXILED의 설치 과정은 상당히 간단합니다. 노스우드의 Plugin API
 
 ### 수동 설치
 
-- **`Exiled.tar.gz`를 [여기서](https://github.com/ExMod-Team/EXILED/releases)** 다운로드합니다.
+- **`Exiled.tar.gz`를 [여기서](https://github.com/ExSLMod-Team/EXILED/releases)** 다운로드합니다.
 - 안의 내용을 [7Zip](https://www.7-zip.org/) 이나 [WinRar](https://www.win-rar.com/download.html?&L=6)로 압축을 풀어주세요.
 - **`EXILED`** 폴더를 **`%appdata%`** 로 옮깁니다. \*주의사항: 이 폴더는 `C:\Users\%UserName%\AppData\Roaming\SCP Secret Laboratory`**_가 아닌_** `C:\Users\%UserName%\AppData\Roaming`에 위치해야만 하며, `(...)\AppData` 가 아닌, **무조건** `(...)\AppData\Roaming`에 위치해야 합니다.\*
 - **`SCP Secret Laboratory`** 폴더를 **`%appdata%`** 로 옮기세요.
@@ -55,11 +55,11 @@ EXILED의 설치 과정은 상당히 간단합니다. 노스우드의 Plugin API
 
 # 리눅스
 
-### 설치 프로그램 사용 ([설치 프로그램 설명 (영어)](https://github.com/ExMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
+### 설치 프로그램 사용 ([설치 프로그램 설명 (영어)](https://github.com/ExSLMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
 
 **주의사항**: 설치 프로그램을 사용하기 전에, SCP: 비밀 연구소 서버를 실행할 유저와 같은 유저인지, 또는 `root` 유저인지 확인해주세요.
 
-- **`Exiled.Installer-Linux`** 를 **[여기서](https://github.com/ExMod-Team/EXILED/releases)** 다운로드 하세요. (Assets 클릭 -> 설치 프로그램 다운로드)
+- **`Exiled.Installer-Linux`** 를 **[여기서](https://github.com/ExSLMod-Team/EXILED/releases)** 다운로드 하세요. (Assets 클릭 -> 설치 프로그램 다운로드)
 - **`./Exiled.Installer-Linux --path /path/to/server`** 를 입력해 설치하거나, 파일을 서버 폴더 안에 위치시키고 터미널을 이동시킨 다음 (`cd`) **`./Exiled.Installer-Linux`** 를 입력하세요.
 - 프리릴리즈 버전을 원한다면, 실행 시 **`--pre-releases`** 를 추가하세요. 예시: **`./Exiled.Installer-Linux /home/scp/server --pre-releases`**
 - 또 다른 예시: 만약 `Exiled.Installer-Linux`를 서버 폴더 안에 위치시켰다면: **`/home/scp/server/Exiled.Installer-Linux --pre-releases`** 를 입력하세요.
@@ -68,7 +68,7 @@ EXILED의 설치 과정은 상당히 간단합니다. 노스우드의 Plugin API
 ### 수동 설치
 
 - SCP 서버를 실행하는 유저와 같은지 **확인하세요.**
-- **`Exiled.tar.gz`** 를 **[여기서](https://github.com/ExMod-Team/EXILED/releases)** 다운로드하세요. (SSH: 우클릭으로 `Exiled.tar.gz` 링크를 복사하고, **`wget (다운로드-링크)`** 를 입력하세요.)
+- **`Exiled.tar.gz`** 를 **[여기서](https://github.com/ExSLMod-Team/EXILED/releases)** 다운로드하세요. (SSH: 우클릭으로 `Exiled.tar.gz` 링크를 복사하고, **`wget (다운로드-링크)`** 를 입력하세요.)
 - 현재 폴더로 압축을 풀려면, **`tar -xzvf EXILED.tar.gz`** 를 입력하세요.
 - **`EXILED`** 폴더를 **`~/.config`** 로 위치시키세요. \*주의사항: 이 폴더는 `~/.config/SCP Secret Laboratory` **_가 아닌_** `~/.config`에 위치해야 합니다. (SSH: **`mv EXILED ~/.config/`**)
 - **`SCP Secret Laboratory`** 폴더를 **`~/.config`** 에 위치시키세요. \*주의사항: 이 폴더는 `~/.config/SCP Secret Laboratory` **_가 아닌_** `~/.config`에 위치해야 합니다. (SSH: **`mv SCP Secret Laboratory ~/.config/`**)

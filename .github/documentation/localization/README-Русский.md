@@ -1,8 +1,8 @@
 <h1 align="center">EXILED - EXtended In-runtime Library for External Development</h1>
 <div align="center">
     
-[<img src="https://img.shields.io/github/actions/workflow/status/ExMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
-<a href="https://github.com/ExMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExMod-Team/EXILED/releases" alt="GitHub Releases"></a>
+[<img src="https://img.shields.io/github/actions/workflow/status/ExMod-Team/EXILED/main.yml?style=for-the-badge&logo=githubactions&label=build" alt="CI"/>](https://github.com/ExSLMod-Team/EXILED/actions/workflows/main.yml/badge.svg?branch=master)
+<a href="https://github.com/ExSLMod-Team/EXILED/releases"><img src="https://img.shields.io/github/v/release/ExMod-Team/EXILED?display_name=tag&style=for-the-badge&logo=gitbook&label=Release" href="https://github.com/ExSLMod-Team/EXILED/releases" alt="GitHub Releases"></a>
 <img src="https://img.shields.io/github/downloads/ExMod-Team/EXILED/total?style=for-the-badge&logo=github" alt="Downloads">
 ![Github Commits](https://img.shields.io/github/commit-activity/w/ExMod-Team/EXILED/apis-rework?style=for-the-badge&logo=git)
 <a href="https://discord.gg/PyUkWTg">
@@ -22,17 +22,17 @@ EXILED - низкоуровневый фреймворк для серверов
 Если вы решите использовать программу установки, она, при правильном запуске, "позаботится" об установке `Exiled.Loader`, `Exiled.Updater`, `Exiled.Permissions`, `Exiled.API` и `Exiled.Events`, а также о том, чтобы на вашем сервере был установлен правильный файл Assembly-CSharp.dll.
 
 # Windows
-### Автоматическая установка ([подробнее](https://github.com/ExMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
+### Автоматическая установка ([подробнее](https://github.com/ExSLMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
 **Примечание**: Перед запуском программы установки убедитесь, что вы находитесь под пользователем, который запускает сервер, или у вас есть права администратора.
 
-- Скачайте **`Exiled.Installer-Win.exe` [отсюда](https://github.com/ExMod-Team/EXILED/releases)** (нажмите на Assets -> нажмите на Installer).
+- Скачайте **`Exiled.Installer-Win.exe` [отсюда](https://github.com/ExSLMod-Team/EXILED/releases)** (нажмите на Assets -> нажмите на Installer).
 - Поместите его в папку вашего сервера (если вы еще не скачали выделенный сервер)
 - Дважды щелкните **`Exiled.Installer.exe`** или **[скачайте этот .bat](https://www.dropbox.com/scl/fi/7yh0r3q0vdn6ic4rhuu3l/install-prerelease.bat?rlkey=99fwjbwy1xg61qgtak0qzb9rd&st=8xs4xks8&dl=1)** и поместите его в папку сервера для установки последней предварительной версии.
 - Чтобы установить и получить плагины, ознакомьтесь с разделом [Установка плагинов](#Установка-плагинов-Windows) ниже.
   **Примечание:** Если вы устанавливаете EXILED на удаленный сервер, убедитесь, что вы запустили .exe от имени того же пользователя, который запускает ваши серверы SCP:SL (или пользователя с правами администратора).
 
 ### Установка вручную
-- Скачайте **`Exiled.tar.gz` [отсюда](https://github.com/ExMod-Team/EXILED/releases)**.
+- Скачайте **`Exiled.tar.gz` [отсюда](https://github.com/ExSLMod-Team/EXILED/releases)**.
 - Распакуйте его содержимое с помощью [7Zip](https://www.7-zip.org/) или [WinRar](https://www.win-rar.com/download.html?&L=6).
 - Переместите папку **`EXILED`** в **`%appdata%`** *Примечание: Эта папка должна находиться в ``C:\Users\%UserName%\AppData\Roaming``, и ***НЕ*** ``C:\Users\%UserName%\AppData\Roaming\SCP Secret Laboratory``, и **ЭТО ДОЛЖНО** быть в (. ...)\AppData\Roaming, а не (...)\AppData\!*.
 - Переместите **``SCP Secret Laboratory``** в **`%appdata%`**.
@@ -48,11 +48,11 @@ EXILED - низкоуровневый фреймворк для серверов
   - Переместите его в: ``C:\Users\%UserName%\AppData\Roaming\EXILED\Plugins`` (переместите его сюда, нажав Win + R, а затем написав `%appdata%`)
 
 # Linux
-### Автоматическая установка ([подробнее](https://github.com/ExMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
+### Автоматическая установка ([подробнее](https://github.com/ExSLMod-Team/EXILED/blob/master/EXILED/Exiled.Installer/README.md))
 
 **Примечание:** Если вы устанавливаете EXILED на удаленный сервер, убедитесь, что вы запускаете программу установки от имени того же пользователя, который запускает ваши серверы SCP:SL (или root).
 
-- Скачайте **`Exiled.Installer-Linux` [отсюда](https://github.com/ExMod-Team/EXILED/releases)** (нажмите на Assets -> нажмите на Installer).
+- Скачайте **`Exiled.Installer-Linux` [отсюда](https://github.com/ExSLMod-Team/EXILED/releases)** (нажмите на Assets -> нажмите на Installer).
 - Установите его, набрав **`./Exiled.Installer-Linux --path /путь/к/серверу`** или переместив его в папку сервера напрямую, перейдите в нее с помощью терминала (`cd`) и наберите: **`./Exiled.Installer-Linux`**.
 - Если вам нужна последняя предварительная версия, просто добавьте **`--pre-releases`**. Пример: **`./Exiled.Installer-Linux /home/scp/server --pre-releases`**.
 - Другой пример, если вы поместили `Exiled.Installer-Linux` в папку вашего сервера: **`/home/scp/server/Exiled.Installer-Linux --pre-releases`**
@@ -60,7 +60,7 @@ EXILED - низкоуровневый фреймворк для серверов
 
 ### Установка вручную
 - **Убедитесь**, что вы вошли в систему под пользователем, который запускает SCP-серверы.
-- Скачайте **`Exiled.tar.gz` [отсюда](https://github.com/ExMod-Team/EXILED/releases)** (SSH: щелкните правой кнопкой мыши и получите ссылку `Exiled.tar.gz`, затем введите: **`wget (link_to_download)`**)
+- Скачайте **`Exiled.tar.gz` [отсюда](https://github.com/ExSLMod-Team/EXILED/releases)** (SSH: щелкните правой кнопкой мыши и получите ссылку `Exiled.tar.gz`, затем введите: **`wget (link_to_download)`**)
 - Чтобы извлечь его в текущую папку, введите **``tar -xzvf EXILED.tar.gz``**.
 - Переместите **`SCP Secret Laboratory`** папку в **``~/.config``**. *Примечание: Эта папка должна находиться в ``~/.config``, а ***НЕ В*** ``~/.config/SCP Secret Laboratory``* (SSH: **`mv SCP Secret Laboratory ~/.config/`**)
 - Переместите папку **`EXILED`** в **``~/.config``**. *Примечание: Эта папка должна находиться в ``~/.config``, и ***НЕ В*** ``~/.config/SCP Secret Laboratory``* (SSH: **`mv EXILED ~/.config/`**)
