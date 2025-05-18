@@ -32,7 +32,7 @@ namespace Exiled.Loader
     /// </summary>
     internal sealed class Updater
     {
-        private const long REPOID = 833723500;
+        private const long REPOID = 984817990;
         private const string INSTALLER_ASSET_NAME_LINUX = "Exiled.Installer-Linux";
         private const string INSTALLER_ASSET_NAME_WIN = "Exiled.Installer-Win.exe";
 
@@ -178,8 +178,9 @@ namespace Exiled.Loader
                     Log.Info("No new versions found, you're using the most recent version of Exiled!");
                 }
             }
-            catch (Utf8Json.JsonParsingException)
+            catch (Utf8Json.JsonParsingException e)
             {
+                Log.Warn(e);
                 Log.Warn("Encountered GitHub ratelimit, unable to check and download the latest version of Exiled.");
             }
             catch (Exception ex)
