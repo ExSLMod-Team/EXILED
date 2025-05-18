@@ -46,7 +46,7 @@ namespace Exiled.Events.Patches.Events.Scp049
                 new(OpCodes.Ldarg_0),
                 new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility.Target))),
 
-                // Scp049SenseAbility.ReducedCooldown
+                // Scp049SenseAbility.TargetLostCooldown
                 new(OpCodes.Ldc_R8, (double)Scp049SenseAbility.TargetLostCooldown),
 
                 // true (IsAllowed)
