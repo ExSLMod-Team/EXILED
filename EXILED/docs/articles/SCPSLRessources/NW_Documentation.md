@@ -119,6 +119,7 @@ Last Update (14.1.0.0)
 - [ExampleId](#exampleid)
 - [ExampleId](#exampleid)
 - [ExplosionType](#explosiontype)
+- [ExportPreset](#exportpreset)
 - [FacilityZone](#facilityzone)
 - [Faction](#faction)
 - [FailReason](#failreason)
@@ -211,6 +212,7 @@ Last Update (14.1.0.0)
 - [NtpMode](#ntpmode)
 - [NullableBoolValue](#nullableboolvalue)
 - [OpenerEventType](#openereventtype)
+- [OptOutExportBehavior](#optoutexportbehavior)
 - [OpusApplicationType](#opusapplicationtype)
 - [OpusCtlGetRequest](#opusctlgetrequest)
 - [OpusCtlSetRequest](#opusctlsetrequest)
@@ -1894,6 +1896,16 @@ Last Update (14.1.0.0)
 
 </details>
 
+### ExportPreset
+
+<details><summary><b>Metrics.DeathsCollector+ExportPreset</b></summary>
+
+```
+ [0] = DeathReasons
+```
+
+</details>
+
 ### FacilityZone
 
 <details><summary><b>MapGeneration.FacilityZone</b></summary>
@@ -3331,6 +3343,18 @@ Last Update (14.1.0.0)
 
 </details>
 
+### OptOutExportBehavior
+
+<details><summary><b>Metrics.ScpPreferencesCollector+OptOutExportBehavior</b></summary>
+
+```
+ [0] = Include
+ [1] = Exclude
+ [2] = TreatAsZero
+```
+
+</details>
+
 ### OpusApplicationType
 
 <details><summary><b>VoiceChat.Codec.Enums.OpusApplicationType</b></summary>
@@ -3860,6 +3884,7 @@ Last Update (14.1.0.0)
  [1] = ConfirmThrowWeak
  [2] = ConfirmThrowFullForce
  [3] = CancelThrow
+ [4] = ForceCancel
 ```
 
 </details>
