@@ -66,7 +66,7 @@ namespace Exiled.Events.Patches.Events.Scp049
                 new(OpCodes.Brfalse_S, retLabel),
             });
 
-            // this.Cooldown.Trigger((double)Scp049SenseAbility.ReducedCooldown) index
+            // this.Cooldown.Trigger((double)Scp049SenseAbility.TargetLostCooldown) index
             int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldc_R8 && (double)i.operand == Scp049SenseAbility.TargetLostCooldown);
 
             // Replace "this.Cooldown.Trigger((double)Scp049SenseAbility.ReducedCooldown)" with "this.Cooldown.Trigger((double)ev.cooldowntime)"
