@@ -6,7 +6,7 @@ title: Contributing to EXILED
 This is a simple tutorial guiding you to contribute to our framework.
 
 ### Forking EXILED
-First, create a fork of our [GitHub repository](https://github.com/ExMod-Team/EXILED).
+First, create a fork of our [GitHub repository](https://github.com/ExSLMod-Team/EXILED).
 
 Then, clone it to your computer like so: `git clone https://github.com/your-username/EXILED.git`
 
