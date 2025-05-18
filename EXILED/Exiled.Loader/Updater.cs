@@ -178,9 +178,8 @@ namespace Exiled.Loader
                     Log.Info("No new versions found, you're using the most recent version of Exiled!");
                 }
             }
-            catch (Utf8Json.JsonParsingException e)
+            catch (Utf8Json.JsonParsingException)
             {
-                Log.Warn(e);
                 Log.Warn("Encountered GitHub ratelimit, unable to check and download the latest version of Exiled.");
             }
             catch (Exception ex)
