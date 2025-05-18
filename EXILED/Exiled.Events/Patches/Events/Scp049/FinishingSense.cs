@@ -47,7 +47,7 @@ namespace Exiled.Events.Patches.Events.Scp049
                 new(OpCodes.Callvirt, PropertyGetter(typeof(Scp049SenseAbility), nameof(Scp049SenseAbility.Target))),
 
                 // Scp049SenseAbility.ReducedCooldown
-                new(OpCodes.Ldc_R8, (double)Scp049SenseAbility.ReducedCooldown),
+                new(OpCodes.Ldc_R8, (double)Scp049SenseAbility.TargetLostCooldown),
 
                 // true (IsAllowed)
                 new(OpCodes.Ldc_I4_1),
@@ -67,7 +67,7 @@ namespace Exiled.Events.Patches.Events.Scp049
             });
 
             // this.Cooldown.Trigger((double)Scp049SenseAbility.ReducedCooldown) index
-            int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldc_R8 && (double)i.operand == Scp049SenseAbility.ReducedCooldown);
+            int index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Ldc_R8 && (double)i.operand == Scp049SenseAbility.TargetLostCooldown);
 
             // Replace "this.Cooldown.Trigger((double)Scp049SenseAbility.ReducedCooldown)" with "this.Cooldown.Trigger((double)ev.cooldowntime)"
             newInstructions.RemoveAt(index);
