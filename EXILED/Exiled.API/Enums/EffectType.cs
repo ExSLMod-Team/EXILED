@@ -288,5 +288,10 @@ namespace Exiled.API.Enums
         /// </summary>
         [Obsolete("Only availaible for Christmas and AprilFools.")]
         Snowed,
+
+        /// <summary>
+        /// <see cref="CustomPlayerEffects.Scp1344Detected"/>.
+        /// </summary>
+        Scp1344Detected,
     }
 }
