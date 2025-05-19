@@ -49,7 +49,7 @@ namespace Exiled.Loader
         /// <summary>
         /// Gets the Author of the EXILED Loader.
         /// </summary>
-        public override string Author => "ExSLMod-Team";
+        public override string Author => "ExMod-Team";
 
         /// <summary>
         /// Gets the RequiredApiVersion of the EXILED Loader.
