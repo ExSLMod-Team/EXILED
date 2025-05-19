@@ -126,7 +126,7 @@ namespace Exiled.Loader
         }
 
         /// <summary>
-        /// Creates a HTTP Client, and checks at the ExSLMod-Team GitHub repository.
+        /// Creates a HTTP Client, and checks at the ExMod-Team GitHub repository.
         /// </summary>
         /// <returns>Client determining if it was successful connecting to the Exiled GitHub repository.</returns>
         private HttpClient CreateHttpClient()
@@ -136,7 +136,7 @@ namespace Exiled.Loader
                 Timeout = TimeSpan.FromSeconds(480),
             };
 
-            client.DefaultRequestHeaders.Add("User-Agent", $"Exiled.Loader (https://github.com/ExSLMod-Team/EXILED, {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)})");
+            client.DefaultRequestHeaders.Add("User-Agent", $"Exiled.Loader (https://github.com/ExMod-Team/EXILED, {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)})");
 
             return client;
         }
