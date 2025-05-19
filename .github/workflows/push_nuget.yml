@@ -10,7 +10,7 @@ defaults:
     working-directory: ./EXILED
 
 env:
-  EXILED_REFERENCES_URL: https://exmod-team.github.io/SL-References/Dev.zip
+  EXILED_REFERENCES_URL: https://exslmod-team.github.io/SL-References/Dev.zip
   EXILED_REFERENCES_PATH: ${{ github.workspace }}/EXILED/References
 
 jobs:
@@ -49,4 +49,4 @@ jobs:
       run: nuget push ${{ env.PackageFile }} -ApiKey ${{ secrets.NUGET_API_KEY }} -Source https://api.nuget.org/v3/index.json -SkipDuplicate
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ${{ env.PackageFile }} -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/ExMod-Team/index.json --skip-duplicate
+      run: dotnet nuget push ${{ env.PackageFile }} -k ${{ secrets.GITHUB_TOKEN }} -s https://nuget.pkg.github.com/ExSLMod-Team/index.json --skip-duplicate
