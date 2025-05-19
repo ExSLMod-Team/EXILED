@@ -112,5 +112,5 @@ Localized READMEs
   </div>
 </div>
 
-<h5 align="center">This repo is a fork of <a href="https://github.com/ExSLMod-Team/EXILED">ExSLMod-Team/EXILED</a> after an organisation has been taken down.</h5>
+<h5 align="center">This repo is a fork of <a href="https://github.com/ExMod-Team/EXILED">ExMod-Team/EXILED</a> after an organisation has been taken down.</h5>
 <h6 align="center">You can access the commit this update was forked from <a href="https://github.com/Exiled-Team/EXILED/tree/8b03fe7d9d2fe7ebffd5e6d1d038fc3881cdeb70">here</a>.</h6>
