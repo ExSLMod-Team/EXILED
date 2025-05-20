@@ -7,15 +7,12 @@
 
 namespace Exiled.API.Features.Toys
 {
+    using System;
     using System.Collections.Generic;
-    using System.Linq;
-
     using AdminToys;
-
     using Enums;
     using Exiled.API.Interfaces;
     using Footprinting;
-    using InventorySystem.Items;
     using Mirror;
 
     using UnityEngine;
@@ -200,6 +197,43 @@ namespace Exiled.API.Features.Toys
         {
             BaseToAdminToy.Remove(AdminToyBase);
             NetworkServer.Destroy(AdminToyBase.gameObject);
+        }
+
+        public static AdminToy Create<T>(Vector3? position, Vector3? rotation, Vector3? scale, bool spawn) where T : AdminToyBase
+        {
+            if (AdminToy.PrefabCache<T>.prefab == null)
+            {
+                T t = default(T);
+                using (Dictionary<uint, GameObject>.ValueCollection.Enumerator enumerator = NetworkClient.prefabs.Values.GetEnumerator())
+                {
+                    while (enumerator.MoveNext())
+                    {
+                        if (enumerator.Current.TryGetComponent<T>(out t))
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (t == null)
+                {
+                    throw new InvalidOperationException(string.Format("No prefab in NetworkClient.prefabs has component type {0}", typeof(T)));
+                }
+                AdminToy.PrefabCache<T>.prefab = t;
+            }
+            T t2 = UnityEngine.Object.Instantiate<T>(AdminToy.PrefabCache<T>.prefab);
+            t2.transform.position = position ?? Vector3.zero;
+            t2.transform.rotation = Quaternion.Euler(rotation ?? Vector3.zero);
+            t2.transform.localScale = scale ?? Vector3.one;
+
+            if (spawn)
+                NetworkServer.Spawn(t2.gameObject);
+
+            return Get(t2);
+        }
+
+        private static class PrefabCache<T> where T : AdminToyBase
+        {
+            public static T prefab;
         }
     }
 }
