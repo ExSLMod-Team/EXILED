@@ -5,7 +5,6 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-#nullable enable
 namespace Exiled.API.Features.Toys
 {
     using AdminToys;
@@ -63,7 +62,7 @@ namespace Exiled.API.Features.Toys
         /// <param name="scale"> The scale of the <see cref="Text"/>.</param>
         /// <param name="spawn"> Whether the <see cref="Text"/> should be initially spawned.</param>
         /// <returns> The new <see cref="Text"/>.</returns>
-        public static Text Create(string? newText, Vector2? displaySize, Vector3? posititon, Vector3? rotation, Vector3? scale, bool spawn)
+        public static Text Create(string newText, Vector2? displaySize, Vector3? posititon, Vector3? rotation, Vector3? scale, bool spawn)
         {
             Text text = new Text(Object.Instantiate(Prefab));
             text.Position = posititon ?? Vector3.zero;
