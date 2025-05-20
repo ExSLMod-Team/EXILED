@@ -74,8 +74,8 @@ namespace Exiled.Events.Patches.Events.Scp914
                 new(OpCodes.Stloc_1),
             });
 
-            offset = -3;
-            index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Newobj) + offset;
+            offset = -1;
+            index = newInstructions.FindLastIndex(i => i.Calls(Method(typeof(Scp914Controller), nameof(Scp914Controller.Upgrade)))) + offset;
 
             newInstructions.InsertRange(index, new[]
             {
