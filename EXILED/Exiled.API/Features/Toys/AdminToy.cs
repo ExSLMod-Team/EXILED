@@ -9,12 +9,12 @@ namespace Exiled.API.Features.Toys
 {
     using System;
     using System.Collections.Generic;
+
     using AdminToys;
     using Enums;
-    using Exiled.API.Interfaces;
     using Footprinting;
+    using Interfaces;
     using Mirror;
-
     using UnityEngine;
 
     /// <summary>
@@ -199,28 +199,42 @@ namespace Exiled.API.Features.Toys
             NetworkServer.Destroy(AdminToyBase.gameObject);
         }
 
-        public static AdminToy Create<T>(Vector3? position, Vector3? rotation, Vector3? scale, bool spawn) where T : AdminToyBase
+        /// <summary>
+        /// Creates a new <see cref="AdminToy"/>.
+        /// </summary>
+        /// <param name="position"> The position of the <see cref="AdminToy"/>.</param>
+        /// <param name="rotation"> The rotation of the <see cref="AdminToy"/>.</param>
+        /// <param name="scale"> The scale of the <see cref="AdminToy"/>.</param>
+        /// <param name="spawn"> Whether the <see cref="AdminToy"/> should be initially spawned.</param>
+        /// <typeparam name="T"> The specific type of <see cref="AdminToyBase"/> to instantiate (e.g., <see cref="CapybaraToy"/>, <see cref="TextToy"/>).</typeparam>
+        /// <returns> The new <see cref="AdminToy"/>.</returns>
+        /// <exception cref="InvalidOperationException"> Thrown if no prefab with a <typeparamref name="T"/> component exists in <see cref="NetworkClient.prefabs"/>.</exception>
+        public virtual AdminToy Create<T>(Vector3? position, Vector3? rotation, Vector3? scale, bool spawn)
+            where T : AdminToyBase
         {
-            if (AdminToy.PrefabCache<T>.prefab == null)
+            if (PrefabCache<T>.Prefab == null)
             {
                 T t = default(T);
                 using (Dictionary<uint, GameObject>.ValueCollection.Enumerator enumerator = NetworkClient.prefabs.Values.GetEnumerator())
                 {
                     while (enumerator.MoveNext())
                     {
-                        if (enumerator.Current.TryGetComponent<T>(out t))
+                        if (enumerator.Current != null && enumerator.Current.TryGetComponent(out t))
                         {
                             break;
                         }
                     }
                 }
+
                 if (t == null)
                 {
                     throw new InvalidOperationException(string.Format("No prefab in NetworkClient.prefabs has component type {0}", typeof(T)));
                 }
-                AdminToy.PrefabCache<T>.prefab = t;
+
+                PrefabCache<T>.Prefab = t;
             }
-            T t2 = UnityEngine.Object.Instantiate<T>(AdminToy.PrefabCache<T>.prefab);
+
+            T t2 = UnityEngine.Object.Instantiate(PrefabCache<T>.Prefab);
             t2.transform.position = position ?? Vector3.zero;
             t2.transform.rotation = Quaternion.Euler(rotation ?? Vector3.zero);
             t2.transform.localScale = scale ?? Vector3.one;
@@ -231,9 +245,10 @@ namespace Exiled.API.Features.Toys
             return Get(t2);
         }
 
-        private static class PrefabCache<T> where T : AdminToyBase
+        private static class PrefabCache<T>
+            where T : AdminToyBase
         {
-            public static T prefab;
+            public static T Prefab { get; set; }
         }
     }
 }
