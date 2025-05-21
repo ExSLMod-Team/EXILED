@@ -181,25 +181,6 @@ namespace Exiled.API.Features.Toys
             where T : AdminToy => Get(adminToyBase) as T;
 
         /// <summary>
-        /// Spawns the toy into the game. Use <see cref="UnSpawn"/> to remove it.
-        /// </summary>
-        public void Spawn() => NetworkServer.Spawn(AdminToyBase.gameObject);
-
-        /// <summary>
-        /// Removes the toy from the game. Use <see cref="Spawn"/> to bring it back.
-        /// </summary>
-        public void UnSpawn() => NetworkServer.UnSpawn(AdminToyBase.gameObject);
-
-        /// <summary>
-        /// Destroys the toy.
-        /// </summary>
-        public void Destroy()
-        {
-            BaseToAdminToy.Remove(AdminToyBase);
-            NetworkServer.Destroy(AdminToyBase.gameObject);
-        }
-
-        /// <summary>
         /// Creates a new <see cref="AdminToy"/>.
         /// </summary>
         /// <param name="position"> The position of the <see cref="AdminToy"/>.</param>
@@ -243,6 +224,25 @@ namespace Exiled.API.Features.Toys
                 NetworkServer.Spawn(t2.gameObject);
 
             return Get(t2);
+        }
+
+        /// <summary>
+        /// Spawns the toy into the game. Use <see cref="UnSpawn"/> to remove it.
+        /// </summary>
+        public void Spawn() => NetworkServer.Spawn(AdminToyBase.gameObject);
+
+        /// <summary>
+        /// Removes the toy from the game. Use <see cref="Spawn"/> to bring it back.
+        /// </summary>
+        public void UnSpawn() => NetworkServer.UnSpawn(AdminToyBase.gameObject);
+
+        /// <summary>
+        /// Destroys the toy.
+        /// </summary>
+        public void Destroy()
+        {
+            BaseToAdminToy.Remove(AdminToyBase);
+            NetworkServer.Destroy(AdminToyBase.gameObject);
         }
 
         private static class PrefabCache<T>
