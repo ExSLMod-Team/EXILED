@@ -9,7 +9,9 @@ namespace Exiled.API.Features.Toys
 {
     using AdminToys;
     using Enums;
-    using Exiled.API.Interfaces;
+    using Interfaces;
+    using Mirror;
+    using UnityEngine;
 
     /// <summary>
     /// A wrapper class for <see cref="CapybaraToy"/>.
@@ -34,12 +36,33 @@ namespace Exiled.API.Features.Toys
         public CapybaraToy Base { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the capybara can be collided with.
+        /// Gets or sets a value indicating whether the capybara can be collided with. Only server side.
         /// </summary>
         public bool Collidable
         {
-            get => Base.Network_collisionsEnabled;
-            set => Base.Network_collisionsEnabled = value;
+            get => Base.CollisionsEnabled;
+            set => Base.CollisionsEnabled = value;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Capybara"/>.
+        /// </summary>
+        /// <param name="posititon"> The position of the <see cref="Capybara"/>.</param>
+        /// <param name="rotation"> The rotation of the <see cref="Capybara"/>.</param>
+        /// <param name="scale"> The scale of the <see cref="Capybara"/>.</param>
+        /// <param name="spawn"> Whether the <see cref="Capybara"/> should be initially spawned.</param>
+        /// <returns> The new <see cref="Capybara"/>.</returns>
+        public static Capybara Create(Vector3? posititon, Vector3? rotation, Vector3? scale, bool spawn)
+        {
+            Capybara capybara = new Capybara(Object.Instantiate(Prefab));
+            capybara.Position = posititon ?? Vector3.zero;
+            capybara.Rotation = Quaternion.Euler(rotation ?? Vector3.zero);
+            capybara.Scale = scale ?? Vector3.one;
+
+            if (spawn)
+                capybara.Spawn();
+
+            return capybara;
         }
     }
 }

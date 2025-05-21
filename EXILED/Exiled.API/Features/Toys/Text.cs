@@ -9,7 +9,7 @@ namespace Exiled.API.Features.Toys
 {
     using AdminToys;
     using Enums;
-    using Exiled.API.Interfaces;
+    using Interfaces;
     using UnityEngine;
 
     /// <summary>
@@ -20,9 +20,9 @@ namespace Exiled.API.Features.Toys
         /// <summary>
         /// Initializes a new instance of the <see cref="Text"/> class.
         /// </summary>
-        /// <param name="speakerToy">The <see cref="TextToy"/> of the toy.</param>
-        internal Text(TextToy speakerToy)
-            : base(speakerToy, AdminToyType.TextToy) => Base = speakerToy;
+        /// <param name="textToy">The <see cref="TextToy"/> of the toy.</param>
+        internal Text(TextToy textToy)
+            : base(textToy, AdminToyType.TextToy) => Base = textToy;
 
         /// <summary>
         /// Gets the prefab.
@@ -50,6 +50,31 @@ namespace Exiled.API.Features.Toys
         {
             get => Base.Network_displaySize;
             set => Base.Network_displaySize = value;
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Text"/>.
+        /// </summary>
+        /// <param name="newText"> The text to shown <see cref="TextFormat"/>.</param>
+        /// <param name="displaySize"> The size of the <see cref="DisplaySize"/>.</param>
+        /// <param name="posititon"> The position of the <see cref="Text"/>.</param>
+        /// <param name="rotation"> The rotation of the <see cref="Text"/>.</param>
+        /// <param name="scale"> The scale of the <see cref="Text"/>.</param>
+        /// <param name="spawn"> Whether the <see cref="Text"/> should be initially spawned.</param>
+        /// <returns> The new <see cref="Text"/>.</returns>
+        public static Text Create(string newText, Vector2? displaySize, Vector3? posititon, Vector3? rotation, Vector3? scale, bool spawn)
+        {
+            Text text = new Text(Object.Instantiate(Prefab));
+            text.Position = posititon ?? Vector3.zero;
+            text.Rotation = Quaternion.Euler(rotation ?? Vector3.zero);
+            text.Scale = scale ?? Vector3.one;
+
+            text.TextFormat = newText ?? string.Empty;
+            text.DisplaySize = displaySize ?? TextToy.DefaultDisplaySize;
+
+            if (spawn)
+                text.Spawn();
+            return text;
         }
     }
 }
