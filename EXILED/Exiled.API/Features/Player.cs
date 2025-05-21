@@ -497,13 +497,20 @@ namespace Exiled.API.Features
         }
 
         /// <summary>
-        /// Gets or sets the player's rotation.
+        /// Gets or sets the player's camera rotation.
         /// </summary>
-        /// <returns>Returns the direction the player is looking at.</returns>
+        /// <returns>Returns the player's camera rotation.</returns>
         public Quaternion Rotation
         {
-            get => Transform.rotation;
-            set => ReferenceHub.TryOverrideRotation(value.eulerAngles);
+            get => CameraTransform.rotation;
+            set
+            {
+                Vector2 rotation = value.eulerAngles;
+                rotation.x = Mathf.Repeat(rotation.x + 180f, 360f) - 180f; // X Rotation is limited to [-88, 88] degrees, and just clamps values like 400 even though they are in range
+                rotation.x *= -1; // X Rotation is inverted in class FpcMouseLook
+                rotation.y = Mathf.Repeat(rotation.y, 360f); // This is necessary because rotation is clamped in FpcMouseLook
+                ReferenceHub.TryOverrideRotation(rotation);
+            }
         }
 
         /// <summary>
