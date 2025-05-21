@@ -27,6 +27,7 @@ namespace Exiled.Events.Patches.Events.Item
     /// </summary>
     [EventPatch(typeof(Item), nameof(Item.Swinging))]
     [EventPatch(typeof(Item), nameof(Item.ChargingJailbird))]
+    [EventPatch(typeof(Item), nameof(Item.JailbirdChargeComplete))]
     [HarmonyPatch(typeof(JailbirdItem), nameof(JailbirdItem.ServerProcessCmd))]
     internal static class JailbirdPatch
     {
