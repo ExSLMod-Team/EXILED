@@ -83,11 +83,23 @@ namespace Exiled.Events.Patches.Events.Item
                     return ev.IsAllowed;
                 }
 
-                case JailbirdMessageType.ChargeStarted:
+                case JailbirdMessageType.ChargeLoadTriggered:
                 {
                     ChargingJailbirdEventArgs ev = new(instance.Owner, instance);
 
                     Item.OnChargingJailbird(ev);
+                    if (ev.IsAllowed)
+                        return true;
+
+                    instance.SendRpc(JailbirdMessageType.ChargeFailed);
+                    return false;
+                }
+
+                case JailbirdMessageType.ChargeStarted:
+                {
+                    JailbirdChargeCompleteEventArgs ev = new(instance.Owner, instance);
+
+                    Item.OnJailbirdChargeComplete(ev);
                     if (ev.IsAllowed)
                         return true;
 
