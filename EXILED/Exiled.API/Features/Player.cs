@@ -499,7 +499,6 @@ namespace Exiled.API.Features
         /// <summary>
         /// Gets or sets the player's camera rotation.
         /// </summary>
-        /// <returns>Returns the player's camera rotation.</returns>
         public Quaternion Rotation
         {
             get => CameraTransform.rotation;
