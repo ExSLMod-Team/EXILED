@@ -209,7 +209,7 @@ namespace Exiled.API.Features.Toys
         /// <typeparam name="T"> The specific type of <see cref="AdminToyBase"/> to instantiate (e.g., <see cref="CapybaraToy"/>, <see cref="TextToy"/>).</typeparam>
         /// <returns> The new <see cref="AdminToy"/>.</returns>
         /// <exception cref="InvalidOperationException"> Thrown if no prefab with a <typeparamref name="T"/> component exists in <see cref="NetworkClient.prefabs"/>.</exception>
-        public virtual AdminToy Create<T>(Vector3? position, Vector3? rotation, Vector3? scale, bool spawn)
+        public static AdminToy Create<T>(Vector3? position, Vector3? rotation, Vector3? scale, bool spawn)
             where T : AdminToyBase
         {
             if (PrefabCache<T>.Prefab == null)
