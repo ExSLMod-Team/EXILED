@@ -7,19 +7,14 @@
 
 namespace Exiled.Events.Patches.Events.Player
 {
-#pragma warning disable SA1402
-#pragma warning disable SA1649
     using System.Collections.Generic;
-    using System.Reflection;
     using System.Reflection.Emit;
 
-    using API.Features.Pools;
-    using Exiled.Events.Attributes;
+    using Attributes;
     using Exiled.Events.EventArgs.Player;
     using HarmonyLib;
     using InventorySystem.Items.Firearms.Modules;
     using InventorySystem.Items.Firearms.Modules.Misc;
-    using UnityEngine;
 
     using static HarmonyLib.AccessTools;
 
@@ -32,12 +27,30 @@ namespace Exiled.Events.Patches.Events.Player
     internal static class Shot
     {
         // public virtual void ServerApplyDamage(HitscanResult result)
-#pragma warning disable SA1313
-        private static bool Prefix(HitscanResult result, HitscanHitregModuleBase __instance)
-#pragma warning restore SA1313
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator il)
         {
-            ShotEventArgs args = new(result, __instance);
-            Handlers.Player.OnShot(args);
+            CodeMatcher matcher = new(instructions);
+            matcher.Start();
+
+            LocalBuilder eventArgs = il.DeclareLocal(typeof(ShotEventArgs));
+
+            /* Insert event call
+            ShotEventArgs args = new ShotEventArgs(result, this);
+            Handlers.Player.OnShot(args);*/
+            matcher.Insert(new List<CodeInstruction>
+            {
+                // ShotEventArgs args = new ShotEventArgs(result, this);
+                new(OpCodes.Ldarg_1), // result
+                new(OpCodes.Ldarg_0), // this
+                new(OpCodes.Newobj, Constructor(typeof(ShotEventArgs), new[] { typeof(HitscanResult), typeof(HitscanHitregModuleBase) })),
+                new(OpCodes.Stloc, eventArgs),
+
+                // Handlers.Player.OnShot(args);
+                new(OpCodes.Ldloc, eventArgs),
+                new(OpCodes.Call, Method(typeof(Handlers.Player), nameof(Handlers.Player.OnShot))),
+            }).Advance(6);
+
+            /* Insert the if's:
 
             if (args.CanDamageDestructibles)
             {
@@ -49,10 +62,37 @@ namespace Exiled.Events.Patches.Events.Player
             {
                 foreach (HitRayPair obstacle in result.Obstacles)
                     __instance.ServerApplyObstacleDamage(obstacle, result);
-            }
+            }*/
 
-            __instance.ServerSendAllIndicators(result);
-            return false;
+            bool LoadsShotResult(CodeInstruction i) => i.IsLdarg(1);
+
+            // Labels for skipping loops
+            Label skipDestructiblesLabel = il.DefineLabel();
+            Label skipObstaclesLabel = il.DefineLabel();
+
+            matcher
+                .SearchForward(LoadsShotResult)
+                .Insert(new List<CodeInstruction>
+                {
+                    new(OpCodes.Ldloc, eventArgs),
+                    new(OpCodes.Callvirt, PropertyGetter(typeof(ShotEventArgs), nameof(ShotEventArgs.CanDamageDestructibles))),
+                    new(OpCodes.Brfalse, skipDestructiblesLabel),
+                })
+                .SearchForward(LoadsShotResult).Advance(1) // Skip result inside of foreach
+
+                .SearchForward(LoadsShotResult)
+                .Insert(new List<CodeInstruction>
+                {
+                    new(OpCodes.Ldloc, eventArgs),
+                    new(OpCodes.Callvirt, PropertyGetter(typeof(ShotEventArgs), nameof(ShotEventArgs.CanDamageObstacles))),
+                    new(OpCodes.Brfalse, skipObstaclesLabel),
+                }).AddLabels(new[] { skipDestructiblesLabel })
+                .SearchForward(LoadsShotResult).Advance(1) // Skip result inside of foreach
+
+                .SearchForward(i => i.IsLdarg(0)) // Go before the last call
+                .AddLabels(new[] { skipObstaclesLabel });
+
+            return matcher.Instructions();
         }
     }
 }
