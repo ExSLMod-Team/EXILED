@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="ReceivingPreferenceEventArgs.cs" company="ExMod Team">
-// Copyright (c) ExMod Team. All rights reserved.
+// <copyright file="ReceivingPreferenceEventArgs.cs" company="ExSlMod Team">
+// Copyright (c) ExSlMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
