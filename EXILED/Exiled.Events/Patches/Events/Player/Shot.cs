@@ -50,7 +50,7 @@ namespace Exiled.Events.Patches.Events.Player
             }
             catch (Exception e)
             {
-                Log.Error($"Error in {nameof(Shot)} event - invalud modification of ev.{nameof(ShotEventArgs.ShotResult)} has caused an exception: {e}");
+                Log.Error($"Error in {nameof(Shot)} event - invalid modification of ev.{nameof(ShotEventArgs.ShotResult)} has caused an exception: {e}");
             }
 
             return false;
