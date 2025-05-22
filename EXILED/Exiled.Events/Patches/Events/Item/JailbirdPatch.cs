@@ -92,7 +92,8 @@ namespace Exiled.Events.Patches.Events.Item
                     if (ev.IsAllowed)
                         return true;
 
-                    instance.SendRpc(JailbirdMessageType.ChargeFailed);
+                    ev.Player.RemoveHeldItem(destroy: false);
+                    ev.Player.CurrentItem = ev.Item;
                     return false;
                 }
 
