@@ -55,7 +55,7 @@ namespace Exiled.Events.Patches.Events.Scp049
                     new(OpCodes.Ldc_I4_1),
 
                     // AttackingEventArgs ev = new(player, target, true);
-                    new(OpCodes.Newobj, GetDeclaredConstructors(typeof(AttackingEventArgs))[0]),
+                    new(OpCodes.Newobj, GetDeclaredConstructors(typeof(CardiacAttackingEventArgs))[0]),
                     new(OpCodes.Dup),
 
                     // Handlers.Scp049.OnAttacking(ev);
@@ -63,7 +63,7 @@ namespace Exiled.Events.Patches.Events.Scp049
 
                     // if (!ev.IsAllowed)
                     //      return;
-                    new(OpCodes.Callvirt, PropertyGetter(typeof(AttackingEventArgs), nameof(AttackingEventArgs.IsAllowed))),
+                    new(OpCodes.Callvirt, PropertyGetter(typeof(CardiacAttackingEventArgs), nameof(CardiacAttackingEventArgs.IsAllowed))),
                     new(OpCodes.Brtrue_S, continueLabel),
 
                     new(OpCodes.Ret),
