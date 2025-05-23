@@ -2047,7 +2047,7 @@ namespace Exiled.API.Features
         /// <param name="message">The message to send.</param>
         /// <param name="color">The color of the message.</param>
         /// <param name="size">The font size of the message. Default is 18.</param>
-        public void SendConsoleMessage(string message, string color = "white", int size = 18)
+        public void SendConsoleMessage(string message, string color = "white", int size = 25)
         {
             string[] lines = message.Split('\n');
 
