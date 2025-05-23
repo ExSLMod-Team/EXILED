@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="ExitStalkingEventArgs.cs" company="ExSlMod Team">
-// Copyright (c) ExSlMod Team. All rights reserved.
+// <copyright file="ExitStalkingEventArgs.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------

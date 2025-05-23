@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="Updater.cs" company="ExSlMod Team">
-// Copyright (c) ExSlMod Team. All rights reserved.
+// <copyright file="Updater.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -136,7 +136,7 @@ namespace Exiled.Loader
                 Timeout = TimeSpan.FromSeconds(480),
             };
 
-            client.DefaultRequestHeaders.Add("User-Agent", $"Exiled.Loader (https://github.com/ExSLMod-Team/EXILED, {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)})");
+            client.DefaultRequestHeaders.Add("User-Agent", $"Exiled.Loader (https://github.com/ExMod-Team/EXILED, {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)})");
 
             return client;
         }

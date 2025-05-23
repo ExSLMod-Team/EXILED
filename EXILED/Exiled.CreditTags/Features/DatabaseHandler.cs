@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------
-// <copyright file="DatabaseHandler.cs" company="ExSlMod Team">
-// Copyright (c) ExSlMod Team. All rights reserved.
+// <copyright file="DatabaseHandler.cs" company="ExMod Team">
+// Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -17,7 +17,7 @@ namespace Exiled.CreditTags.Features
 
     public static class DatabaseHandler
     {
-        private const string Url = "https://raw.githubusercontent.com/ExSLMod-Team/CreditTags/main/data.yml";
+        private const string Url = "https://raw.githubusercontent.com/ExMod-Team/CreditTags/main/data.yml";
         private const string ETagCacheFileName = "etag_cache.txt";
         private const string DatabaseCacheFileName = "data.yml";
         private const int CacheTimeInMinutes = 5;
