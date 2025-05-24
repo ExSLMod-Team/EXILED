@@ -18,6 +18,7 @@ namespace Exiled.CustomRoles.API.Features
     using Exiled.API.Features;
     using Exiled.API.Features.Attributes;
     using Exiled.API.Features.Pools;
+    using Exiled.API.Features.Roles;
     using Exiled.API.Features.Spawn;
     using Exiled.API.Interfaces;
     using Exiled.CustomItems.API.Features;
@@ -154,6 +155,11 @@ namespace Exiled.CustomRoles.API.Features
         /// Gets or sets a value indicating the <see cref="Player"/>'s size.
         /// </summary>
         public virtual Vector3 Scale { get; set; } = Vector3.one;
+
+        /// <summary>
+        /// Gets or sets a value indicating the <see cref="Player"/>'s gravity.
+        /// </summary>
+        public virtual Vector3? Gravity { get; set; }
 
         /// <summary>
         /// Gets or sets a <see cref="Dictionary{TKey, TValue}"/> containing cached <see cref="string"/> and their  <see cref="Dictionary{TKey, TValue}"/> which is cached Role with FF multiplier.
@@ -553,7 +559,8 @@ namespace Exiled.CustomRoles.API.Features
             player.Health = MaxHealth;
             player.MaxHealth = MaxHealth;
             player.Scale = Scale;
-
+            if (Gravity.HasValue && player.Role is FpcRole fpcRole)
+                fpcRole.Gravity = Gravity.Value;
             Vector3 position = GetSpawnPosition();
             if (position != Vector3.zero)
             {
