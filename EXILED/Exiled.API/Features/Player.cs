@@ -2048,11 +2048,25 @@ namespace Exiled.API.Features
         public bool RemoveHeldItem(bool destroy = true) => RemoveItem(CurrentItem, destroy);
 
         /// <summary>
-        /// Sends a console message to the player's console.
+        /// Sends a message to the player's console.
         /// </summary>
-        /// <param name="message">The message to be sent.</param>
-        /// <param name="color">The message color.</param>
-        public void SendConsoleMessage(string message, string color) => referenceHub.gameConsoleTransmission.SendToClient(message, color);
+        /// <param name="message">The message to send.</param>
+        /// <param name="color">The color of the message.</param>
+        /// <param name="size">The font size of the message. Default is 18.</param>
+        public void SendConsoleMessage(string message, string color = "white", int size = 25)
+        {
+            string[] lines = message.Split('\n');
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (!string.IsNullOrWhiteSpace(lines[i]))
+                    lines[i] = $"<size={size}>{lines[i]}</size>";
+            }
+
+            message = string.Join("\n", lines);
+
+            referenceHub.gameConsoleTransmission.SendToClient(message, color);
+        }
 
         /// <summary>
         /// Disconnects the player.
