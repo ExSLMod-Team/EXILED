@@ -36,7 +36,7 @@ namespace Exiled.Events.Handlers
         /// Invoked after all players have spawned at the start of a new round.
         /// </summary>
         public static Event AllPlayersSpawned { get; set; } = new();
-        
+
         /// <summary>
         /// Invoked before ending a round.
         /// </summary>
@@ -146,7 +146,7 @@ namespace Exiled.Events.Handlers
         /// Called after all players have spawned at the start of a new round.
         /// </summary>
         public static void OnAllPlayersSpawned() => AllPlayersSpawned.InvokeSafely();
-        
+
         /// <summary>
         /// Called before ending a round.
         /// </summary>
