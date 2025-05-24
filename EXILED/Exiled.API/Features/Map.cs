@@ -107,7 +107,7 @@ namespace Exiled.API.Features
         /// <summary>
         /// Gets the <see cref="global::SqueakSpawner"/>.
         /// </summary>
-        public static SqueakSpawner SqueakSpawner => squeakSpawner ??= Object.FindObjectOfType<SqueakSpawner>();
+        public static SqueakSpawner SqueakSpawner => squeakSpawner ??= Object.FindFirstObjectByType<SqueakSpawner>();
 
         /// <summary>
         /// Sends a staff message to all players online with <see cref="PlayerPermissions.AdminChat"/> permission.
