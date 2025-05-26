@@ -27,6 +27,7 @@ namespace Exiled.Events.Patches.Events.Scp914
     /// Patches <see cref="Scp914Controller.ServerInteract" />.
     /// Adds the <see cref="Scp914.Activating" /> event.
     /// </summary>
+    [EventPatch(typeof(Scp914), nameof(Scp914.ChangingKnobSetting))]
     [EventPatch(typeof(Scp914), nameof(Scp914.Activating))]
     [HarmonyPatch(typeof(Scp914Controller), nameof(Scp914Controller.ServerInteract))]
     internal static class InteractingEvents
@@ -73,8 +74,8 @@ namespace Exiled.Events.Patches.Events.Scp914
                 new(OpCodes.Stloc_1),
             });
 
-            offset = -3;
-            index = newInstructions.FindLastIndex(i => i.opcode == OpCodes.Newobj) + offset;
+            offset = -1;
+            index = newInstructions.FindLastIndex(i => i.Calls(Method(typeof(Scp914Controller), nameof(Scp914Controller.Upgrade)))) + offset;
 
             newInstructions.InsertRange(index, new[]
             {
