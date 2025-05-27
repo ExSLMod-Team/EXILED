@@ -936,7 +936,7 @@ namespace Exiled.CustomRoles.API.Features
 
         private void OnSpawningRagdoll(SpawningRagdollEventArgs ev)
         {
-            if (Check(ev.Player) && Role.GetTeam() != Team.Dead)
+            if (Check(ev.Player) && RoleExtensions.GetTeam(Role) != Team.Dead)
                 ev.Role = Role;
         }
 
