@@ -54,7 +54,7 @@ namespace Exiled.Events.Patches.Events.Scp106
                     new(OpCodes.Ldc_I4_1),
 
                     // AttackingEventArgs ev = new(player, target, true);
-                    new(OpCodes.Newobj, GetDeclaredConstructors(typeof(AttackingEventArgs))[0]),
+                    new(OpCodes.Newobj, GetDeclaredConstructors(typeof(CapturingEventArgs))[0]),
                     new(OpCodes.Dup),
 
                     // Handlers.Scp106.OnAttacking(ev);
@@ -62,7 +62,7 @@ namespace Exiled.Events.Patches.Events.Scp106
 
                     // if (!ev.IsAllowed)
                     //      return;
-                    new(OpCodes.Callvirt, PropertyGetter(typeof(AttackingEventArgs), nameof(AttackingEventArgs.IsAllowed))),
+                    new(OpCodes.Callvirt, PropertyGetter(typeof(CapturingEventArgs), nameof(CapturingEventArgs.IsAllowed))),
                     new(OpCodes.Brfalse_S, ret),
                 });
             newInstructions[newInstructions.Count - 1].labels.Add(ret);
