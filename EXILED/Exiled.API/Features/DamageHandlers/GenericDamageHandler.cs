@@ -163,7 +163,7 @@ namespace Exiled.API.Features.DamageHandlers
                     GenericFirearm(player, attacker, damage, damageType, ItemType.GunSCP127);
                     break;
                 case DamageType.ParticleDisruptor:
-                    Base = new DisruptorDamageHandler(new(Item.Create(ItemType.ParticleDisruptor, attacker).Base as InventorySystem.Items.Firearms.Firearm, InventorySystem.Items.Firearms.Modules.DisruptorActionModule.FiringState.FiringSingle), Vector3.up, damage);
+                    Base = new DisruptorDamageHandler(new (Item.Create(ItemType.ParticleDisruptor, attacker).Base as InventorySystem.Items.Firearms.Firearm, InventorySystem.Items.Firearms.Modules.DisruptorActionModule.FiringState.FiringSingle), Vector3.up, damage);
                     break;
                 case DamageType.Scp096:
                     Scp096Role curr096 = attacker.ReferenceHub.roleManager.CurrentRole as Scp096Role ?? new Scp096Role();
