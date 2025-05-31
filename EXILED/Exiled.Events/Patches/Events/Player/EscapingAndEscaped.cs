@@ -11,16 +11,18 @@ namespace Exiled.Events.Patches.Events.Player
 #pragma warning disable IDE0060
 
     using System.Collections.Generic;
+    using System.Reflection;
     using System.Reflection.Emit;
 
-    using API.Enums;
     using API.Features;
     using API.Features.Pools;
     using EventArgs.Player;
     using Exiled.API.Features.Roles;
     using Exiled.Events.Attributes;
+
     using HarmonyLib;
-    using PlayerRoles.FirstPersonControl;
+
+    using PlayerRoles;
 
     using static HarmonyLib.AccessTools;
 
@@ -41,9 +43,15 @@ namespace Exiled.Events.Patches.Events.Player
             LocalBuilder ev = generator.DeclareLocal(typeof(EscapingEventArgs));
             LocalBuilder role = generator.DeclareLocal(typeof(Role));
 
+            ConstructorInfo pluginAPIConstructor = typeof(LabApi.Events.Arguments.PlayerEvents.PlayerEscapingEventArgs)
+                .GetConstructor(new[]
+                {
+                    typeof(ReferenceHub),
+                    typeof(RoleTypeId),
+                    typeof(Escape.EscapeScenarioType),
+                });
             int offset = -3;
-            int index = newInstructions.FindIndex(instruction => instruction.opcode == OpCodes.Newobj) + offset;
-
+            int index = newInstructions.FindIndex(instruction => instruction.Is(OpCodes.Newobj, pluginAPIConstructor)) + offset;
             newInstructions.InsertRange(
                 index,
                 new[]
@@ -72,7 +80,7 @@ namespace Exiled.Events.Patches.Events.Player
                     new(OpCodes.Brfalse, returnLabel),
 
                     // roleTypeId = ev.NewRole
-                    new(OpCodes.Ldloc, ev.LocalIndex),
+                    new CodeInstruction(OpCodes.Ldloc, ev.LocalIndex),
                     new(OpCodes.Callvirt, PropertyGetter(typeof(EscapingEventArgs), nameof(EscapingEventArgs.NewRole))),
                     new(OpCodes.Stloc_1),
 
