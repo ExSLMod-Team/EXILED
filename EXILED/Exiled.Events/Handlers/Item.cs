@@ -41,7 +41,7 @@ namespace Exiled.Events.Handlers
         /// <summary>
         /// Invoked before a melee item is swung.
         /// </summary>
-        public static Event<SwingingEventArgs> Swinging { get; set; } = new();
+        public static Event<SwingingJailbirdEventArgs> Swinging { get; set; } = new();
 
         /// <summary>
         /// Invoked when a <see cref="API.Features.Items.Jailbird"/> starts charging.
@@ -103,8 +103,8 @@ namespace Exiled.Events.Handlers
         /// <summary>
         /// Called before a melee item is swung.
         /// </summary>
-        /// <param name="ev">The <see cref="SwingingEventArgs"/> instance.</param>
-        public static void OnSwinging(SwingingEventArgs ev) => Swinging.InvokeSafely(ev);
+        /// <param name="ev">The <see cref="SwingingJailbirdEventArgs"/> instance.</param>
+        public static void OnSwinging(SwingingJailbirdEventArgs ev) => Swinging.InvokeSafely(ev);
 
         /// <summary>
         /// Called before a <see cref="API.Features.Items.Jailbird"/> that is being charged.

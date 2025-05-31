@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------
-// <copyright file="SwingingEventArgs.cs" company="ExMod Team">
+// <copyright file="SwingingJailbirdEventArgs.cs" company="ExMod Team">
 // Copyright (c) ExMod Team. All rights reserved.
 // Licensed under the CC BY-SA 3.0 license.
 // </copyright>
@@ -14,19 +14,19 @@ namespace Exiled.Events.EventArgs.Item
     /// <summary>
     /// Contains all information before a player swings a <see cref="Jailbird"/>.
     /// </summary>
-    public class SwingingEventArgs : IItemEvent, IDeniableEvent
+    public class SwingingJailbirdEventArgs : IItemEvent
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SwingingEventArgs"/> class.
+        /// Initializes a new instance of the <see cref="SwingingJailbirdEventArgs"/> class.
         /// </summary>
         /// <param name="player"><inheritdoc cref="Player"/></param>
         /// <param name="swingItem">The item being swung.</param>
-        /// <param name="isAllowed">Whether the item can be swung.</param>
-        public SwingingEventArgs(ReferenceHub player, InventorySystem.Items.ItemBase swingItem, bool isAllowed = true)
+        /// <param name="cunHurt">Whether the item could cause harm.</param>
+        public SwingingJailbirdEventArgs(ReferenceHub player, InventorySystem.Items.ItemBase swingItem, bool cunHurt = true)
         {
             Player = Player.Get(player);
             Jailbird = (Jailbird)Item.Get(swingItem);
-            IsAllowed = isAllowed;
+            CanHurt = cunHurt;
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Exiled.Events.EventArgs.Item
         public Item Item => Jailbird;
 
         /// <summary>
-        /// Gets or sets a value indicating whether the item can be swung.
+        /// Gets or sets a value indicating whether the item could cause harm.
         /// </summary>
-        public bool IsAllowed { get; set; }
+        public bool CanHurt { get; set; }
     }
 }

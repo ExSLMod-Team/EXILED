@@ -57,9 +57,11 @@ namespace Exiled.Events.Features
         /// <param name="event">The <see cref="IExiledEvent"/> all matching patches should target.</param>
         public void Patch(IExiledEvent @event)
         {
+            List<Type> types = ListPool<Type>.Pool.Get();
+
             try
             {
-                List<Type> types = ListPool<Type>.Pool.Get(UnpatchedTypes.Where(x => x.GetCustomAttributes<EventPatchAttribute>().Any((epa) => epa.Event == @event)));
+                types.AddRange(UnpatchedTypes.Where(x => x.GetCustomAttributes<EventPatchAttribute>().Any(epa => epa.Event == @event)));
 
                 foreach (Type type in types)
                 {
@@ -68,12 +70,14 @@ namespace Exiled.Events.Features
                         ReloadDisabledPatches();
                     UnpatchedTypes.Remove(type);
                 }
-
-                ListPool<Type>.Pool.Return(types);
             }
             catch (Exception ex)
             {
-                Log.Error($"Patching by event failed!\n{ex}");
+                Log.Error($"Patching by event {@event.GetType().GenericTypeArguments[0].Name} failed!\n{ex}");
+            }
+            finally
+            {
+                ListPool<Type>.Pool.Return(types);
             }
         }
 
