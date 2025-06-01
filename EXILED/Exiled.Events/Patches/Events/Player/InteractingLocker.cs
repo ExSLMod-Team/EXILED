@@ -33,7 +33,11 @@ namespace Exiled.Events.Patches.Events.Player
         {
             List<CodeInstruction> newInstructions = ListPool<CodeInstruction>.Pool.Get(instructions);
 
-            int offset = -9;
+            LocalBuilder evLocal = generator.DeclareLocal(typeof(InteractingLockerEventArgs));
+
+            Label retLabel = generator.DefineLabel();
+
+            const int offset = -9;
             int index = newInstructions.FindIndex(i => i.opcode == OpCodes.Newobj && (ConstructorInfo)i.operand == GetDeclaredConstructors(typeof(LabApi.Events.Arguments.PlayerEvents.PlayerInteractingLockerEventArgs))[0]) + offset;
 
             newInstructions.InsertRange(
@@ -58,16 +62,25 @@ namespace Exiled.Events.Patches.Events.Player
                     // InteractingLockerEventArgs ev = new(Player, Locker, byte, bool)
                     new(OpCodes.Newobj, GetDeclaredConstructors(typeof(InteractingLockerEventArgs))[0]),
                     new(OpCodes.Dup),
+                    new(OpCodes.Stloc, evLocal),
 
                     // Handlers.Player.OnInteractingLocker(ev)
                     new(OpCodes.Call, Method(typeof(Handlers.Player), nameof(Handlers.Player.OnInteractingLocker))),
 
+                    // if (!ev.CanInteract) return
+                    new(OpCodes.Ldloc, evLocal),
+                    new(OpCodes.Callvirt, PropertyGetter(typeof(InteractingLockerEventArgs), nameof(InteractingLockerEventArgs.CanInteract))),
+                    new(OpCodes.Brfalse_S, retLabel),
+
                     // flag = !ev.IsAllowed
+                    new(OpCodes.Ldloc, evLocal),
                     new(OpCodes.Callvirt, PropertyGetter(typeof(InteractingLockerEventArgs), nameof(InteractingLockerEventArgs.IsAllowed))),
                     new(OpCodes.Ldc_I4_0),
                     new(OpCodes.Ceq),
                     new(OpCodes.Stloc_1),
                 });
+
+            newInstructions[newInstructions.Count - 1].labels.Add(retLabel);
 
             for (int z = 0; z < newInstructions.Count; z++)
                 yield return newInstructions[z];

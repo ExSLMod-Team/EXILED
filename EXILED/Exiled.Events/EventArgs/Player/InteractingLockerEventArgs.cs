@@ -37,6 +37,7 @@ namespace Exiled.Events.EventArgs.Player
             InteractingLocker = Locker.Get(locker);
             InteractingChamber = Chamber.Get(locker.Chambers[colliderId]);
             IsAllowed = isAllowed;
+            CanInteract = true;
         }
 
         /// <summary>
@@ -50,9 +51,14 @@ namespace Exiled.Events.EventArgs.Player
         public Chamber InteractingChamber { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the player can interact with the locker.
+        /// Gets or sets a value indicating whether the player can access the locker.
         /// </summary>
         public bool IsAllowed { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the player can interact with the locker.
+        /// </summary>
+        public bool CanInteract { get; set; }
 
         /// <summary>
         /// Gets the player who's interacting with the locker.
