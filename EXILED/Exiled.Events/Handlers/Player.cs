@@ -490,6 +490,16 @@ namespace Exiled.Events.Handlers
         public static Event<ChangingSpectatedPlayerEventArgs> ChangingSpectatedPlayer { get; set; } = new();
 
         /// <summary>
+        /// Invoked when a <see cref="API.Features.Player"/> changes rooms.
+        /// </summary>
+        public static Event<RoomChangedEventArgs> RoomChanged { get; set; } = new();
+
+        /// <summary>
+        /// Invoked when a <see cref="API.Features.Player"/> changes zones.
+        /// </summary>
+        public static Event<ZoneChangedEventArgs> ZoneChanged { get; set; } = new();
+
+        /// <summary>
         /// Invoked before a <see cref="API.Features.Player"/> toggles the NoClip mode.
         /// </summary>
         public static Event<TogglingNoClipEventArgs> TogglingNoClip { get; set; } = new();
