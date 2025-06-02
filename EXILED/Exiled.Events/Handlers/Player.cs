@@ -810,6 +810,18 @@ namespace Exiled.Events.Handlers
         public static void OnRemovedHandcuffs(RemovedHandcuffsEventArgs ev) => RemovedHandcuffs.InvokeSafely(ev);
 
         /// <summary>
+        /// Called when a <see cref="API.Features.Player"/> changes rooms.
+        /// </summary>
+        /// <param name="ev">The <see cref="RoomChangedEventArgs"/> instance.</param>
+        public static void OnRoomChanged(RoomChangedEventArgs ev) => RoomChanged.InvokeSafely(ev);
+
+        /// <summary>
+        /// Called when a <see cref="API.Features.Player"/> changes zones.
+        /// </summary>
+        /// <param name="ev">The <see cref="ZoneChangedEventArgs"/> instance.</param>
+        public static void OnZoneChanged(ZoneChangedEventArgs ev) => ZoneChanged.InvokeSafely(ev);
+
+        /// <summary>
         /// Called before a <see cref="API.Features.Player"/> escapes.
         /// </summary>
         /// <param name="ev">The <see cref="EscapingEventArgs"/> instance.</param>
