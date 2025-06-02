@@ -125,7 +125,7 @@ namespace Exiled.Events.Patches.Events.Scp914
                         typeof(ReferenceHub),
                     });
 
-            index = newInstructions.FindIndex(x => x.Is(OpCodes.Newobj, plugin_api_constructor)) + offset;
+            index = newInstructions.FindIndex(x => x.Is(OpCodes.Newobj, pluginApiConstructor)) + offset;
 
             newInstructions.InsertRange(
                 index,
