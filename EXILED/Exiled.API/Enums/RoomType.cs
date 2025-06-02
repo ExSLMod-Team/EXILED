@@ -338,5 +338,35 @@ namespace Exiled.API.Enums
         /// Heavy Containment Zone's storage / server room.
         /// </summary>
         HczServerRoom,
+        
+        /// <summary>
+        /// Surface Elevator to Entrance room.
+        /// </summary>
+        SurfaceToEntranceElevator,
+        
+        /// <summary>
+        /// Entrance Elevator to Surface room.
+        /// </summary>
+        EntranceToSurfaceElevator,
+        /// <summary>
+        /// Lcz Elevator to Hcz room.
+        /// </summary>
+        LczToHczElevator,
+        
+        /// <summary>
+        /// Hcz Elevator to Lcz room.
+        /// </summary>
+        HczToLczElevator,
+        
+        /// <summary>
+        /// Hcz Elevator to Nuke room.
+        /// </summary>
+        HczToNukeElevator,
+        
+        /// <summary>
+        /// Nuke Elevator to Hcz room.
+        /// </summary>
+        NukeToHczElevator,
+
     }
 }
