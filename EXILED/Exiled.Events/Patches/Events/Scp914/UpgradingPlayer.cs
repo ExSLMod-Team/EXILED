@@ -114,17 +114,19 @@ namespace Exiled.Events.Patches.Events.Scp914
 
             LocalBuilder ev2 = generator.DeclareLocal(typeof(UpgradingInventoryItemEventArgs));
             offset = 1;
-            //index = newInstructions.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder { LocalIndex: 10 }) + offset;
-            ConstructorInfo plugin_api_constructor = typeof(LabApi.Events.Arguments.Scp914Events.Scp914ProcessingInventoryItemEventArgs)
-                .GetConstructor(new[] {
-                    typeof(InventorySystem.Items.ItemBase),
-                    typeof(Scp914KnobSetting),
-                    typeof(ReferenceHub)
-                });
+
+            // index = newInstructions.FindIndex(x => x.opcode == OpCodes.Stloc_S && x.operand is LocalBuilder { LocalIndex: 10 }) + offset;
+            ConstructorInfo pluginApiConstructor = typeof(LabApi.Events.Arguments.Scp914Events.Scp914ProcessingInventoryItemEventArgs)
+                .GetConstructor(
+                    new[]
+                    {
+                        typeof(InventorySystem.Items.ItemBase),
+                        typeof(Scp914KnobSetting),
+                        typeof(ReferenceHub),
+                    });
+
             index = newInstructions.FindIndex(x => x.Is(OpCodes.Newobj, plugin_api_constructor)) + offset;
-            //ridtp lcz914
-            //noclip
-            //give tuxwonder7 47
+
             newInstructions.InsertRange(
                 index,
                 new CodeInstruction[]
@@ -132,34 +134,34 @@ namespace Exiled.Events.Patches.Events.Scp914
                     // setting = curSetting
                     new(OpCodes.Ldloc_S, curSetting.LocalIndex),
                     new(OpCodes.Starg_S, 3),
-            
+
                     // Player.Get(ply)
                     new(OpCodes.Ldarg_0),
                     new(OpCodes.Call, Method(typeof(Player), nameof(Player.Get), new[] { typeof(ReferenceHub) })),
-            
+
                     // itemBase
                     new(OpCodes.Ldloc_S, 7),
-            
+
                     // setting
                     new(OpCodes.Ldarg_S, 3),
-            
+
                     // true
                     new(OpCodes.Ldc_I4_1),
-            
+
                     // UpgradingInventoryItemEventArgs ev = new(player, itemBase, setting)
                     new(OpCodes.Newobj, GetDeclaredConstructors(typeof(UpgradingInventoryItemEventArgs))[0]),
                     new(OpCodes.Dup),
                     new(OpCodes.Dup),
                     new(OpCodes.Stloc_S, ev2.LocalIndex),
-            
+
                     // Handlers.Scp914.OnUpgradingInventoryItem(ev);
                     new(OpCodes.Call, Method(typeof(Scp914), nameof(Scp914.OnUpgradingInventoryItem))),
-            
+
                     // if (!ev.IsAllowed)
                     //    return;
                     new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingInventoryItemEventArgs), nameof(UpgradingInventoryItemEventArgs.IsAllowed))),
                     new(OpCodes.Brfalse_S, continueLabel),
-            
+
                     // setting = ev.KnobSetting
                     new(OpCodes.Ldloc_S, ev2.LocalIndex),
                     new(OpCodes.Callvirt, PropertyGetter(typeof(UpgradingInventoryItemEventArgs), nameof(UpgradingInventoryItemEventArgs.KnobSetting))),
