@@ -293,6 +293,7 @@ namespace Exiled.API.Features.Doors
             if (doorVariant == null)
                 return null;
 
+
             if (doorVariant.Rooms == null)
             {
                 doorVariant.RegisterRooms();

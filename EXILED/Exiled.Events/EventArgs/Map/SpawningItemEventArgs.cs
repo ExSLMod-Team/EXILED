@@ -7,6 +7,8 @@
 
 namespace Exiled.Events.EventArgs.Map
 {
+    using API.Features;
+
     using Exiled.API.Features.Doors;
     using Exiled.API.Features.Pickups;
     using Exiled.Events.EventArgs.Interfaces;
